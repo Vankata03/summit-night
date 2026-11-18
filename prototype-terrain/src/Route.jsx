@@ -19,6 +19,23 @@ export const ROUTE_VARIANTS = [
   { key: 'C', name: 'Expedition' },
 ];
 
+// ?debug=cam: fixed 1/60 s timestep and a per-frame camera log; prints a smoothness report to the console.
+if (new URLSearchParams(location.search).get('debug') === 'cam') {
+  window.__fixedDt = 1 / 60; window.__camlog = [];
+  setInterval(() => {
+    const L = window.__camlog.slice(5); if (L.length < 10) return;
+    const v = [], a = [];
+    for (let i = 1; i < L.length; i++) v.push([0, 1, 2].map((k) => L[i][k] - L[i - 1][k]));
+    for (let i = 1; i < v.length; i++) a.push(Math.hypot(...[0, 1, 2].map((k) => v[i][k] - v[i - 1][k])) * 1000);
+    const sp = v.map((d) => Math.hypot(...d) * 1000).sort((x, y) => x - y);
+    const as = [...a].sort((x, y) => x - y);
+    const big = a.map((x, i) => [x, i]).filter(([x]) => x > 2).length;
+    const top = a.map((x, i) => [x, i + 1]).sort((p, q) => q[0] - p[0]).slice(0, 6).map(([x, i]) => `${x.toFixed(1)}@t${L[i][9]?.toFixed(2)} s${L[i][8]?.toFixed(0)} lift${(L[i][6] * 1000).toFixed(0)}/${(L[i][7] * 1000).toFixed(0)} dTgt${(Math.hypot(L[i][3] - L[i - 1][3], L[i][4] - L[i - 1][4], L[i][5] - L[i - 1][5]) * 1000).toFixed(1)}`).join(' | ');
+    console.log(`CAMTOP ${top}`);
+    console.log(`CAMREPORT frames=${L.length} speed_med=${sp[sp.length >> 1].toFixed(2)}m/f accel_p50=${as[as.length >> 1].toFixed(3)} p99=${as[Math.floor(as.length * 0.99)].toFixed(3)} max=${as[as.length - 1].toFixed(3)}m/f2 spikes>2m=${big} t=${window.__clockT?.toFixed(1)}`);
+  }, 3000);
+}
+
 const LIFT = 0.004; // 4 m above the terrain, plus a view-space pull in the shader
 const STEP = 10; // resample spacing, m
 
@@ -124,7 +141,7 @@ export function buildTimeline(variant, route) {
 
 // ---------- shared playback clock (mutable; HUD polls it) ----------
 export function useClock() {
-  return useRef({ t: 0, playing: true, speed: 1, T: 1, scrubbing: false }).current;
+  return useRef({ t: 0, playing: true, speed: +(new URLSearchParams(location.search).get('speed') ?? 1), T: 1, scrubbing: false }).current;
 }
 
 // ---------- ribbon line with screen-space width and arc-length attribute ----------
@@ -135,7 +152,7 @@ const ribbonVertex = /* glsl */ `
   vec4 pulled(vec3 p) {
     vec4 mv = modelViewMatrix * vec4(p, 1.0);
     float d = length(mv.xyz);
-    mv.xyz -= normalize(mv.xyz) * min(d * 0.012, 0.035);
+    mv.xyz -= normalize(mv.xyz) * min(d * 0.015, 0.06);
     return mv;
   }
   void main() {
@@ -143,6 +160,7 @@ const ribbonVertex = /* glsl */ `
     vec4 c = projectionMatrix * pulled(position);
     vec4 cn = projectionMatrix * pulled(aNext);
     vec2 h = uRes * 0.5;
+    if (cn.w < 0.05) cn = c + (c - cn); // next point behind the camera: mirror it so the tangent stays sane
     vec2 sc = c.xy / c.w * h, sn = cn.xy / max(cn.w, 1e-4) * h;
     vec2 dir = sn - sc; dir = length(dir) < 1e-5 ? vec2(1.0, 0.0) : normalize(dir);
     vec2 nrm = vec2(-dir.y, dir.x);
@@ -202,7 +220,7 @@ function buildRibbon(route) {
 function Ribbon({ route, geom, mode, px, worldW, color, head, opacity = 1, xray = false, uniformsRef }) {
   const { size } = useThree();
   const mat = useMemo(() => new THREE.ShaderMaterial({
-    vertexShader: ribbonVertex, fragmentShader: ribbonFragment, transparent: true, depthWrite: false,
+    vertexShader: ribbonVertex, fragmentShader: ribbonFragment, transparent: true, depthWrite: false, side: THREE.DoubleSide, // screen-space strip winds clockwise
     depthTest: !xray,
     uniforms: {
       uRes: { value: new THREE.Vector2() }, uPx: { value: px }, uWorldW: { value: worldW },
@@ -228,7 +246,7 @@ function useScreenScale(ref, px) {
     if (!ref.current) return;
     const d = camera.position.distanceTo(ref.current.position);
     const k = (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * d) / size.height;
-    ref.current.scale.setScalar(Math.max(0.004, k * px));
+    ref.current.scale.setScalar(k * px); // geometry is authored in pixels
   });
 }
 
@@ -272,7 +290,7 @@ function PinClimber({ posRef, altRef }) {
 
 function FigureClimber({ posRef, headingRef }) {
   const ref = useRef();
-  useScreenScale(ref, 1);
+  useScreenScale(ref, 2.2);
   useFrame(() => {
     if (!ref.current) return;
     ref.current.position.copy(posRef.current);
@@ -353,84 +371,107 @@ function useUserIdle() {
   return () => !st.current.active && performance.now() - st.current.last > 2500;
 }
 
-// Lifts a camera position until it clears the terrain and has a line of sight to the target.
-function clearShot(S, cam, tgt) {
+// Continuous terrain avoidance: how far the camera must rise to clear the ground and see the target.
+// Raising the camera by d raises a sight-line sample at fraction f (from camera) by d·(1−f).
+function liftNeeded(S, cam, tgt) {
+  let need = S.yAt(cam.x, cam.z) + 0.06 - cam.y;
   const p = new THREE.Vector3();
-  for (let tries = 0; tries < 24; tries++) {
-    cam.y = Math.max(cam.y, S.yAt(cam.x, cam.z) + 0.06);
-    let clear = true;
-    for (let i = 1; i < 30 && clear; i++) {
-      p.lerpVectors(cam, tgt, (i / 30) * 0.95);
-      if (S.yAt(p.x, p.z) > p.y - 0.008) clear = false;
-    }
-    if (clear) return cam;
-    cam.y += 0.06;
+  for (let i = 1; i < 40; i++) {
+    const f = (i / 40) * 0.93;
+    p.lerpVectors(cam, tgt, f);
+    need = Math.max(need, (S.yAt(p.x, p.z) + 0.012 - p.y) / (1 - f));
   }
-  return cam;
+  return Math.max(0, need);
 }
 
 function damp(rate, dt) { return 1 - Math.exp(-rate * dt); }
 
-// Shared rig: keeps OrbitControls' target on the subject and preserves the user's orbit offset;
-// after 2.5 s idle the offset eases back to the variant's preferred framing.
+// Eases an offset toward a goal by swinging around the subject (azimuth, elevation, distance) rather than
+// cutting straight through it; a side flip becomes an orbit. Angular step is capped at 40°/s.
+const _sa = new THREE.Spherical(), _sb = new THREE.Spherical();
+function swingOffset(off, goal, k, dt) {
+  _sa.setFromVector3(off); _sb.setFromVector3(goal);
+  let dth = _sb.theta - _sa.theta;
+  dth = Math.atan2(Math.sin(dth), Math.cos(dth));
+  const cap = THREE.MathUtils.degToRad(40) * dt;
+  _sa.theta += THREE.MathUtils.clamp(dth * k, -cap, cap);
+  _sa.phi += THREE.MathUtils.clamp((_sb.phi - _sa.phi) * k, -cap, cap);
+  _sa.radius += (_sb.radius - _sa.radius) * k;
+  off.setFromSpherical(_sa);
+}
+
+// Rig: owns the camera offset from the subject. While the viewer drags (and for 2.5 s after, so orbit inertia
+// plays out) the offset is read back from the camera; when idle it eases to the variant's framing.
+// Heading and the terrain lift are damped separately so switchbacks and ridges never snap the camera.
 function CameraRig({ variant, route, stateRef }) {
   const { camera, controls } = useThree();
   const idle = useUserIdle();
   const S = route.S;
-  const smooth = useRef({ tgt: null, side: 1 });
+  const sm = useRef(null);
   useFrame((_, dtRaw) => {
     if (!controls) return;
-    const dt = Math.min(dtRaw, 0.05);
-    const st = stateRef.current, sm = smooth.current;
+    const dt = window.__fixedDt ?? Math.min(dtRaw, 0.05);
+    const st = stateRef.current;
     if (!st.pos) return;
     const subject = st.pos;
-    if (!sm.tgt) sm.tgt = controls.target.clone();
-    const offset = camera.position.clone().sub(controls.target);
-    let desired, tgtGoal = subject.clone(), rate = 1.2, tgtRate = 5;
+    if (!sm.current) {
+      sm.current = { tgt: controls.target.clone(), off: camera.position.clone().sub(controls.target), lift: 0,
+        h: headingAt(route, st.s, 150, 350), side: 1, az: null };
+    }
+    const m = sm.current;
+    let desired, tgtGoal = subject.clone(), rate, hRate, tgtRate = 4;
 
     if (variant === 'A') {
-      // Over the shoulder: 550 m behind on the route's heading, 220 m up, looking a little ahead.
-      const h = headingAt(route, st.s, 150, 350);
-      desired = h.clone().multiplyScalar(-0.55).add(new THREE.Vector3(0, 0.22, 0));
-      tgtGoal.addScaledVector(h, 0.12);
-      rate = 0.9;
+      // Over the shoulder: 550 m behind on the route's (heavily smoothed) heading, 220 m up, looking a little ahead.
+      hRate = 0.5;
+      m.h.lerp(headingAt(route, st.s, 400, 600), damp(hRate, dt)).setY(0).normalize();
+      desired = m.h.clone().multiplyScalar(-0.55).add(new THREE.Vector3(0, 0.22, 0));
+      tgtGoal.addScaledVector(m.h, 0.12);
+      rate = 0.8;
     } else if (variant === 'B') {
-      // Side-on rail: 2.4 km off the route perpendicular to a 1.6 km-window heading, slightly above.
-      const h = headingAt(route, st.s, 800, 800);
-      const n = new THREE.Vector3(-h.z, 0, h.x);
-      const tryside = (sgn) => {
-        const c = subject.clone().addScaledVector(n, 2.4 * sgn); c.y = subject.y + 0.5;
-        const p = new THREE.Vector3();
-        if (S.yAt(c.x, c.z) + 0.06 > c.y) return false;
-        for (let i = 1; i < 30; i++) { p.lerpVectors(c, subject, (i / 30) * 0.95); if (S.yAt(p.x, p.z) > p.y - 0.01) return false; }
-        return true;
-      };
-      if (!tryside(sm.side) && tryside(-sm.side)) sm.side = -sm.side;
-      desired = n.multiplyScalar(2.4 * sm.side).add(new THREE.Vector3(0, 0.5, 0));
-      rate = 0.8; tgtRate = 2.5;
+      // Side-on rail: 2.4 km off the route, perpendicular to a 2 km-window heading, 500 m above the climber.
+      hRate = 0.3;
+      m.h.lerp(headingAt(route, st.s, 1000, 1000), damp(hRate, dt)).setY(0).normalize();
+      const n = new THREE.Vector3(-m.h.z, 0, m.h.x);
+      const cost = (sgn) => liftNeeded(S, subject.clone().addScaledVector(n, 2.4 * sgn).add(new THREE.Vector3(0, 0.5, 0)), subject);
+      if (performance.now() - (m.flipAt ?? 0) > 6000 && cost(m.side) > 0.3 && cost(-m.side) < cost(m.side) * 0.5) { m.side = -m.side; m.flipAt = performance.now(); } // hysteresis: only flip for a much clearer side
+      desired = n.multiplyScalar(2.4 * m.side).add(new THREE.Vector3(0, 0.5, 0));
+      rate = 0.5; tgtRate = 2;
     } else {
-      // Drone: per-leg arc from behind-left to the side, then a pull-back reveal while dwelling at a camp.
-      const h = headingAt(route, st.s, 200, 300);
+      // Drone: per-leg arc from behind to the side, then a pull-back reveal while dwelling at a camp.
+      hRate = 0.6;
+      m.h.lerp(headingAt(route, st.s, 300, 500), damp(hRate, dt)).setY(0).normalize();
       const seg = st.seg;
       let az, dist, el;
       if (seg?.type === 'dwell') {
-        const u = seg.u;
-        az = THREE.MathUtils.degToRad(110 + u * 25); dist = 1.5; el = THREE.MathUtils.degToRad(32);
-        rate = 0.9;
+        az = 110 + seg.u * 25; dist = 1.5; el = 32;
       } else {
         const u = seg ? seg.u : 0;
-        az = THREE.MathUtils.degToRad(160 - u * 60); dist = THREE.MathUtils.lerp(0.9, 0.6, u); el = THREE.MathUtils.degToRad(THREE.MathUtils.lerp(14, 24, u));
-        rate = 1.4;
+        az = 160 - u * 60; dist = THREE.MathUtils.lerp(0.9, 0.65, u); el = THREE.MathUtils.lerp(16, 24, u);
       }
-      const dir = h.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), az);
-      desired = dir.multiplyScalar(dist * Math.cos(el)).add(new THREE.Vector3(0, dist * Math.sin(el), 0));
+      // damp the angles themselves so leg boundaries (az 100 → 160) swing rather than cut
+      m.az ??= { az, dist, el };
+      const k = damp(0.9, dt);
+      m.az.az += (az - m.az.az) * k; m.az.dist += (dist - m.az.dist) * k; m.az.el += (el - m.az.el) * k;
+      const dir = m.h.clone().applyAxisAngle(new THREE.Vector3(0, 1, 0), THREE.MathUtils.degToRad(m.az.az));
+      const elr = THREE.MathUtils.degToRad(m.az.el);
+      desired = dir.multiplyScalar(m.az.dist * Math.cos(elr)).add(new THREE.Vector3(0, m.az.dist * Math.sin(elr), 0));
+      rate = 2;
     }
 
-    sm.tgt.lerp(tgtGoal, damp(tgtRate, dt));
-    if (idle()) offset.lerp(desired, damp(rate, dt));
-    controls.target.copy(sm.tgt);
-    const cam = clearShot(S, sm.tgt.clone().add(offset), sm.tgt);
+    // Two cascaded swings (goal follows desired, offset follows goal) keep the camera's velocity continuous,
+    // so framing changes and side flips start and stop gently instead of kicking.
+    if (!m.started) { m.started = true; m.off.copy(desired); m.goal = desired.clone(); m.tgt.copy(tgtGoal); } // snap on mount
+    else if (idle()) { swingOffset(m.goal, desired, damp(rate, dt), dt); swingOffset(m.off, m.goal, damp(rate * 2.5, dt), dt); }
+    else { m.off.copy(camera.position).sub(controls.target).y -= m.lift; m.goal.copy(m.off); } // viewer owns the offset
+    m.tgt.lerp(tgtGoal, damp(tgtRate, dt));
+    const cam = m.tgt.clone().add(m.off);
+    const need = liftNeeded(S, cam, m.tgt);
+    m.lift += (need - m.lift) * damp(need > m.lift ? 5 : 0.6, dt); // rise quickly, settle slowly
+    cam.y += m.lift;
+    controls.target.copy(m.tgt);
     camera.position.copy(cam);
+    if (window.__camlog) window.__camlog.push([cam.x, cam.y, cam.z, m.tgt.x, m.tgt.y, m.tgt.z, m.lift, need, st.s, window.__clockT]);
   });
   return null;
 }
@@ -443,8 +484,9 @@ export function RouteScene({ variant, route, clock, stateRef }) {
   const uni = useRef({ prog: 0, draw: 0, leg0: 0, leg1: 0 });
   useEffect(() => { clock.T = tl.T; clock.t = 0; clock.playing = true; }, [tl]);
   useFrame((_, dt) => {
-    if (clock.playing && !clock.scrubbing) clock.t = Math.min(tl.T, clock.t + Math.min(dt, 0.05) * clock.speed);
+    if (clock.playing && !clock.scrubbing) clock.t = Math.min(tl.T, clock.t + (window.__fixedDt ?? Math.min(dt, 0.05)) * clock.speed);
     if (clock.t >= tl.T) clock.playing = false;
+    window.__clockT = clock.t;
     const { s, seg, u } = tl.at(clock.t);
     posAtS(route.pts, route.s, s, posRef.current);
     altRef.current = altAtS(route, s);
@@ -463,6 +505,7 @@ export function RouteScene({ variant, route, clock, stateRef }) {
 
   return (
     <>
+      {variant === 'A' && <Ribbon route={route} geom={geom} mode={0} px={4} worldW={0.008} color="#ff9a52" head="#fff3d6" opacity={0.3} xray uniformsRef={uni} />}
       {variant === 'A' && <Ribbon route={route} geom={geom} mode={0} px={4} worldW={0.008} color="#ff9a52" head="#fff3d6" uniformsRef={uni} />}
       {variant === 'B' && (
         <>
@@ -470,6 +513,7 @@ export function RouteScene({ variant, route, clock, stateRef }) {
           <Ribbon route={route} geom={geom} mode={1} px={2.5} worldW={0} color="#ffffff" head="#ffc27a" uniformsRef={uni} />
         </>
       )}
+      {variant === 'C' && <Ribbon route={route} geom={geom} mode={2} px={3.5} worldW={0.006} color="#c9c2d8" head="#ffb36b" opacity={0.3} xray uniformsRef={uni} />}
       {variant === 'C' && <Ribbon route={route} geom={geom} mode={2} px={3.5} worldW={0.006} color="#c9c2d8" head="#ffb36b" uniformsRef={uni} />}
       {variant === 'A' && <CometClimber posRef={posRef} />}
       {variant === 'B' && <PinClimber posRef={posRef} altRef={altRef} />}
