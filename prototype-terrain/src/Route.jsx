@@ -326,16 +326,74 @@ function StopMarkers({ variant, route, progRef }) {
         </Html>
       );
     }
-    if (variant === 'B') {
-      return (
-        <Html key={i} position={[st.pos.x, st.pos.y, st.pos.z]} zIndexRange={[20, 10]} style={{ pointerEvents: 'none' }}>
-          <div className={`rt-tag ${on ? 'on' : ''}`}><i />{st.name} <span>{st.alt.toLocaleString('en')}</span></div>
-        </Html>
-      );
-    }
+    if (variant === 'B') return null; // drawn by TagLayer
     if (!on) return null;
     return <Beacon key={i} pos={st.pos} />;
   });
+}
+
+// B: in-scene stop tags, laid out each frame in screen space. Priority: next stop, last reached, then by
+// distance along the route from the climber. Each tag tries its anchor, then stacked offsets; if every slot
+// collides it hides. Tags hidden by terrain, or off screen, hide too. Dots stay at the true position.
+function TagLayer({ route, stateRef }) {
+  const els = useRef([]);
+  useEffect(() => {
+    const v = new THREE.Vector3(), p = new THREE.Vector3();
+    const OFFS = [0, -22, 22, -44, 44, -66];
+    let raf;
+    const frame = () => { raf = requestAnimationFrame(frame); layout(); };
+    const layout = () => {
+    const st = stateRef.current, sNow = st.s ?? 0, S = route.S, camera = st.camera;
+    if (!camera) return;
+    const size = { width: innerWidth, height: innerHeight };
+    const next = route.stops.findIndex((x) => x.s > sNow + 1);
+    const items = route.stops.map((x, i) => {
+      v.copy(x.pos).project(camera);
+      const sx = (v.x * 0.5 + 0.5) * size.width, sy = (-v.y * 0.5 + 0.5) * size.height;
+      let vis = v.z < 1 && sx > -40 && sx < size.width + 40 && sy > -20 && sy < size.height + 20;
+      if (vis) { // behind terrain?
+        for (let k = 1; k < 24 && vis; k++) { p.lerpVectors(camera.position, x.pos, k / 24 * 0.97); if (S.yAt(p.x, p.z) > p.y + 0.004) vis = false; }
+      }
+      const pri = i === next ? -2 : i === next - 1 || (next < 0 && i === route.stops.length - 1) ? -1 : Math.abs(x.s - sNow);
+      return { i, sx, sy, vis, pri, reached: x.s <= sNow + 1 };
+    }).sort((a, b) => a.pri - b.pri);
+    // keep clear of the climber's pin and its altitude chip
+    const pin = st.pos ? st.pos.clone().project(camera) : null;
+    const placed = pin ? [{ x0: (pin.x * 0.5 + 0.5) * size.width - 40, x1: (pin.x * 0.5 + 0.5) * size.width + 40, y0: (-pin.y * 0.5 + 0.5) * size.height - 70, y1: (-pin.y * 0.5 + 0.5) * size.height + 6 }] : [];
+    for (const it of items) {
+      const el = els.current[it.i]; if (!el) continue;
+      const label = el.lastChild, w = label.offsetWidth || 120, h = 18;
+      let dy = null;
+      if (it.vis) for (const o of OFFS) {
+        const r = { x0: it.sx + 8, x1: it.sx + 8 + w, y0: it.sy + o - h / 2, y1: it.sy + o + h / 2 };
+        if (r.x1 > size.width - 8) { r.x0 -= w + 16; r.x1 -= w + 16; }
+        if (!placed.some((q) => r.x0 < q.x1 && r.x1 > q.x0 && r.y0 < q.y1 && r.y1 > q.y0)) { placed.push(r); dy = { o, left: r.x0 < it.sx }; break; }
+      }
+      el.style.transform = `translate(${it.sx.toFixed(1)}px, ${it.sy.toFixed(1)}px)`;
+      el.style.opacity = it.vis ? '1' : '0';
+      el.classList.toggle('on', it.reached);
+      el.classList.toggle('next', it.pri === -2);
+      label.style.opacity = dy ? '1' : '0';
+      if (dy) {
+        label.style.transform = `translate(${dy.left ? `calc(-100% - 8px)` : '8px'}, calc(-50% + ${dy.o}px))`;
+        el.children[1].style.height = `${Math.abs(dy.o)}px`;
+        el.children[1].style.top = dy.o < 0 ? `${dy.o}px` : '0px';
+      }
+    }
+    };
+    raf = requestAnimationFrame(frame);
+    return () => cancelAnimationFrame(raf);
+  }, [route]);
+  return (
+    <div className="rt-taglayer">
+      {route.stops.map((x, i) => (
+        <div key={i} className="rt-tag2" ref={(e) => (els.current[i] = e)}>
+          <i /><b />
+          <span>{x.name} <em>{Math.round(x.alt).toLocaleString("en")} m</em></span>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 function Beacon({ pos }) {
@@ -483,7 +541,7 @@ export function RouteScene({ variant, route, clock, stateRef }) {
   const posRef = useRef(new THREE.Vector3()), altRef = useRef(0), headingRef = useRef(new THREE.Vector3(0, 0, -1));
   const uni = useRef({ prog: 0, draw: 0, leg0: 0, leg1: 0 });
   useEffect(() => { clock.T = tl.T; clock.t = 0; clock.playing = true; }, [tl]);
-  useFrame((_, dt) => {
+  useFrame((_st, dt) => {
     if (clock.playing && !clock.scrubbing) clock.t = Math.min(tl.T, clock.t + (window.__fixedDt ?? Math.min(dt, 0.05)) * clock.speed);
     if (clock.t >= tl.T) clock.playing = false;
     window.__clockT = clock.t;
@@ -500,7 +558,7 @@ export function RouteScene({ variant, route, clock, stateRef }) {
       U.leg0 = legStart;
       U.leg1 = seg.type === 'move' ? seg.s1 : seg.type === 'dwell' && u > 0.55 && nextStop ? nextStop.s : s;
     }
-    Object.assign(stateRef.current, { s, seg: { ...seg, u }, pos: posRef.current, alt: altRef.current, T: tl.T });
+    Object.assign(stateRef.current, { camera: _st.camera, s, seg: { ...seg, u }, pos: posRef.current, alt: altRef.current, T: tl.T });
   });
 
   return (
@@ -561,34 +619,42 @@ function Transport({ clock }) {
 
 function Profile({ route, stateRef }) {
   useTicker();
-  const W = 640, H = 90, pad = 8;
+  const W = 640, H = 128, pad = 14, base = 74; // profile occupies y 14..74; labels sit on fixed, evenly spaced slots below
   const min = Math.min(...route.alt), max = Math.max(...route.alt);
-  const x = (s) => pad + (s / route.L) * (W - 2 * pad), y = (a) => H - 18 - ((a - min) / (max - min)) * (H - 34);
+  const x = (s) => pad + (s / route.L) * (W - 2 * pad), y = (a) => base - ((a - min) / (max - min)) * (base - 22);
   const d = useMemo(() => {
     let p = '';
     for (let i = 0; i < route.s.length; i += 4) p += `${i ? 'L' : 'M'}${x(route.s[i]).toFixed(1)},${y(route.alt[i]).toFixed(1)}`;
     return p;
   }, [route]);
+  const n = route.stops.length, slot = (i) => pad + ((i + 0.5) / n) * (W - 2 * pad);
   const s = stateRef.current.s ?? 0;
   return (
     <svg className="rt-profile" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Elevation profile">
-      <defs><clipPath id="rtdone"><rect x="0" y="0" width={x(s)} height={H} /></clipPath></defs>
-      <path d={`${d}L${x(route.L)},${H - 18}L${x(0)},${H - 18}Z`} fill="rgba(255,255,255,.08)" />
-      <path d={d} stroke="rgba(255,255,255,.45)" strokeWidth="1.2" fill="none" />
-      <path d={`${d}L${x(route.L)},${H - 18}L${x(0)},${H - 18}Z`} fill="rgba(255,160,90,.35)" clipPath="url(#rtdone)" />
+      <defs><clipPath id="rtdone"><rect x="0" y="0" width={x(s)} height={base + 1} /></clipPath></defs>
+      <path d={`${d}L${x(route.L)},${base}L${x(0)},${base}Z`} fill="rgba(255,255,255,.07)" />
+      <path d={d} stroke="rgba(255,255,255,.4)" strokeWidth="1.2" fill="none" />
+      <path d={`${d}L${x(route.L)},${base}L${x(0)},${base}Z`} fill="rgba(255,160,90,.32)" clipPath="url(#rtdone)" />
       <path d={d} stroke="#ffc27a" strokeWidth="2" fill="none" clipPath="url(#rtdone)" />
-      {route.stops.map((st, i) => (
-        <g key={i} opacity={st.s <= s + 1 ? 1 : 0.45}>
-          <line x1={x(st.s)} x2={x(st.s)} y1={y(st.alt) - 4} y2={H - 18} stroke="#fff" strokeWidth=".8" strokeDasharray="2 2" />
-          <text x={x(st.s)} y={H - 6} fontSize="8" fill="#fff" textAnchor="middle">{short(st.name)}</text>
-        </g>
-      ))}
+      {route.stops.map((st, i) => {
+        const on = st.s <= s + 1, tx = slot(i);
+        return (
+          <g key={i} opacity={on ? 1 : 0.5}>
+            <line x1={x(st.s)} x2={x(st.s)} y1={y(st.alt)} y2={base} stroke="#fff" strokeWidth=".6" strokeDasharray="1.5 2" />
+            <path d={`M${x(st.s)},${base}L${x(st.s)},${base + 6}L${tx},${base + 18}L${tx},${base + 21}`} stroke="rgba(255,255,255,.55)" strokeWidth=".7" fill="none" />
+            <circle cx={x(st.s)} cy={y(st.alt)} r="2.2" fill={on ? '#ffc27a' : '#fff'} />
+            <text x={tx} y={base + 32} fontSize="9" fontWeight="600" fill="#fff" textAnchor="middle">{short(st.name)}</text>
+            <text x={tx} y={base + 43} fontSize="8" fill="rgba(255,255,255,.65)" textAnchor="middle" style={{ fontVariantNumeric: 'tabular-nums' }}>{Math.round(st.alt).toLocaleString("en")}</text>
+          </g>
+        );
+      })}
       <circle cx={x(s)} cy={y(stateRef.current.alt ?? min)} r="4" fill="#ff7a3d" stroke="#fff" />
-      <text x={W - pad} y={12} fontSize="10" fill="#fff" textAnchor="end">{Math.round(stateRef.current.alt ?? 0).toLocaleString('en')} m · {(s / 1000).toFixed(1)} / {(route.L / 1000).toFixed(1)} km</text>
+      <text x={W - pad} y={10} fontSize="10" fill="#fff" textAnchor="end" style={{ fontVariantNumeric: 'tabular-nums' }}>{Math.round(stateRef.current.alt ?? 0).toLocaleString('en')} m · {(s / 1000).toFixed(1)} / {(route.L / 1000).toFixed(1)} km</text>
     </svg>
   );
 }
-const short = (n) => n.replace('Everest Base Camp (South)', 'EBC').replace('Mount Everest summit', 'Summit').replace(/ \(.*\)/, '').replace('South Summit · Hillary Step', 'S.Summit');
+const SHORT = { 'Everest Base Camp (South)': 'Base Camp', 'Khumbu Icefall': 'Icefall', 'Western Cwm': 'W. Cwm', 'Camp 3 (Lhotse Face)': 'Camp 3', 'South Col (Camp 4)': 'South Col', 'The Balcony': 'Balcony', 'South Summit · Hillary Step': 'S. Summit', 'Mount Everest summit': 'Summit' };
+const short = (n) => SHORT[n] ?? n;
 
 function LowerThird({ route, stateRef }) {
   useTicker();
@@ -623,6 +689,7 @@ export function RouteOverlay({ variant, route, clock, stateRef }) {
         <span>{(route.L / 1000).toFixed(1)} km · {route.stops.length} stops · {route.credit}</span>
         <span className="rt-hint">{variant === 'C' ? 'Drag to look around; the drone takes over again after 2.5 s.' : 'Drag to orbit around the climber; framing eases back after 2.5 s.'} Space: play/pause.</span>
       </div>
+      {variant === 'B' && <TagLayer route={route} stateRef={stateRef} />}
       {variant === 'B' && <Profile route={route} stateRef={stateRef} />}
       {variant === 'C' && <LowerThird route={route} stateRef={stateRef} />}
       <Transport clock={clock} />

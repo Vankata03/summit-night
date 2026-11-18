@@ -26,7 +26,7 @@
 .rt-tag.on i { background: #ffc27a; border-color: #ffc27a; }
 .rt-tag span { font-variant-numeric: tabular-nums; opacity: .7; }
 .rt-pinlabel { font-size: 11px; font-weight: 600; color: #111; background: #fff; padding: 1px 6px; border-radius: 4px; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.rt-profile { position: fixed; left: 50%; bottom: 112px; transform: translateX(-50%); width: min(640px, calc(100vw - 32px)); z-index: 30;
+.rt-profile { position: fixed; left: 50%; bottom: 108px; transform: translateX(-50%); width: min(640px, calc(100vw - 32px)); z-index: 30;
   background: rgba(16,14,28,.55); backdrop-filter: blur(8px); border-radius: 12px; font-family: inherit; }
 
 /* C: lower-third card at each camp */
@@ -39,3 +39,16 @@
 .rt-third-a { font-size: 13px; opacity: .8; font-variant-numeric: tabular-nums; }
 .rt-third-next { font-size: 11px; opacity: .6; margin-top: 6px; }
 @media (max-width: 700px) { .rt-third { left: 16px; min-width: 0; right: 16px; } .rt-title .rt-hint { display: none; } }
+
+/* B v2: decluttered in-scene tags (TagLayer) */
+.rt-taglayer { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 15; }
+.rt-tag2 { position: absolute; left: 0; top: 0; transition: opacity .25s; will-change: transform; }
+.rt-tag2 i { position: absolute; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%; border: 1.2px solid #fff; background: rgba(0,0,0,.25); }
+.rt-tag2.on i { background: #ffc27a; border-color: #ffc27a; }
+.rt-tag2.next i { box-shadow: 0 0 0 3px rgba(255,194,122,.35); }
+.rt-tag2 b { position: absolute; left: 0; width: 1px; background: rgba(255,255,255,.5); }
+.rt-tag2 span { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 11px; line-height: 18px; padding: 0 7px; border-radius: 5px; color: #fff;
+  background: rgba(14,12,26,.6); backdrop-filter: blur(4px); transition: opacity .25s; text-shadow: none; }
+.rt-tag2 span em { font-style: normal; opacity: .65; font-variant-numeric: tabular-nums; margin-left: 2px; }
+.rt-tag2:not(.on) span { color: rgba(255,255,255,.7); }
+.rt-tag2.next span { box-shadow: 0 0 0 1px rgba(255,194,122,.6); }
