@@ -300,7 +300,8 @@ export function Climber({ route, dem10, stateRef, sunDir, posAtS }) {
     // gait: walk clip speed and weight follow walkW (rest-step pauses blend toward idle)
     const w = st.walkW ?? 1;
     rig.walk.setEffectiveWeight(w); rig.idle.setEffectiveWeight(1 - w);
-    rig.walk.timeScale = WALK_SCALE * (0.25 + 0.75 * w) * (st.mode === 'walk' ? 1 : 3);
+    // legs keep pace up to 5× (a brisk walk); beyond that the ground slides past faster than the stride, time-lapse style
+    rig.walk.timeScale = WALK_SCALE * (0.25 + 0.75 * w) * (st.mode === 'walk' ? Math.min(st.walkSpeed ?? 1, 5) : 3);
     rig.mixer.update(dt);
     rig.scene.updateMatrixWorld(true);
 

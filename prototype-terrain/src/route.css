@@ -59,3 +59,7 @@
 .rt-walkhud-row { font-variant-numeric: tabular-nums; }
 .rt-walkhud-row.dim { opacity: .55; font-size: 11px; }
 @media (max-width: 700px) { .rt-walkhud { top: auto; bottom: 120px; } }
+.rt-speeds { display: flex; gap: 2px; background: rgba(255,255,255,.06); border-radius: 8px; padding: 2px; }
+.rt-transport .rt-speeds button { width: auto; height: 24px; padding: 0 8px; font-size: 12px; font-variant-numeric: tabular-nums; border-radius: 6px; }
+.rt-transport .rt-speeds button.on { background: #ffa35c; color: #1a1020; font-weight: 600; }
+@media (max-width: 700px) { .rt-transport input[type=range] { display: none; } }

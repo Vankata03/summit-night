@@ -142,7 +142,7 @@ export function buildTimeline(variant, route) {
 
 // ---------- shared playback clock (mutable; HUD polls it) ----------
 export function useClock() {
-  return useRef({ t: 0, playing: true, speed: +(new URLSearchParams(location.search).get('speed') ?? 1), T: 1, scrubbing: false }).current;
+  return useRef({ t: 0, playing: true, speed: +(new URLSearchParams(location.search).get('speed') ?? 1), walkSpeed: +(new URLSearchParams(location.search).get('wspeed') ?? 1), climbSec: 0, T: 1, scrubbing: false }).current;
 }
 
 // ---------- ribbon line with screen-space width and arc-length attribute ----------
@@ -566,13 +566,15 @@ export function RouteScene({ variant, route, clock, stateRef, dem10, sunDir, wal
   const groundOf = useMemo(() => (dem10 ? makeSampler(dem10, 1) : null), [dem10]);
   useFrame((_st, dtRaw) => {
     const dt = window.__fixedDt ?? Math.min(dtRaw, 0.05);
-    // walk mode: real pace. Rest-step: ~3 s of walking (one stride pair), ~1.4 s standing to breathe.
-    const G = gait.current;
+    // walk mode: real pace × walkSpeed (time-lapse). Rest-step (~3 s walking, ~1.4 s breathing) only up to 4×;
+    // faster than that the pauses would strobe, so the climber walks continuously.
+    const G = gait.current, ws = clock.walkSpeed;
     if (walk && clock.playing && !clock.scrubbing) {
-      G.t = (G.t + dt * clock.speed) % 4.4;
-      const goal = G.t < 3.0 ? 1 : 0;
+      G.t = (G.t + dt * ws) % 4.4;
+      const goal = ws > 4 || G.t < 3.0 ? 1 : 0;
       G.w += (goal - G.w) * damp(6, dt);
-      const ds = WALK_SPEED * WALK_SCALE * (0.25 + 0.75 * G.w) * G.w * dt * clock.speed; // metres this frame
+      clock.climbSec += dt * ws;
+      const ds = WALK_SPEED * WALK_SCALE * (0.25 + 0.75 * G.w) * G.w * dt * ws; // metres this frame
       const tl1 = tl.segs[1];
       clock.t = Math.min(tl.T, Math.max(clock.t, tl1.t0) + (ds / route.L) * tl1.dur);
     } else {
@@ -596,7 +598,7 @@ export function RouteScene({ variant, route, clock, stateRef, dem10, sunDir, wal
     }
     const gp = posRef.current.clone(); gp.y = groundOf ? groundOf.yAt(gp.x, gp.z) : gp.y;
     U.nearFade = walk ? 0.12 : 0;
-    Object.assign(stateRef.current, { camera: _st.camera, mode: walk ? 'walk' : 'survey', walkW: G.w, ground: gp, s, seg: { ...seg, u }, pos: posRef.current, alt: altRef.current, T: tl.T });
+    Object.assign(stateRef.current, { camera: _st.camera, mode: walk ? 'walk' : 'survey', walkW: G.w, walkSpeed: ws, ground: gp, s, seg: { ...seg, u }, pos: posRef.current, alt: altRef.current, T: tl.T });
   });
 
   return (
@@ -629,6 +631,13 @@ function useTicker() {
   useEffect(() => { let id; const f = () => { set((x) => x + 1); id = requestAnimationFrame(f); }; id = requestAnimationFrame(f); return () => cancelAnimationFrame(id); }, []);
 }
 
+const WALK_SPEEDS = [1, 4, 15, 60, 240];
+const AVG_PACE = WALK_SPEED * WALK_SCALE * (3.0 / 4.4); // m/s averaged over walk + rest-step pauses
+function fmtDur(sec) {
+  const m = Math.round(sec / 60);
+  return m < 60 ? `${m} min` : `${Math.floor(m / 60)} h ${String(m % 60).padStart(2, '0')} min`;
+}
+
 function Transport({ clock, walk, onWalk }) {
   useTicker();
   const T = clock.T || 1;
@@ -636,6 +645,8 @@ function Transport({ clock, walk, onWalk }) {
     const onKey = (e) => {
       if (e.target.closest?.('input, textarea, select, [contenteditable]')) return;
       if (e.code === 'KeyW' && onWalk) onWalk(!walk);
+      if (walk && (e.key === ']' || e.key === '.' || e.key === '+' || e.key === '=')) { const i = WALK_SPEEDS.indexOf(clock.walkSpeed); clock.walkSpeed = WALK_SPEEDS[Math.min(WALK_SPEEDS.length - 1, i + 1)]; }
+      if (walk && (e.key === '[' || e.key === ',' || e.key === '-')) { const i = WALK_SPEEDS.indexOf(clock.walkSpeed); clock.walkSpeed = WALK_SPEEDS[Math.max(0, i - 1)]; }
       if (e.code === 'Space') { e.preventDefault(); if (clock.t >= clock.T) clock.t = 0; clock.playing = !clock.playing; }
     };
     addEventListener('keydown', onKey); return () => removeEventListener('keydown', onKey);
@@ -649,11 +660,19 @@ function Transport({ clock, walk, onWalk }) {
       <input type="range" min={0} max={T} step={0.01} value={clock.t}
         onPointerDown={() => { clock.scrubbing = true; }} onPointerUp={() => { clock.scrubbing = false; }}
         onChange={(e) => { clock.t = +e.target.value; }} />
-      <span className="rt-time">{clock.t.toFixed(1)} / {T.toFixed(0)} s</span>
+      <span className="rt-time">{walk ? fmtDur(clock.climbSec) + ' climbing' : `${clock.t.toFixed(1)} / ${T.toFixed(0)} s`}</span>
       {onWalk && <button className={`rt-walk ${walk ? 'on' : ''}`} onClick={() => onWalk(!walk)} title="W">{walk ? 'Survey view' : 'Walk with climber'}</button>}
-      <select value={clock.speed} onChange={(e) => { clock.speed = +e.target.value; }}>
-        {[0.5, 1, 2, 4].map((v) => <option key={v} value={v}>{v}×</option>)}
-      </select>
+      {walk ? (
+        <div className="rt-speeds" role="group" aria-label="Walk speed">
+          {WALK_SPEEDS.map((v) => (
+            <button key={v} className={clock.walkSpeed === v ? 'on' : ''} onClick={() => { clock.walkSpeed = v; }}>{v === 1 ? 'Real' : `${v}×`}</button>
+          ))}
+        </div>
+      ) : (
+        <select value={clock.speed} onChange={(e) => { clock.speed = +e.target.value; }}>
+          {[0.5, 1, 2, 4].map((v) => <option key={v} value={v}>{v}×</option>)}
+        </select>
+      )}
     </div>
   );
 }
@@ -701,13 +720,14 @@ function WalkReadout({ route, stateRef }) {
   useTicker();
   const s = stateRef.current.s ?? 0, alt = stateRef.current.alt ?? 0;
   const prev = [...route.stops].reverse().find((x) => x.s <= s + 1), next = route.stops.find((x) => x.s > s + 1);
-  const pace = 0.44; // m/s while moving, before rest-step pauses
+  const ws = stateRef.current.walkSpeed ?? 1;
   return (
     <div className="rt-walkhud">
       <div className="rt-walkhud-alt">{Math.round(alt).toLocaleString('en')} m</div>
       <div className="rt-walkhud-row">{prev ? `Past ${short(prev.name)}` : 'Leaving Base Camp'}</div>
       {next && <div className="rt-walkhud-row">Next: <b>{next.name}</b> · {((next.s - s) / 1000).toFixed(2)} km · +{Math.max(0, Math.round(next.alt - alt)).toLocaleString('en')} m</div>}
-      <div className="rt-walkhud-row dim">Real pace ≈ {pace} m/s with rest steps · use the speed menu to hurry</div>
+      {next && <div className="rt-walkhud-row">≈ {fmtDur((next.s - s) / AVG_PACE)} at real pace{ws > 1 ? ` · ${fmtDur((next.s - s) / AVG_PACE / ws)} at ${ws}×` : ''}</div>}
+      <div className="rt-walkhud-row dim">Speed: [ ] or the buttons below</div>
     </div>
   );
 }
