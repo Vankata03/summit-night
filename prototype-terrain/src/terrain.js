@@ -60,23 +60,38 @@ function normalAt(dem, r, c, ex) {
   const h = (rr, cc) => data[Math.min(H - 1, Math.max(0, rr)) * W + Math.min(W - 1, Math.max(0, cc))] * ex;
   const dx = (h(r, c + 1) - h(r, c - 1)) / (2 * cell);
   const dz = (h(r + 1, c) - h(r - 1, c)) / (2 * cell);
-  const n = new THREE.Vector3(-dx, 1, -dz).normalize();
-  return n;
+  return new THREE.Vector3(-dx, 1, -dz).normalize();
 }
 
-// Full-resolution normals packed into RGBA8: lets a decimated mesh keep 30 m relief in shading.
+// Normals packed into RGBA8 (allocation-free loop: also used for the 5.7 M-cell 10 m grid).
 export function buildNormalTexture(dem, ex) {
-  const { width: W, height: H } = dem;
+  const { width: W, height: H, data, cell } = dem;
   const px = new Uint8Array(W * H * 4);
-  for (let r = 0; r < H; r++)
+  const k = ex / (2 * cell);
+  for (let r = 0; r < H; r++) {
+    const rn = Math.max(0, r - 1) * W, rs = Math.min(H - 1, r + 1) * W, rc = r * W;
     for (let c = 0; c < W; c++) {
-      const n = normalAt(dem, r, c, ex), o = (r * W + c) * 4;
-      px[o] = (n.x * 0.5 + 0.5) * 255; px[o + 1] = (n.y * 0.5 + 0.5) * 255; px[o + 2] = (n.z * 0.5 + 0.5) * 255; px[o + 3] = 255;
+      const dx = (data[rc + Math.min(W - 1, c + 1)] - data[rc + Math.max(0, c - 1)]) * k;
+      const dz = (data[rs + c] - data[rn + c]) * k;
+      const inv = 1 / Math.sqrt(dx * dx + 1 + dz * dz), o = (rc + c) * 4;
+      px[o] = (-dx * inv * 0.5 + 0.5) * 255; px[o + 1] = (inv * 0.5 + 0.5) * 255; px[o + 2] = (-dz * inv * 0.5 + 0.5) * 255; px[o + 3] = 255;
     }
+  }
   const t = new THREE.DataTexture(px, W, H, THREE.RGBAFormat);
   t.magFilter = THREE.LinearFilter; t.minFilter = THREE.LinearMipmapLinearFilter; t.generateMipmaps = true;
+  t.anisotropy = 8;
   t.needsUpdate = true;
   return t;
+}
+
+export async function loadDem10() {
+  const [meta, buf] = await Promise.all([
+    fetch('/dem10.json').then((r) => r.json()),
+    fetch('/dem10.u16').then((r) => r.arrayBuffer()),
+  ]);
+  const q = new Uint16Array(buf), data = new Float32Array(q.length);
+  for (let i = 0; i < q.length; i++) data[i] = q[i] * meta.scale;
+  return { ...meta, data };
 }
 
 // Variant A: everything baked on the CPU once — hypsometric tint × multi-directional hillshade, dusk palette.

@@ -3,7 +3,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
-import { loadDem, buildGeometry, buildNormalTexture, buildBakedTexture, worldPos } from './terrain.js';
+import ChunkTerrain from './ChunkTerrain.jsx';
+import { loadDem10, loadDem, buildGeometry, buildNormalTexture, buildBakedTexture, worldPos } from './terrain.js';
 import { useGpuLightBake } from './gpuBake.js';
 import { terrainVertex, terrainFragment, skyVertex, skyFragment } from './shaders.js';
 
@@ -37,7 +38,7 @@ function Terrain({ dem, variant, step, useNormalTex, ex, dusk }) {
   const geom = useMemo(() => buildGeometry(dem, step, ex), [dem, step, ex]);
   const normalTex = useMemo(() => buildNormalTexture(dem, ex), [dem, ex]);
   const baked = useMemo(() => (variant === 0 ? buildBakedTexture(dem, ex) : null), [dem, ex, variant]);
-  const lightTex = useGpuLightBake(dem, ex, sunFromDusk(dusk), variant === 3);
+  const { light: lightTex, ao: aoTex } = useGpuLightBake(dem, ex, sunFromDusk(dusk), variant === 3);
   const mat = useMemo(
     () =>
       new THREE.ShaderMaterial({
@@ -49,6 +50,7 @@ function Terrain({ dem, variant, step, useNormalTex, ex, dusk }) {
           uNormalTex: { value: normalTex },
           uBaked: { value: baked },
           uLightTex: { value: lightTex },
+          uAOTex: { value: aoTex },
           uUseNormalTex: { value: useNormalTex },
           uSunDir: { value: new THREE.Vector3() },
           uShadowLine: { value: 0 },
@@ -56,7 +58,7 @@ function Terrain({ dem, variant, step, useNormalTex, ex, dusk }) {
           uFogDensity: { value: 0.012 },
         },
       }),
-    [variant, normalTex, baked, lightTex],
+    [variant, normalTex, baked, lightTex, aoTex],
   );
   mat.uniforms.uEx.value = ex;
   mat.uniforms.uUseNormalTex.value = useNormalTex || variant === 3;
@@ -64,6 +66,16 @@ function Terrain({ dem, variant, step, useNormalTex, ex, dusk }) {
   mat.uniforms.uShadowLine.value = THREE.MathUtils.lerp(2500, 8650, dusk);
   useEffect(() => () => geom.dispose(), [geom]);
   return <mesh geometry={geom} material={mat} />;
+}
+
+function ChunkTerrainLit({ dem, dem10, variant, ex, dusk, lodScale }) {
+  const sun = sunFromDusk(dusk);
+  const lightTex = useGpuLightBake(dem10, ex, sun, true); // shadows + AO baked at 10 m
+  return (
+    <ChunkTerrain dem10={dem10} dem30={dem} variant={variant} ex={ex} sunDir={sun} lodScale={lodScale}
+      shadowLine={THREE.MathUtils.lerp(2500, 8650, dusk)} lightTex={lightTex}
+      onLodStats={(c) => { window.__lod = c; }} />
+  );
 }
 
 function Sky({ dusk }) {
@@ -127,6 +139,7 @@ function Stats({ outRef }) {
         `fps ${fps.toFixed(0)}  ·  frame ${(1000 / fps).toFixed(1)} ms\n` +
         `gpu ${avg(st.gpu)} ms${st.ext ? '' : ' (no timer ext)'}  ·  cpu submit ${avg(st.cpu)} ms\n` +
         `triangles ${gl.info.render.triangles.toLocaleString()}  ·  draw calls ${gl.info.render.calls}\n` +
+        (window.__lod ? `chunks per level 10/20/40/80/160 m: ${window.__lod.join(' / ')}\n` : '') +
         `dpr ${gl.getPixelRatio()}  ·  ${gl.domElement.width}×${gl.domElement.height} px`;
       st.frames = 0; st.gpu = []; st.cpu = []; st.t0 = now;
     }
@@ -159,22 +172,26 @@ function Switcher({ current, onChange }) {
 
 export default function App() {
   const [dem, setDem] = useState(null);
-  const [variantKey, setVariant] = useParam('variant', 'B');
-  const [res, setRes] = useParam('res', '1');
+  const [variantKey, setVariant] = useParam('variant', 'D');
+  const [res, setRes] = useParam('res', 'c');
   const [nmap, setNmap] = useParam('nmap', '0');
   const [ex, setEx] = useParam('ex', '1');
   const [dpr, setDpr] = useParam('dpr', 'native');
+  const [lod, setLod] = useParam('lod', '1');
+  const [dem10, setDem10] = useState(null);
   const [dusk, setDusk] = useState(0.35);
+  useEffect(() => { if (res === 'c' && !dem10) loadDem10().then(setDem10); }, [res]);
   const statsRef = useRef();
   useEffect(() => { loadDem().then(setDem); }, []);
 
   const vIndex = Math.max(0, VARIANTS.findIndex((v) => v.key === variantKey));
   const define = { A: 0, B: 1, C: 2, D: 3 }[VARIANTS[vIndex].key];
   const target = useMemo(() => (dem ? worldPos(dem, dem.peakRow, dem.peakCol, +ex) : null), [dem, ex]);
-  if (!dem) return <div style={{ padding: 24 }}>Loading DEM…</div>;
+  if (!dem || (res === 'c' && !dem10)) return <div style={{ padding: 24 }}>Loading DEM…</div>;
+  const chunked = res === 'c';
 
-  const step = +res;
-  const meshInfo = `${Math.floor((dem.width - 1) / step) + 1}×${Math.floor((dem.height - 1) / step) + 1} vertices · ${dem.cell * step} m spacing`;
+  const step = chunked ? 1 : +res;
+  const meshInfo = chunked ? `${dem10.width}×${dem10.height} cells · 10 m (HMA 8 m over GLO-30) · 640 m chunks, 5 LOD levels` : `${Math.floor((dem.width - 1) / step) + 1}×${Math.floor((dem.height - 1) / step) + 1} vertices · ${dem.cell * step} m spacing`;
   const panel = { position: 'fixed', top: 12, left: 12, width: 'min(320px, calc(100vw - 48px))', padding: 12, background: 'rgba(10,8,20,.78)', borderRadius: 10, zIndex: 10, backdropFilter: 'blur(6px)' };
   const row = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, margin: '6px 0' };
 
@@ -186,7 +203,11 @@ export default function App() {
         gl={{ antialias: true }}
       >
         <Sky dusk={dusk} />
-        <Terrain dem={dem} variant={define} step={step} useNormalTex={nmap === '1'} ex={+ex} dusk={dusk} />
+        {chunked && define !== 0 ? (
+          <ChunkTerrainLit dem={dem} dem10={dem10} variant={define} ex={+ex} dusk={dusk} lodScale={+lod} />
+        ) : (
+          <Terrain dem={dem} variant={define} step={step} useNormalTex={nmap === '1'} ex={+ex} dusk={dusk} />
+        )}
         <OrbitControls target={target} enableDamping maxPolarAngle={Math.PI * 0.49} minDistance={1} maxDistance={60} />
         <Stats outRef={statsRef} />
       </Canvas>
@@ -199,12 +220,23 @@ export default function App() {
         <label style={row}>
           Mesh
           <select value={res} onChange={(e) => setRes(e.target.value)}>
+            <option value="c">10 m chunked LOD (HMA)</option>
             <option value="1">full (30 m)</option>
             <option value="2">half (60 m)</option>
             <option value="4">quarter (120 m)</option>
           </select>
         </label>
         <div style={{ fontSize: 11, opacity: 0.6, marginTop: -4 }}>{meshInfo}</div>
+        {chunked && (
+          <label style={row}>
+            LOD distance
+            <select value={lod} onChange={(e) => setLod(e.target.value)}>
+              <option value="0.5">near (cheap)</option>
+              <option value="1">default</option>
+              <option value="2">far (sharp)</option>
+            </select>
+          </label>
+        )}
         <label style={row}>
           30 m normal texture
           <input type="checkbox" checked={nmap === '1'} onChange={(e) => setNmap(e.target.checked ? '1' : '0')} />

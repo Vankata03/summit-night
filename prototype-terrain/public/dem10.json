@@ -1,0 +1,14 @@
+{
+ "width": 2151,
+ "height": 2646,
+ "cell": 10,
+ "crs": "EPSG:32645",
+ "originX": 480420.0,
+ "originY": 3115980.0,
+ "scale": 0.25,
+ "min": 4763.04541015625,
+ "max": 8780.6142578125,
+ "peakRow": 1997,
+ "peakCol": 1229,
+ "credit": "Produced using Copernicus WorldDEM-30 \u00a9 DLR e.V. 2010-2014 and \u00a9 Airbus Defence and Space GmbH 2014-2018 provided under COPERNICUS by the European Union and ESA; all rights reserved. HMA 8 m DEM: Shean, D. 2017. High Mountain Asia 8-meter DEM Mosaics Derived from Optical Imagery, Version 1. NASA NSIDC DAAC. doi:10.5067/KXOVQ9L172S2."
+}
