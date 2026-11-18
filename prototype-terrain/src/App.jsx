@@ -6,8 +6,8 @@ import * as THREE from 'three';
 import ChunkTerrain from './ChunkTerrain.jsx';
 import { loadDem10, loadDem, buildGeometry, buildNormalTexture, buildBakedTexture, worldPos } from './terrain.js';
 import { useGpuLightBake } from './gpuBake.js';
-import { SPOT_VARIANTS, SpotlightScene, SpotlightOverlay, useSpotlightState } from './Spotlight.jsx';
-import './spotlight.css';
+import { ROUTE_VARIANTS as SPOT_VARIANTS, RouteScene, RouteOverlay, useRoute, useClock } from './Route.jsx';
+import './route.css';
 import { terrainVertex, terrainFragment, skyVertex, skyFragment } from './shaders.js';
 
 const VARIANTS = [
@@ -173,27 +173,29 @@ function Switcher({ current, onChange }) {
 }
 
 export default function App() {
-  // Spotlight prototype (#8): terrain look fixed to the chosen "Lit snow + detail" on the 10 m chunked LOD (#7).
+  // Route prototype (#9): route draw + climber + chase camera on the chosen terrain (#7).
   const [dem, setDem] = useState(null);
   const [dem10, setDem10] = useState(null);
   const [variantKey, setVariant] = useParam('variant', 'A');
-  const ex = 1, dusk = 0.35;
+  const ex = 1, dusk = 0.12;
   useEffect(() => { loadDem().then(setDem); loadDem10().then(setDem10); }, []);
   const statsRef = useRef();
   const variant = SPOT_VARIANTS.some((v) => v.key === variantKey) ? variantKey : 'A';
   const target = useMemo(() => (dem ? worldPos(dem, dem.peakRow, dem.peakCol, ex) : null), [dem]);
-  const spotState = useSpotlightState(dem, ex);
-  if (!dem || !dem10) return <div style={{ padding: 24 }}>Loading DEM…</div>;
+  const route = useRoute(dem10);
+  const clock = useClock();
+  const routeState = useRef({});
+  if (!dem || !dem10 || !route) return <div style={{ padding: 24 }}>Loading DEM…</div>;
   return (
     <>
       <Canvas dpr={[1, 2]} camera={{ fov: 45, near: 0.05, far: 1000, position: [target.x - 9, target.y - 0.6, target.z + 12] }} gl={{ antialias: true }}>
         <Sky dusk={dusk} />
         <ChunkTerrainLit dem={dem} dem10={dem10} variant={3} ex={ex} dusk={dusk} lodScale={1} />
         <OrbitControls makeDefault target={target} enableDamping maxPolarAngle={Math.PI * 0.49} minDistance={0.3} maxDistance={60} />
-        <SpotlightScene dem={dem} ex={ex} variant={variant} state={spotState} />
+        <RouteScene key={variant} variant={variant} route={route} clock={clock} stateRef={routeState} />
         <Stats outRef={statsRef} />
       </Canvas>
-      <SpotlightOverlay variant={variant} state={spotState} />
+      <RouteOverlay variant={variant} route={route} clock={clock} stateRef={routeState} />
       <pre ref={statsRef} style={{ position: 'fixed', left: 12, bottom: 4, margin: 0, fontSize: 10, opacity: 0.45, pointerEvents: 'none', zIndex: 1 }} />
       <Switcher current={variant} onChange={setVariant} />
     </>

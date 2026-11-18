@@ -1,7 +1,7 @@
 {
   "name": "prototype-terrain",
   "private": true,
-  "description": "PROTOTYPE — throwaway. Terrain look (#7) and spotlight interaction (#8).",
+  "description": "PROTOTYPE — throwaway. Terrain look (#7), spotlight interaction (#8), route drawing and chase camera (#9).",
   "type": "module",
   "scripts": {
     "dev": "vp dev --host",

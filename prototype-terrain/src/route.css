@@ -1,0 +1,41 @@
+/* PROTOTYPE — throwaway. Route prototype overlays (#9). */
+.rt-title { position: fixed; top: 14px; left: 16px; z-index: 30; display: flex; flex-direction: column; gap: 2px; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.6); max-width: calc(100vw - 32px); }
+.rt-title b { font-size: 18px; letter-spacing: .01em; }
+.rt-title span { font-size: 11px; opacity: .75; }
+.rt-title .rt-hint { opacity: .55; }
+.rt-transport { position: fixed; left: 50%; bottom: 64px; transform: translateX(-50%); z-index: 40; display: flex; align-items: center; gap: 8px;
+  background: rgba(16,14,28,.72); backdrop-filter: blur(10px); border-radius: 12px; padding: 6px 10px; color: #fff; font-size: 12px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 6px 20px rgba(0,0,0,.35); width: min(560px, calc(100vw - 32px)); }
+.rt-transport button { background: none; border: 0; color: #fff; font-size: 14px; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; }
+.rt-transport button:hover { background: rgba(255,255,255,.1); }
+.rt-transport input[type=range] { flex: 1; accent-color: #ffa35c; min-width: 60px; }
+.rt-transport select { background: rgba(255,255,255,.08); color: #fff; border: 0; border-radius: 6px; padding: 3px 4px; font: inherit; }
+.rt-time { font-variant-numeric: tabular-nums; opacity: .7; white-space: nowrap; }
+
+/* A: pill that pops in as the comet reaches a camp */
+.rt-pill { transform: translateY(-150%); display: flex; gap: 6px; align-items: baseline; white-space: nowrap; padding: 4px 10px; border-radius: 999px;
+  background: rgba(30,18,22,.72); color: #fff; font-size: 12px; box-shadow: 0 0 0 1px rgba(255,170,110,.5), 0 4px 14px rgba(0,0,0,.35);
+  animation: rt-pop .5s cubic-bezier(.34,1.56,.64,1) both; }
+.rt-pill span { color: #ffc27a; font-variant-numeric: tabular-nums; font-size: 11px; }
+@keyframes rt-pop { from { opacity: 0; transform: translateY(-110%) scale(.6); } to { opacity: 1; transform: translateY(-150%) scale(1); } }
+
+/* B: survey tags, ghosted until reached */
+.rt-tag { white-space: nowrap; font-size: 10px; color: #fff; opacity: .4; transform: translate(6px, -50%); display: flex; align-items: center; gap: 4px; text-shadow: 0 1px 4px rgba(0,0,0,.8); transition: opacity .3s; }
+.rt-tag i { width: 6px; height: 6px; border: 1px solid #fff; border-radius: 50%; margin-left: -9px; }
+.rt-tag.on { opacity: 1; }
+.rt-tag.on i { background: #ffc27a; border-color: #ffc27a; }
+.rt-tag span { font-variant-numeric: tabular-nums; opacity: .7; }
+.rt-pinlabel { font-size: 11px; font-weight: 600; color: #111; background: #fff; padding: 1px 6px; border-radius: 4px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rt-profile { position: fixed; left: 50%; bottom: 112px; transform: translateX(-50%); width: min(640px, calc(100vw - 32px)); z-index: 30;
+  background: rgba(16,14,28,.55); backdrop-filter: blur(8px); border-radius: 12px; font-family: inherit; }
+
+/* C: lower-third card at each camp */
+.rt-third { position: fixed; left: 40px; bottom: 128px; z-index: 30; color: #fff; padding: 12px 18px 12px 16px; border-left: 3px solid #ffa35c;
+  background: linear-gradient(90deg, rgba(16,12,24,.82), rgba(16,12,24,0)); min-width: 300px; opacity: 0; transform: translateX(-16px);
+  transition: opacity .35s ease, transform .45s cubic-bezier(.2,.8,.2,1); pointer-events: none; }
+.rt-third.in { opacity: 1; transform: none; }
+.rt-third-k { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: #ffc27a; }
+.rt-third-n { font-size: 24px; font-weight: 600; line-height: 1.15; }
+.rt-third-a { font-size: 13px; opacity: .8; font-variant-numeric: tabular-nums; }
+.rt-third-next { font-size: 11px; opacity: .6; margin-top: 6px; }
+@media (max-width: 700px) { .rt-third { left: 16px; min-width: 0; right: 16px; } .rt-title .rt-hint { display: none; } }
