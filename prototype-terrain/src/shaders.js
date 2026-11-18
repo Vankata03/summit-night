@@ -48,7 +48,7 @@ void main() {
   col *= mix(0.55, 1.15, lit);
 #elif VARIANT == 1
   // B — Lit snow: real-time alpenglow. Snow by altitude + slope, warm low sun, cool sky fill.
-  float snow = smoothstep(4900.0, 5700.0, vH) * (1.0 - smoothstep(0.42, 0.62, slope));
+  float snow = smoothstep(5200.0, 5900.0, vH) * (1.0 - smoothstep(0.30, 0.45, slope));
   vec3 rock = mix(vec3(0.20, 0.16, 0.16), vec3(0.33, 0.28, 0.27), smoothstep(3000.0, 6500.0, vH));
   vec3 albedo = mix(rock, vec3(0.90, 0.92, 1.0), snow);
   vec3 sun = vec3(1.0, 0.42, 0.30) * 2.6 * ndl * lit;
