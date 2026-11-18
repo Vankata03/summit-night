@@ -48,6 +48,34 @@ float fbm(vec2 p, float px) {
   return s;
 }
 
+// Value noise with analytic derivative: returns (value, d/dx, d/dy) in one lookup.
+vec3 noised(vec2 p) {
+  vec2 i = floor(p), f = fract(p);
+  vec2 u = f * f * (3.0 - 2.0 * f), du = 6.0 * f * (1.0 - f);
+  float a = hash(i), b = hash(i + vec2(1, 0)), c = hash(i + vec2(0, 1)), d = hash(i + vec2(1, 1));
+  float k = a - b - c + d;
+  return vec3(a + (b - a) * u.x + (c - a) * u.y + k * u.x * u.y, du * (vec2(b - a, c - a) + k * u.yx));
+}
+// fbm (value, gradient), octaves fade below pixel size. 6 octaves: 100 m down to ~3 m.
+vec3 fbmd(vec2 p, float px) {
+  vec3 s = vec3(0.0); float a = 0.5, f = 1.0;
+  for (int i = 0; i < 6; i++) {
+    float fade = 1.0 - smoothstep(0.25, 0.6, px * f);
+    vec3 n = noised(p * f);
+    s += a * fade * vec3(n.x - 0.5, n.yz * f);
+    f *= 2.07; a *= 0.5;
+  }
+  return s;
+}
+// Triplanar: X plane uses (z, y), Y plane (x, z), Z plane (x, y). Returns (3D gradient, value). Skips weak planes.
+vec4 triFbm(vec3 P, vec3 bw, float px) {
+  vec4 r = vec4(0.0);
+  if (bw.x > 0.02) { vec3 n = fbmd(P.zy, px);        r += vec4(0.0, n.z, n.y, n.x) * bw.x; }
+  if (bw.y > 0.02) { vec3 n = fbmd(P.xz + 31.7, px); r += vec4(n.y, 0.0, n.z, n.x) * bw.y; }
+  if (bw.z > 0.02) { vec3 n = fbmd(P.xy + 63.1, px); r += vec4(n.y, n.z, 0.0, n.x) * bw.z; }
+  return r / max(bw.x * step(0.02, bw.x) + bw.y * step(0.02, bw.y) + bw.z * step(0.02, bw.z), 1e-3);
+}
+
 vec3 fogged(vec3 col) {
   float d = distance(vWorld, cameraPosition);
   float f = 1.0 - exp(-d * uFogDensity);
@@ -78,22 +106,25 @@ void main() {
 #elif VARIANT == 3
   // D — Lit snow + detail: B plus baked cast shadows + AO, procedural detail normals, broken snow line, strata.
   float shadow = texture2D(uLightTex, vUvL).r, ao = texture2D(uAOTex, vUvL).g;
-  vec2 p = vWorld.xz * 10.0;                     // 1 unit = 100 m
-  float px = length(fwidth(p));
-  float e = 0.02;
-  float n0 = fbm(p, px);
-  vec2 grad = vec2(fbm(p + vec2(e, 0.0), px) - n0, fbm(p + vec2(0.0, e), px) - n0) / e;
+  vec3 P = vWorld * 10.0;                        // 1 unit = 100 m, true 3D (y includes exaggeration)
+  float px = length(fwidth(P));
+  vec3 bw = pow(abs(n), vec3(8.0)); bw /= bw.x + bw.y + bw.z;   // sharp blend keeps contrast
+  vec4 tf = triFbm(P, bw, px);
+  float n0 = tf.w;
+  vec3 g3 = tf.xyz - n * dot(tf.xyz, n);         // keep only the tangential part of the detail gradient
   float slope30 = 1.0 - n.y;
-  float snowN = fbm(p * 0.6 + 13.1, px * 0.6);
+  float snowN = fbm(P.xz * 0.6 + 13.1, px * 0.6);   // snow lies on gentle slopes: plan view is fine
   float sEdge = 0.03 + px * 0.02;                // crisp near, soft far (anti-aliased)
   float snow = smoothstep(5100.0 - sEdge * 4000.0, 5100.0 + sEdge * 4000.0, vH + snowN * 700.0)
              * (1.0 - smoothstep(0.36 + snowN * 0.2 - sEdge, 0.36 + snowN * 0.2 + sEdge, slope30));
   snow = max(snow, smoothstep(0.75, 0.9, ao) * smoothstep(5600.0, 6200.0, vH) * 0.6); // snow gathers in hollows up high
   float glacier = (1.0 - smoothstep(0.06, 0.14, slope30)) * smoothstep(4700.0, 5000.0, vH) * (1.0 - snow);
-  vec3 dn = normalize(n + vec3(-grad.x, 0.0, -grad.y) * mix(0.35, 0.08, snow));
+  vec3 dn = normalize(n - g3 * mix(0.6, 0.1, snow));
   float ndlD = max(dot(dn, uSunDir), 0.0);
-  float strata = fbm(vec2(vH / 25.0, (p.x + p.y) * 0.15), px * 0.1);
-  vec3 rock = mix(vec3(0.17, 0.14, 0.14), vec3(0.32, 0.27, 0.25), smoothstep(-0.2, 0.25, strata + n0));
+  vec2 along = normalize(vec2(-n.z, n.x) + 1e-4);  // horizontal direction across the face
+  vec2 sp = vec2(vH / 25.0, dot(P.xz, along) * 0.15);
+  float strata = fbm(sp, length(fwidth(sp)));
+  vec3 rock = mix(vec3(0.15, 0.12, 0.12), vec3(0.36, 0.30, 0.27), smoothstep(-0.12, 0.12, strata * 1.6 + n0));
   rock = mix(rock, vec3(0.50, 0.40, 0.24), smoothstep(8150.0, 8250.0, vH) * (1.0 - smoothstep(8450.0, 8550.0, vH))); // Yellow Band
   vec3 albedo = mix(rock, vec3(0.42, 0.40, 0.40), glacier);                 // debris-covered glacier
   albedo = mix(albedo, vec3(0.92, 0.94, 1.0) * (0.92 + n0 * 0.3), snow);
