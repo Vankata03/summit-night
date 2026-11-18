@@ -3,13 +3,14 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
-import { loadDem, buildGeometry, buildNormalTexture, buildBakedTexture, worldPos, bakeAO, bakeShadow, packLight } from './terrain.js';
+import { loadDem, buildGeometry, buildNormalTexture, buildBakedTexture, worldPos } from './terrain.js';
+import { useGpuLightBake } from './gpuBake.js';
 import { terrainVertex, terrainFragment, skyVertex, skyFragment } from './shaders.js';
 
 const VARIANTS = [
   { key: 'A', name: 'Painted relief', note: 'CPU-baked hypsometric tint × hillshade; shader only samples a texture. Static light.' },
   { key: 'B', name: 'Lit snow', note: 'Real-time: snow by altitude + slope, warm low sun, cool sky fill, earth shadow rising.' },
-  { key: 'D', name: 'Lit snow + detail', note: 'B plus baked ridge shadows (re-baked on dusk), ambient occlusion, procedural detail normals below 30 m, broken snow line, strata, Yellow Band. Forces the 30 m normal texture.' },
+  { key: 'D', name: 'Lit snow + detail', note: 'B plus ridge shadows + AO baked on the GPU on each dusk change, procedural detail normals below 30 m, broken snow line, strata, Yellow Band. Forces the 30 m normal texture.' },
   { key: 'C', name: 'Contour ink', note: 'Toon light bands + 100 m contours, 500 m index lines. Graphic, map-like.' },
 ];
 
@@ -36,13 +37,7 @@ function Terrain({ dem, variant, step, useNormalTex, ex, dusk }) {
   const geom = useMemo(() => buildGeometry(dem, step, ex), [dem, step, ex]);
   const normalTex = useMemo(() => buildNormalTexture(dem, ex), [dem, ex]);
   const baked = useMemo(() => (variant === 0 ? buildBakedTexture(dem, ex) : null), [dem, ex, variant]);
-  const ao = useMemo(() => (variant === 3 ? bakeAO(dem, ex) : null), [dem, ex, variant]);
-  const lightTex = useMemo(() => (ao ? packLight(dem, new Float32Array(ao.length).fill(1), ao) : null), [dem, ao]);
-  useEffect(() => {
-    if (!lightTex) return;
-    const t = setTimeout(() => packLight(dem, bakeShadow(dem, ex, sunFromDusk(dusk)), ao, lightTex), 30);
-    return () => clearTimeout(t);
-  }, [lightTex, dusk]);
+  const lightTex = useGpuLightBake(dem, ex, sunFromDusk(dusk), variant === 3);
   const mat = useMemo(
     () =>
       new THREE.ShaderMaterial({
