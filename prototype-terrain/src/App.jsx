@@ -3,12 +3,13 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
-import { loadDem, buildGeometry, buildNormalTexture, buildBakedTexture, worldPos } from './terrain.js';
+import { loadDem, buildGeometry, buildNormalTexture, buildBakedTexture, worldPos, bakeAO, bakeShadow, packLight } from './terrain.js';
 import { terrainVertex, terrainFragment, skyVertex, skyFragment } from './shaders.js';
 
 const VARIANTS = [
   { key: 'A', name: 'Painted relief', note: 'CPU-baked hypsometric tint × hillshade; shader only samples a texture. Static light.' },
   { key: 'B', name: 'Lit snow', note: 'Real-time: snow by altitude + slope, warm low sun, cool sky fill, earth shadow rising.' },
+  { key: 'D', name: 'Lit snow + detail', note: 'B plus baked ridge shadows (re-baked on dusk), ambient occlusion, procedural detail normals below 30 m, broken snow line, strata, Yellow Band. Forces the 30 m normal texture.' },
   { key: 'C', name: 'Contour ink', note: 'Toon light bands + 100 m contours, 500 m index lines. Graphic, map-like.' },
 ];
 
@@ -35,6 +36,13 @@ function Terrain({ dem, variant, step, useNormalTex, ex, dusk }) {
   const geom = useMemo(() => buildGeometry(dem, step, ex), [dem, step, ex]);
   const normalTex = useMemo(() => buildNormalTexture(dem, ex), [dem, ex]);
   const baked = useMemo(() => (variant === 0 ? buildBakedTexture(dem, ex) : null), [dem, ex, variant]);
+  const ao = useMemo(() => (variant === 3 ? bakeAO(dem, ex) : null), [dem, ex, variant]);
+  const lightTex = useMemo(() => (ao ? packLight(dem, new Float32Array(ao.length).fill(1), ao) : null), [dem, ao]);
+  useEffect(() => {
+    if (!lightTex) return;
+    const t = setTimeout(() => packLight(dem, bakeShadow(dem, ex, sunFromDusk(dusk)), ao, lightTex), 30);
+    return () => clearTimeout(t);
+  }, [lightTex, dusk]);
   const mat = useMemo(
     () =>
       new THREE.ShaderMaterial({
@@ -45,6 +53,7 @@ function Terrain({ dem, variant, step, useNormalTex, ex, dusk }) {
           uEx: { value: ex },
           uNormalTex: { value: normalTex },
           uBaked: { value: baked },
+          uLightTex: { value: lightTex },
           uUseNormalTex: { value: useNormalTex },
           uSunDir: { value: new THREE.Vector3() },
           uShadowLine: { value: 0 },
@@ -52,10 +61,10 @@ function Terrain({ dem, variant, step, useNormalTex, ex, dusk }) {
           uFogDensity: { value: 0.012 },
         },
       }),
-    [variant, normalTex, baked],
+    [variant, normalTex, baked, lightTex],
   );
   mat.uniforms.uEx.value = ex;
-  mat.uniforms.uUseNormalTex.value = useNormalTex;
+  mat.uniforms.uUseNormalTex.value = useNormalTex || variant === 3;
   mat.uniforms.uSunDir.value.copy(sunFromDusk(dusk));
   mat.uniforms.uShadowLine.value = THREE.MathUtils.lerp(2500, 8650, dusk);
   useEffect(() => () => geom.dispose(), [geom]);
@@ -165,6 +174,7 @@ export default function App() {
   useEffect(() => { loadDem().then(setDem); }, []);
 
   const vIndex = Math.max(0, VARIANTS.findIndex((v) => v.key === variantKey));
+  const define = { A: 0, B: 1, C: 2, D: 3 }[VARIANTS[vIndex].key];
   const target = useMemo(() => (dem ? worldPos(dem, dem.peakRow, dem.peakCol, +ex) : null), [dem, ex]);
   if (!dem) return <div style={{ padding: 24 }}>Loading DEM…</div>;
 
@@ -177,11 +187,11 @@ export default function App() {
     <>
       <Canvas
         dpr={dpr === 'native' ? [1, 2] : 1}
-        camera={{ fov: 45, near: 0.05, far: 1000, position: [target.x - 9, target.y - 0.6, target.z + 12] }}
+        camera={{ fov: 45, near: 0.05, far: 1000, position: params().get('cam') === 'close' ? [target.x - 2.2, target.y + 0.3, target.z + 3] : [target.x - 9, target.y - 0.6, target.z + 12] }}
         gl={{ antialias: true }}
       >
         <Sky dusk={dusk} />
-        <Terrain dem={dem} variant={vIndex} step={step} useNormalTex={nmap === '1'} ex={+ex} dusk={dusk} />
+        <Terrain dem={dem} variant={define} step={step} useNormalTex={nmap === '1'} ex={+ex} dusk={dusk} />
         <OrbitControls target={target} enableDamping maxPolarAngle={Math.PI * 0.49} minDistance={1} maxDistance={60} />
         <Stats outRef={statsRef} />
       </Canvas>

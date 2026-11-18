@@ -17,6 +17,7 @@ void main() {
 export const terrainFragment = /* glsl */ `
 uniform sampler2D uNormalTex;
 uniform sampler2D uBaked;
+uniform sampler2D uLightTex;
 uniform bool uUseNormalTex;
 uniform vec3 uSunDir;
 uniform float uShadowLine;
@@ -26,6 +27,22 @@ varying vec2 vUv;
 varying float vH;
 varying vec3 vNormal;
 varying vec3 vWorld;
+
+float hash(vec2 p) { p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+float vnoise(vec2 p) {
+  vec2 i = floor(p), f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2(1, 0)), u.x), mix(hash(i + vec2(0, 1)), hash(i + vec2(1, 1)), u.x), u.y);
+}
+// fbm whose octaves fade out once they get smaller than a pixel (no shimmer at distance)
+float fbm(vec2 p, float px) {
+  float s = 0.0, a = 0.5, f = 1.0;
+  for (int i = 0; i < 5; i++) {
+    float fade = 1.0 - smoothstep(0.25, 0.6, px * f);
+    s += a * fade * (vnoise(p * f) - 0.5);
+    f *= 2.07; a *= 0.5;
+  }
+  return s;
+}
 
 vec3 fogged(vec3 col) {
   float d = distance(vWorld, cameraPosition);
@@ -54,6 +71,31 @@ void main() {
   vec3 sun = vec3(1.0, 0.42, 0.30) * 2.6 * ndl * lit;
   vec3 sky = mix(vec3(0.05, 0.05, 0.13), vec3(0.24, 0.23, 0.42), n.y * 0.5 + 0.5);
   col = albedo * (sun + sky);
+#elif VARIANT == 3
+  // D — Lit snow + detail: B plus baked cast shadows + AO, procedural detail normals, broken snow line, strata.
+  vec2 lt = texture2D(uLightTex, vUv).rg;
+  float shadow = lt.r, ao = lt.g;
+  vec2 p = vWorld.xz * 4.0;                      // 1 unit = 250 m
+  float px = length(fwidth(p));
+  float e = 0.02;
+  float n0 = fbm(p, px);
+  vec2 grad = vec2(fbm(p + vec2(e, 0.0), px) - n0, fbm(p + vec2(0.0, e), px) - n0) / e;
+  float slope30 = 1.0 - n.y;
+  float snowN = fbm(p * 0.7 + 13.1, px * 0.7);
+  float snow = smoothstep(5000.0, 5700.0, vH + snowN * 900.0)
+             * (1.0 - smoothstep(0.30 + snowN * 0.25, 0.44 + snowN * 0.25, slope30));
+  snow = max(snow, smoothstep(0.75, 0.9, ao) * smoothstep(5600.0, 6200.0, vH) * 0.6); // snow gathers in hollows up high
+  float glacier = (1.0 - smoothstep(0.06, 0.14, slope30)) * smoothstep(4700.0, 5000.0, vH) * (1.0 - snow);
+  vec3 dn = normalize(n + vec3(-grad.x, 0.0, -grad.y) * mix(0.35, 0.08, snow));
+  float ndlD = max(dot(dn, uSunDir), 0.0);
+  float strata = fbm(vec2(vH / 60.0, p.x * 0.3 + p.y * 0.3), 0.0);
+  vec3 rock = mix(vec3(0.17, 0.14, 0.14), vec3(0.32, 0.27, 0.25), smoothstep(-0.2, 0.25, strata + n0));
+  rock = mix(rock, vec3(0.50, 0.40, 0.24), smoothstep(8150.0, 8250.0, vH) * (1.0 - smoothstep(8450.0, 8550.0, vH))); // Yellow Band
+  vec3 albedo = mix(rock, vec3(0.42, 0.40, 0.40), glacier);                 // debris-covered glacier
+  albedo = mix(albedo, vec3(0.92, 0.94, 1.0) * (0.92 + n0 * 0.3), snow);
+  vec3 sunC = vec3(1.0, 0.42, 0.30) * 3.0 * ndlD * lit * shadow;
+  vec3 skyC = mix(vec3(0.04, 0.04, 0.11), vec3(0.24, 0.24, 0.45), dn.y * 0.5 + 0.5) * (0.35 + 0.65 * ao);
+  col = albedo * (sunC + skyC);
 #else
   // C — Contour ink: toon bands + 100 m contours, 500 m index lines. Graphic, map-like.
   float band = floor(ndl * lit * 3.0 + 0.5) / 3.0;
