@@ -6,6 +6,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { buildNormalTexture } from './terrain.js';
 import { chunkVertex, terrainFragment } from './shaders.js';
+import { spotUniforms } from './spotUniforms.js';
 
 const CHUNK = 64;
 const STEPS = [1, 2, 4, 8, 16];
@@ -99,6 +100,7 @@ export default function ChunkTerrain({ dem10, dem30, variant, ex, sunDir, shadow
       uShadowLine: { value: 0 },
       uFogColor: { value: new THREE.Color('#5a4a72') },
       uFogDensity: { value: 0.012 },
+      ...spotUniforms,
     },
   }), [variant, heightTex, normalTex, lightTex]);
   mat.uniforms.uEx.value = ex;

@@ -6,6 +6,8 @@ import * as THREE from 'three';
 import ChunkTerrain from './ChunkTerrain.jsx';
 import { loadDem10, loadDem, buildGeometry, buildNormalTexture, buildBakedTexture, worldPos } from './terrain.js';
 import { useGpuLightBake } from './gpuBake.js';
+import { SPOT_VARIANTS, SpotlightScene, SpotlightOverlay, useSpotlightState } from './Spotlight.jsx';
+import './spotlight.css';
 import { terrainVertex, terrainFragment, skyVertex, skyFragment } from './shaders.js';
 
 const VARIANTS = [
@@ -148,8 +150,8 @@ function Stats({ outRef }) {
 }
 
 function Switcher({ current, onChange }) {
-  const i = VARIANTS.findIndex((v) => v.key === current);
-  const go = (d) => onChange(VARIANTS[(i + d + VARIANTS.length) % VARIANTS.length].key);
+  const i = SPOT_VARIANTS.findIndex((v) => v.key === current);
+  const go = (d) => onChange(SPOT_VARIANTS[(i + d + SPOT_VARIANTS.length) % SPOT_VARIANTS.length].key);
   useEffect(() => {
     const onKey = (e) => {
       const t = e.target;
@@ -162,108 +164,38 @@ function Switcher({ current, onChange }) {
   });
   const btn = { background: 'none', border: 0, color: '#111', font: 'inherit', fontSize: 18, padding: '4px 12px', cursor: 'pointer' };
   return (
-    <div style={{ position: 'fixed', bottom: 16, left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', background: '#ffe14d', color: '#111', borderRadius: 999, boxShadow: '0 4px 16px rgba(0,0,0,.5)', fontWeight: 600, zIndex: 10, whiteSpace: 'nowrap' }}>
+    <div style={{ position: 'fixed', bottom: 16, left: '50%', transform: 'translateX(-50%)', display: 'flex', alignItems: 'center', background: '#ffe14d', color: '#111', borderRadius: 999, boxShadow: '0 4px 16px rgba(0,0,0,.5)', fontWeight: 600, zIndex: 100, whiteSpace: 'nowrap' }}>
       <button style={btn} onClick={() => go(-1)} aria-label="Previous variant">←</button>
-      <span>{current} ({VARIANTS[i].name})</span>
+      <span>{current} ({SPOT_VARIANTS[i].name})</span>
       <button style={btn} onClick={() => go(1)} aria-label="Next variant">→</button>
     </div>
   );
 }
 
 export default function App() {
+  // Spotlight prototype (#8): terrain look fixed to the chosen "Lit snow + detail" on the 10 m chunked LOD (#7).
   const [dem, setDem] = useState(null);
-  const [variantKey, setVariant] = useParam('variant', 'D');
-  const [res, setRes] = useParam('res', 'c');
-  const [nmap, setNmap] = useParam('nmap', '0');
-  const [ex, setEx] = useParam('ex', '1');
-  const [dpr, setDpr] = useParam('dpr', 'native');
-  const [lod, setLod] = useParam('lod', '1');
   const [dem10, setDem10] = useState(null);
-  const [dusk, setDusk] = useState(0.35);
-  useEffect(() => { if (res === 'c' && !dem10) loadDem10().then(setDem10); }, [res]);
+  const [variantKey, setVariant] = useParam('variant', 'A');
+  const ex = 1, dusk = 0.35;
+  useEffect(() => { loadDem().then(setDem); loadDem10().then(setDem10); }, []);
   const statsRef = useRef();
-  useEffect(() => { loadDem().then(setDem); }, []);
-
-  const vIndex = Math.max(0, VARIANTS.findIndex((v) => v.key === variantKey));
-  const define = { A: 0, B: 1, C: 2, D: 3 }[VARIANTS[vIndex].key];
-  const target = useMemo(() => (dem ? worldPos(dem, dem.peakRow, dem.peakCol, +ex) : null), [dem, ex]);
-  if (!dem || (res === 'c' && !dem10)) return <div style={{ padding: 24 }}>Loading DEM…</div>;
-  const chunked = res === 'c';
-
-  const step = chunked ? 1 : +res;
-  const meshInfo = chunked ? `${dem10.width}×${dem10.height} cells · 10 m (HMA 8 m over GLO-30) · 640 m chunks, 5 LOD levels` : `${Math.floor((dem.width - 1) / step) + 1}×${Math.floor((dem.height - 1) / step) + 1} vertices · ${dem.cell * step} m spacing`;
-  const panel = { position: 'fixed', top: 12, left: 12, width: 'min(320px, calc(100vw - 48px))', padding: 12, background: 'rgba(10,8,20,.78)', borderRadius: 10, zIndex: 10, backdropFilter: 'blur(6px)' };
-  const row = { display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8, margin: '6px 0' };
-
+  const variant = SPOT_VARIANTS.some((v) => v.key === variantKey) ? variantKey : 'A';
+  const target = useMemo(() => (dem ? worldPos(dem, dem.peakRow, dem.peakCol, ex) : null), [dem]);
+  const spotState = useSpotlightState(dem, ex);
+  if (!dem || !dem10) return <div style={{ padding: 24 }}>Loading DEM…</div>;
   return (
     <>
-      <Canvas
-        dpr={dpr === 'native' ? [1, 2] : 1}
-        camera={{ fov: 45, near: 0.05, far: 1000, position: params().get('cam') === 'close' ? [target.x - 2.2, target.y + 0.3, target.z + 3] : [target.x - 9, target.y - 0.6, target.z + 12] }}
-        gl={{ antialias: true }}
-      >
+      <Canvas dpr={[1, 2]} camera={{ fov: 45, near: 0.05, far: 1000, position: [target.x - 9, target.y - 0.6, target.z + 12] }} gl={{ antialias: true }}>
         <Sky dusk={dusk} />
-        {chunked && define !== 0 ? (
-          <ChunkTerrainLit dem={dem} dem10={dem10} variant={define} ex={+ex} dusk={dusk} lodScale={+lod} />
-        ) : (
-          <Terrain dem={dem} variant={define} step={step} useNormalTex={nmap === '1'} ex={+ex} dusk={dusk} />
-        )}
-        <OrbitControls target={target} enableDamping maxPolarAngle={Math.PI * 0.49} minDistance={1} maxDistance={60} />
+        <ChunkTerrainLit dem={dem} dem10={dem10} variant={3} ex={ex} dusk={dusk} lodScale={1} />
+        <OrbitControls makeDefault target={target} enableDamping maxPolarAngle={Math.PI * 0.49} minDistance={0.3} maxDistance={60} />
+        <SpotlightScene dem={dem} ex={ex} variant={variant} state={spotState} />
         <Stats outRef={statsRef} />
       </Canvas>
-
-      <div style={panel}>
-        <div style={{ fontSize: 11, letterSpacing: 1, opacity: 0.6 }}>PROTOTYPE · TERRAIN LOOK</div>
-        <div style={{ fontWeight: 600, margin: '4px 0' }}>{variantKey} — {VARIANTS[vIndex].name}</div>
-        <div style={{ opacity: 0.75, fontSize: 12 }}>{VARIANTS[vIndex].note}</div>
-        <hr style={{ border: 0, borderTop: '1px solid #ffffff22' }} />
-        <label style={row}>
-          Mesh
-          <select value={res} onChange={(e) => setRes(e.target.value)}>
-            <option value="c">10 m chunked LOD (HMA)</option>
-            <option value="1">full (30 m)</option>
-            <option value="2">half (60 m)</option>
-            <option value="4">quarter (120 m)</option>
-          </select>
-        </label>
-        <div style={{ fontSize: 11, opacity: 0.6, marginTop: -4 }}>{meshInfo}</div>
-        {chunked && (
-          <label style={row}>
-            LOD distance
-            <select value={lod} onChange={(e) => setLod(e.target.value)}>
-              <option value="0.5">near (cheap)</option>
-              <option value="1">default</option>
-              <option value="2">far (sharp)</option>
-            </select>
-          </label>
-        )}
-        <label style={row}>
-          30 m normal texture
-          <input type="checkbox" checked={nmap === '1'} onChange={(e) => setNmap(e.target.checked ? '1' : '0')} />
-        </label>
-        <label style={row}>
-          Vertical exaggeration
-          <select value={ex} onChange={(e) => setEx(e.target.value)}>
-            <option value="1">1.0×</option>
-            <option value="1.25">1.25×</option>
-            <option value="1.5">1.5×</option>
-          </select>
-        </label>
-        <label style={row}>
-          Pixel ratio
-          <select value={dpr} onChange={(e) => setDpr(e.target.value)}>
-            <option value="native">native (≤2)</option>
-            <option value="1">1</option>
-          </select>
-        </label>
-        <label style={row}>
-          Dusk
-          <input type="range" min="0" max="1" step="0.01" value={dusk} onChange={(e) => setDusk(+e.target.value)} />
-        </label>
-        <pre ref={statsRef} style={{ margin: '8px 0 0', fontSize: 11, whiteSpace: 'pre-wrap', opacity: 0.85 }} />
-        <div style={{ fontSize: 9, opacity: 0.45, marginTop: 6 }}>{dem.credit}</div>
-      </div>
-      <Switcher current={VARIANTS[vIndex].key} onChange={setVariant} />
+      <SpotlightOverlay variant={variant} state={spotState} />
+      <pre ref={statsRef} style={{ position: 'fixed', left: 12, bottom: 4, margin: 0, fontSize: 10, opacity: 0.45, pointerEvents: 'none', zIndex: 1 }} />
+      <Switcher current={variant} onChange={setVariant} />
     </>
   );
 }

@@ -1,0 +1,915 @@
+[
+ {
+  "id": "everest-base-camp-south",
+  "name": "Everest Base Camp (South)",
+  "kind": "waypoint",
+  "alt_m": 5364,
+  "routes": [
+   "south-col",
+   "southwest-face",
+   "west-ridge"
+  ],
+  "story": "The Nepal-side base camp sits on the moving Khumbu Glacier, so tent platforms shift and melt through the season. On 25 April 2015 the Gorkha earthquake sent an avalanche into the camp, the deadliest disaster in Everest's history.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 157.09,
+  "row": 626.87,
+  "onMap": true,
+  "photo": {
+   "file": "Everest Base Camp sits on top of melting glacier.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Everest_Base_Camp_sits_on_top_of_melting_glacier.jpg",
+   "author": "Nirojsedhai",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "width": 5665,
+   "height": 3783,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Everest_Base_Camp_sits_on_top_of_melting_glacier.jpg/960px-Everest_Base_Camp_sits_on_top_of_melting_glacier.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Tents on the Khumbu Glacier, April 2024; matches the melting-glacier story."
+ },
+ {
+  "id": "khumbu-icefall",
+  "name": "Khumbu Icefall",
+  "kind": "waypoint",
+  "alt_m": 5486,
+  "routes": [
+   "south-col",
+   "southwest-face",
+   "west-ridge"
+  ],
+  "story": "About 600 m of broken, moving ice where the Khumbu Glacier drops out of the Western Cwm; seracs and crevasses shift up to a metre a day. On 18 April 2014 an ice avalanche off the West Shoulder killed 16 Sherpas carrying loads through it.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 225.0,
+  "row": 617.57,
+  "onMap": true,
+  "photo": {
+   "file": "Climbers crossing ladders in the Khumbu Icefall.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Climbers_crossing_ladders_in_the_Khumbu_Icefall.jpg",
+   "author": "AngeliSherpa",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "width": 4608,
+   "height": 3072,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Climbers_crossing_ladders_in_the_Khumbu_Icefall.jpg/960px-Climbers_crossing_ladders_in_the_Khumbu_Icefall.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Ladder crossing with a queue of climbers, May 2026. The alternate is a wider view from base camp under CC BY 2.0."
+ },
+ {
+  "id": "camp-1-south",
+  "name": "Camp 1",
+  "kind": "waypoint",
+  "alt_m": 6060,
+  "routes": [
+   "south-col",
+   "southwest-face",
+   "west-ridge"
+  ],
+  "story": "The first camp above the Icefall, at the mouth of the Western Cwm, four to six hours from base camp.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 247.92,
+  "row": 675.86,
+  "onMap": true,
+  "photo": null,
+  "match": "none",
+  "photoNote": "No Commons photo of Camp 1 itself. Fallback: reuse the Western Cwm photo, which was taken at about 6300 m between Camp 1 and Camp 2."
+ },
+ {
+  "id": "camp-2-south",
+  "name": "Camp 2",
+  "kind": "waypoint",
+  "alt_m": 6400,
+  "routes": [
+   "south-col",
+   "southwest-face",
+   "west-ridge"
+  ],
+  "story": "Set at the head of the Western Cwm under the Southwest Face, two to three hours above Camp 1. Avalanches can reach it from the West Shoulder and Nuptse's north flank, and on still days the Cwm traps fierce heat.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 322.05,
+  "row": 693.87,
+  "onMap": true,
+  "photo": {
+   "file": "Lenticular over everest summit.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Lenticular_over_everest_summit.jpg",
+   "author": "Moving Mountains Trust (Flickr)",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0",
+   "width": 800,
+   "height": 600,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Lenticular_over_everest_summit.jpg"
+  },
+  "match": "proxy",
+  "photoNote": "Everest and Lhotse seen from the Western Cwm (the Camp 2 view), not the camp itself. Only 800x600."
+ },
+ {
+  "id": "camp-3-south",
+  "name": "Camp 3 (Lhotse Face)",
+  "kind": "waypoint",
+  "alt_m": 7100,
+  "routes": [
+   "south-col"
+  ],
+  "story": "Tents cut into ledges on the Lhotse Face, a wall of hard ice angled 20 to 45 degrees and climbed on fixed rope. Many teams start bottled oxygen here or at Camp 2.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 383.22,
+  "row": 740.7,
+  "onMap": true,
+  "photo": {
+   "file": "Mount Everest Camp 3.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Mount_Everest_Camp_3.jpg",
+   "author": "AngeliSherpa",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "width": 4608,
+   "height": 3072,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Mount_Everest_Camp_3.jpg/960px-Mount_Everest_Camp_3.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Tents on the Lhotse Face; the description gives 7400 m."
+ },
+ {
+  "id": "south-col",
+  "name": "South Col (Camp 4)",
+  "kind": "waypoint",
+  "alt_m": 7920,
+  "routes": [
+   "south-col"
+  ],
+  "story": "A flat, wind-scoured saddle of loose rock between Everest and Lhotse, and the staging camp for summit bids. Teams leave from here at night for the summit (see issue #5).",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 424.01,
+  "row": 724.19,
+  "onMap": true,
+  "photo": {
+   "file": "South Cole.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:South_Cole.jpg",
+   "author": "AngeliSherpa",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "width": 4608,
+   "height": 3072,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/South_Cole.jpg/960px-South_Cole.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Camp IV tents. The alternate is a sunset cloud inversion seen from Camp IV, a good fit for the alpenglow mood."
+ },
+ {
+  "id": "balcony",
+  "name": "The Balcony",
+  "kind": "waypoint",
+  "alt_m": 8400,
+  "routes": [
+   "south-col"
+  ],
+  "story": "A small platform on the Southeast Ridge, reached after four to five hours up the Triangular Face from the South Col. It is the first rest of summit night, where climbers swap to a fresh oxygen bottle.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 420.0,
+  "row": 691.06,
+  "onMap": true,
+  "photo": {
+   "file": "Mt Lhotse and Mt. Everest South Cole.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Mt_Lhotse_and_Mt._Everest_South_Cole.jpg",
+   "author": "AngeliSherpa",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "width": 4608,
+   "height": 3072,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Mt_Lhotse_and_Mt._Everest_South_Cole.jpg/960px-Mt_Lhotse_and_Mt._Everest_South_Cole.jpg"
+  },
+  "match": "proxy",
+  "photoNote": "View down the Southeast Ridge to the South Col and Lhotse from above 8500 m, the outlook climbers get near the Balcony. The alternate is a second upload with the same timestamp."
+ },
+ {
+  "id": "south-summit",
+  "name": "South Summit",
+  "kind": "waypoint",
+  "alt_m": 8749,
+  "routes": [
+   "south-col",
+   "southwest-face",
+   "kangshung-face"
+  ],
+  "story": "A snow dome on the ridge below the true summit. Tom Bourdillon and Charles Evans of the 1953 British expedition made its first ascent before Hillary and Tenzing's summit day. In 1975 Doug Scott and Dougal Haston bivouacked at the South Summit on their way down from the Southwest Face.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 408.14,
+  "row": 681.31,
+  "onMap": true,
+  "photo": {
+   "file": "Mount Everest a close view with south summit and yellow band.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Mount_Everest_a_close_view_with_south_summit_and_yellow_band.jpg",
+   "author": "Goutam1962",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "width": 3648,
+   "height": 2736,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Mount_Everest_a_close_view_with_south_summit_and_yellow_band.jpg/960px-Mount_Everest_a_close_view_with_south_summit_and_yellow_band.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Telephoto of the summit pyramid showing the South Summit and the Yellow Band, taken from the trek side."
+ },
+ {
+  "id": "hillary-step",
+  "name": "Hillary Step",
+  "kind": "waypoint",
+  "alt_m": 8790,
+  "routes": [
+   "south-col",
+   "southwest-face",
+   "kangshung-face"
+  ],
+  "story": "A rock step of about 12 m on the summit ridge, climbed by Hillary and Tenzing on 29 May 1953. In May 2017 climbers reported that it had collapsed, probably in the 2015 earthquake; Nepali officials disputed this, saying it was covered by snow.",
+  "coord_confidence": "uncertain",
+  "optional": false,
+  "col": 407.91,
+  "row": 678.54,
+  "onMap": true,
+  "photo": {
+   "file": "Hillary Step near Everest top.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Hillary_Step_near_Everest_top.jpg",
+   "author": "Debasish biswas kolkata",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "width": 2816,
+   "height": 1776,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Hillary_Step_near_Everest_top.jpg/960px-Hillary_Step_near_Everest_top.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Taken 17 May 2010, before the rock step changed (reported 2016-2017). Say so on the card. The retouched alternate credits Debasish biswas kolkata plus MagentaGreen."
+ },
+ {
+  "id": "everest-summit",
+  "name": "Mount Everest summit",
+  "kind": "waypoint",
+  "alt_m": 8848.86,
+  "routes": [
+   "south-col",
+   "north-col",
+   "west-ridge",
+   "kangshung-face",
+   "hornbein-couloir",
+   "southwest-face"
+  ],
+  "story": "The highest point on Earth, 8848.86 m by the Nepal-China survey announced in December 2020. Edmund Hillary and Tenzing Norgay first stood here on 29 May 1953, having come up the South Col route.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 407.52,
+  "row": 669.93,
+  "onMap": true,
+  "photo": {
+   "file": "Everest Summit.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Everest_Summit.jpg",
+   "author": "Alfonso.mnr",
+   "licence": "CC0",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "width": 4096,
+   "height": 3072,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Everest_Summit.jpg/960px-Everest_Summit.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Climber Viridiana Alvarez on the summit, 16 May 2017. CC0, so no credit is required, but credit the uploader anyway."
+ },
+ {
+  "id": "western-cwm",
+  "name": "Western Cwm",
+  "kind": "glacier",
+  "alt_m": 6000,
+  "routes": [
+   "south-col",
+   "southwest-face",
+   "west-ridge"
+  ],
+  "story": "The enclosed glacier valley between Everest's West Shoulder, Nuptse and the Lhotse Face, with Camps 1 and 2 on its floor. Camps 1 and 2 sit on its floor, and on still days it traps intense heat.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 318.51,
+  "row": 696.57,
+  "onMap": true,
+  "photo": {
+   "file": "Mount Everest and Mount Lhotse.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Mount_Everest_and_Mount_Lhotse.jpg",
+   "author": "AngeliSherpa",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "width": 4608,
+   "height": 3072,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Mount_Everest_and_Mount_Lhotse.jpg/960px-Mount_Everest_and_Mount_Lhotse.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Climbers in the Cwm at about 6300 m below Everest and Lhotse. The alternate is a public-domain ISS view from above."
+ },
+ {
+  "id": "everest-base-camp-north",
+  "name": "Everest Base Camp (North)",
+  "kind": "waypoint",
+  "alt_m": 5200,
+  "routes": [
+   "north-col"
+  ],
+  "story": "A windy gravel plain near Rongbuk Monastery at the snout of the Rongbuk Glacier, at the end of the road. Vehicles can reach it, but as of 2026 there is no helicopter rescue on the north side.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 179.58,
+  "row": 121.5,
+  "onMap": true,
+  "photo": {
+   "file": "Mount Everest Base Camp (7318553136).jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Mount_Everest_Base_Camp_(7318553136).jpg",
+   "author": "Gunther Hagleitner",
+   "licence": "CC BY 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by/2.0",
+   "width": 3872,
+   "height": 2592,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Mount_Everest_Base_Camp_%287318553136%29.jpg/960px-Mount_Everest_Base_Camp_%287318553136%29.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Tibet-side base camp, May 2012. The alternate is CC0 (via Unsplash)."
+ },
+ {
+  "id": "intermediate-camp",
+  "name": "Intermediate Camp",
+  "kind": "waypoint",
+  "alt_m": 5800,
+  "routes": [
+   "north-col"
+  ],
+  "story": "A small camp on the moraine of the East Rongbuk Glacier, used to break the walk-in to Advanced Base Camp during acclimatisation.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 388.58,
+  "row": 322.05,
+  "onMap": true,
+  "photo": null,
+  "match": "none",
+  "photoNote": "No Commons photo found. Fallback: reuse the East Rongbuk Glacier photo, since the camp sits on that glacier route."
+ },
+ {
+  "id": "advanced-base-camp-north",
+  "name": "Advanced Base Camp",
+  "kind": "waypoint",
+  "alt_m": 6500,
+  "routes": [
+   "north-col"
+  ],
+  "story": "The real home camp of the north side, at the head of the East Rongbuk Glacier with a direct view of the North Col. Yaks carry loads up to it from base camp.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 457.26,
+  "row": 513.4,
+  "onMap": true,
+  "photo": {
+   "file": "Everest North Col.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Everest_North_Col.jpg",
+   "author": "Chris Searl (Csearl at English Wikipedia)",
+   "licence": "CC BY-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "width": 2048,
+   "height": 1536,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Everest_North_Col.jpg/960px-Everest_North_Col.jpg"
+  },
+  "match": "proxy",
+  "photoNote": "Taken at Advanced Base Camp in April 2005, looking at the North Col. It shows the view from ABC rather than the camp. It is the same file as the North Col spot."
+ },
+ {
+  "id": "north-col",
+  "name": "North Col (Camp 1)",
+  "kind": "waypoint",
+  "alt_m": 7028,
+  "routes": [
+   "north-col"
+  ],
+  "story": "The saddle between Everest and Changtse, reached by steep fixed ropes up to 60 degrees from the East Rongbuk Glacier. In September 1921 Mallory, Bullock and Wheeler climbed to just below its lip before wind turned them back.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 401.39,
+  "row": 565.4,
+  "onMap": true,
+  "photo": {
+   "file": "Everest North Col.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Everest_North_Col.jpg",
+   "author": "Chris Searl (Csearl at English Wikipedia)",
+   "licence": "CC BY-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "width": 2048,
+   "height": 1536,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Everest_North_Col.jpg/960px-Everest_North_Col.jpg"
+  },
+  "match": "direct",
+  "photoNote": "North Col wall seen from ABC. The alternate shows climbers on the North Col ladder but is only 427x600."
+ },
+ {
+  "id": "camp-2-north",
+  "name": "Camp 2 (North Ridge)",
+  "kind": "waypoint",
+  "alt_m": 7790,
+  "routes": [
+   "north-col"
+  ],
+  "story": "Tents on the North Ridge above the North Col, where the snow ridge turns to rock. The site is exposed and bitterly cold in high wind.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 422.93,
+  "row": 602.81,
+  "onMap": true,
+  "photo": {
+   "file": "North face marked.png",
+   "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+   "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+   "licence": "CC BY-SA 2.5",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+   "width": 720,
+   "height": 540,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png"
+  },
+  "match": "proxy",
+  "photoNote": "Annotated north-face diagram. The green line marks the standard route with high camps at about 7700 m and 8300 m (triangles)."
+ },
+ {
+  "id": "camp-3-north",
+  "name": "Camp 3 (North Ridge)",
+  "kind": "waypoint",
+  "alt_m": 8300,
+  "routes": [
+   "north-col"
+  ],
+  "story": "Tents pitched on sloping rock ledges, often battered by wind, and the launch point for summit night on the north side.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 430.42,
+  "row": 629.48,
+  "onMap": true,
+  "photo": {
+   "file": "North face marked.png",
+   "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+   "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+   "licence": "CC BY-SA 2.5",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+   "width": 720,
+   "height": 540,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png"
+  },
+  "match": "proxy",
+  "photoNote": "Same annotated diagram; the 8300 m camp is marked."
+ },
+ {
+  "id": "first-step",
+  "name": "First Step",
+  "kind": "waypoint",
+  "alt_m": 8500,
+  "routes": [
+   "north-col"
+  ],
+  "story": "The first of three rock steps on the Northeast Ridge, climbed with careful footwork and a fixed rope up a final gully.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 423.1,
+  "row": 650.82,
+  "onMap": true,
+  "photo": {
+   "file": "North face marked.png",
+   "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+   "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+   "licence": "CC BY-SA 2.5",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+   "width": 720,
+   "height": 540,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png"
+  },
+  "match": "proxy",
+  "photoNote": "Same annotated diagram; the First Step is marked (dagger 2)."
+ },
+ {
+  "id": "second-step",
+  "name": "Second Step",
+  "kind": "waypoint",
+  "alt_m": 8610,
+  "routes": [
+   "north-col"
+  ],
+  "story": "The crux of the north route: a rock slab and a near-vertical headwall. The 1960 Chinese team reported climbing it with one man standing on another's shoulders; a 1975 Chinese expedition fixed a ladder, which almost every summiter on this route has used since.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 419.36,
+  "row": 656.54,
+  "onMap": true,
+  "photo": {
+   "file": "North face marked.png",
+   "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+   "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+   "licence": "CC BY-SA 2.5",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+   "width": 720,
+   "height": 540,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png"
+  },
+  "match": "proxy",
+  "photoNote": "Same annotated diagram; no Commons photo of the Second Step or its ladder exists."
+ },
+ {
+  "id": "third-step",
+  "name": "Third Step",
+  "kind": "waypoint",
+  "alt_m": 8690,
+  "routes": [
+   "north-col"
+  ],
+  "story": "About 10 m of rock, the easiest of the three steps, below the snow of the summit pyramid.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 414.15,
+  "row": 661.41,
+  "onMap": true,
+  "photo": {
+   "file": "North face marked.png",
+   "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+   "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+   "licence": "CC BY-SA 2.5",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+   "width": 720,
+   "height": 540,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png"
+  },
+  "match": "proxy",
+  "photoNote": "Same annotated diagram. The Third Step is not labelled; it lies on the green line above the Second Step."
+ },
+ {
+  "id": "mallory-1999",
+  "name": "Mallory's resting place",
+  "kind": "waypoint",
+  "alt_m": 8160,
+  "routes": [
+   "north-col"
+  ],
+  "story": "George Mallory and Andrew Irvine disappeared high on the Northeast Ridge in June 1924. The 1999 Mallory and Irvine Research Expedition found Mallory's body on the north face below the ridge, at about 8160 m, and buried it there.",
+  "coord_confidence": "uncertain",
+  "optional": true,
+  "col": 424.16,
+  "row": 634.87,
+  "onMap": true,
+  "photo": {
+   "file": "North face marked.png",
+   "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+   "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+   "licence": "CC BY-SA 2.5",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+   "width": 720,
+   "height": 540,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png"
+  },
+  "match": "proxy",
+  "photoNote": "Same annotated diagram; Mallory's 1999 find is marked (dagger 1). Do not use a photo of the body."
+ },
+ {
+  "id": "rongbuk-glacier",
+  "name": "Rongbuk Glacier",
+  "kind": "glacier",
+  "alt_m": null,
+  "routes": [
+   "north-col"
+  ],
+  "story": "The main glacier draining Everest's north side toward the Rongbuk valley and the north base camp. In 1921 the British reconnaissance found that the way to the North Col lay not up the main glacier but up its eastern branch.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 251.63,
+  "row": 379.5,
+  "onMap": true,
+  "photo": {
+   "file": "Everest North Face toward Base Camp Tibet Luca Galuzzi 2006.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
+   "author": "Luca Galuzzi (Lucag)",
+   "licence": "CC BY-SA 2.5",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+   "width": 2000,
+   "height": 1333,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg/960px-Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg"
+  },
+  "match": "direct",
+  "photoNote": "North face above the Rongbuk valley at 5160 m. The public-domain alternate shows the glacier terminus but its author is unknown."
+ },
+ {
+  "id": "east-rongbuk-glacier",
+  "name": "East Rongbuk Glacier",
+  "kind": "glacier",
+  "alt_m": null,
+  "routes": [
+   "north-col"
+  ],
+  "story": "The side glacier that carries the north route from Intermediate Camp to Advanced Base Camp and the foot of the North Col. Surveyor Oliver Wheeler mapped it in August 1921 and showed it was the way to the col.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 426.31,
+  "row": 424.54,
+  "onMap": true,
+  "photo": {
+   "file": "Everest Peace Project - Ice serac everest tibet2.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Everest_Peace_Project_-_Ice_serac_everest_tibet2.jpg",
+   "author": "Lance Trumbull, EverestPeaceProject.org",
+   "licence": "CC BY-SA 3.0 us",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/us/deed.en",
+   "width": 600,
+   "height": 331,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Everest_Peace_Project_-_Ice_serac_everest_tibet2.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Ice seracs on the Tibet approach, but only 600x331 and the description does not name the glacier. The public-domain ISS alternate (2402x2641) is the better card image."
+ },
+ {
+  "id": "west-rongbuk-glacier",
+  "name": "West Rongbuk Glacier",
+  "kind": "glacier",
+  "alt_m": null,
+  "routes": [],
+  "story": "The western branch of the Rongbuk system, draining the slopes between Pumori, Lingtren and Khumbutse. No story source verified yet; label only.",
+  "coord_confidence": "mapped",
+  "optional": true,
+  "col": 15.97,
+  "row": 414.27,
+  "onMap": true,
+  "photo": {
+   "file": "ISS066-E-86253 - View of China - West Rongbuk (Rongpu) Glacier - Tongqiang Ri - Hongxing Ri - Hongxing Glacier - Shuguang (cropped).jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:ISS066-E-86253_-_View_of_China_-_West_Rongbuk_(Rongpu)_Glacier_-_Tongqiang_Ri_-_Hongxing_Ri_-_Hongxing_Glacier_-_Shuguang_(cropped).jpg",
+   "author": "NASA Johnson Space Center, Earth Science and Remote Sensing Unit (ISS crew photo)",
+   "licence": "Public domain",
+   "licence_url": null,
+   "width": 1077,
+   "height": 1245,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/ISS066-E-86253_-_View_of_China_-_West_Rongbuk_%28Rongpu%29_Glacier_-_Tongqiang_Ri_-_Hongxing_Ri_-_Hongxing_Glacier_-_Shuguang_%28cropped%29.jpg/960px-ISS066-E-86253_-_View_of_China_-_West_Rongbuk_%28Rongpu%29_Glacier_-_Tongqiang_Ri_-_Hongxing_Ri_-_Hongxing_Glacier_-_Shuguang_%28cropped%29.jpg"
+  },
+  "match": "direct",
+  "photoNote": "No Creative Commons photo exists; only public-domain ISS crew photos. Usable, but credit NASA."
+ },
+ {
+  "id": "west-ridge",
+  "name": "West Ridge",
+  "kind": "waypoint",
+  "alt_m": null,
+  "routes": [
+   "west-ridge",
+   "hornbein-couloir"
+  ],
+  "story": "The ridge running west from the summit above the Western Cwm. On 22 May 1963 Tom Hornbein and Willi Unsoeld climbed its upper part, traversed the mountain and came down the Southeast Ridge, surviving a bivouac above 28,000 ft.",
+  "coord_confidence": "approx",
+  "optional": false,
+  "col": 348.21,
+  "row": 653.83,
+  "onMap": true,
+  "photo": {
+   "file": "Everest West Ridge, Mount Everest, Himalayas.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Everest_West_Ridge,_Mount_Everest,_Himalayas.jpg",
+   "author": "Vyacheslav Argenberg",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "width": 3409,
+   "height": 2688,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Everest_West_Ridge%2C_Mount_Everest%2C_Himalayas.jpg/960px-Everest_West_Ridge%2C_Mount_Everest%2C_Himalayas.jpg"
+  },
+  "match": "direct",
+  "photoNote": "West Ridge from the Kala Patthar side, October 2009. The file description is generic, but the title and composition match."
+ },
+ {
+  "id": "hornbein-couloir",
+  "name": "Hornbein Couloir",
+  "kind": "waypoint",
+  "alt_m": null,
+  "routes": [
+   "hornbein-couloir",
+   "west-ridge"
+  ],
+  "story": "The gully on the north face that Hornbein and Unsoeld followed in 1963, crossing the Yellow Band to reach the summit ridge. It now carries Hornbein's name.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 393.08,
+  "row": 654.93,
+  "onMap": true,
+  "photo": {
+   "file": "North face marked.png",
+   "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+   "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+   "licence": "CC BY-SA 2.5",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+   "width": 720,
+   "height": 540,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png"
+  },
+  "match": "proxy",
+  "photoNote": "The couloir is marked (dark blue line) on the annotated diagram. The unannotated Galuzzi photo shows it too and is 2000x1333."
+ },
+ {
+  "id": "southwest-face",
+  "name": "Southwest Face",
+  "kind": "waypoint",
+  "alt_m": null,
+  "routes": [
+   "southwest-face"
+  ],
+  "story": "The steep face rising from the Western Cwm to the South Summit, cut by a 300 m Rock Band. Doug Scott and Dougal Haston made its first ascent on 24 September 1975; Mick Burke went for the summit alone two days later and was never seen again.",
+  "coord_confidence": "approx",
+  "optional": false,
+  "col": 367.49,
+  "row": 684.9,
+  "onMap": true,
+  "photo": {
+   "file": "Mount Everest Southwest Face, November 2012.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Mount_Everest_Southwest_Face,_November_2012.jpg",
+   "author": "Rdevany",
+   "licence": "CC BY-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "width": 1232,
+   "height": 1723,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Mount_Everest_Southwest_Face%2C_November_2012.jpg/960px-Mount_Everest_Southwest_Face%2C_November_2012.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Taken from Gokyo Ri at 5300 m. Portrait orientation."
+ },
+ {
+  "id": "kangshung-face",
+  "name": "Kangshung Face",
+  "kind": "waypoint",
+  "alt_m": null,
+  "routes": [
+   "kangshung-face"
+  ],
+  "story": "Everest's broad east face above the Kangshung Glacier, the last of its faces to be climbed. An American team climbed a 1200 m buttress and an overhanging headwall, and Carlos Buhler, Kim Momb and Louis Reichardt reached the summit on 8 October 1983.",
+  "coord_confidence": "approx",
+  "optional": false,
+  "col": 505.16,
+  "row": 681.28,
+  "onMap": true,
+  "photo": {
+   "file": "ISS066-E-86246 - View of Earth - Mount Everest Kangshung (East) Face - Kangshung Glacier - Lhotse - Shartse - Makalu - Ganma Zangbo (river Karma Chu) - Lhamalangcho Glacier - Karda Co - Ragarsanba Glacier (cropped).jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:ISS066-E-86246_-_View_of_Earth_-_Mount_Everest_Kangshung_(East)_Face_-_Kangshung_Glacier_-_Lhotse_-_Shartse_-_Makalu_-_Ganma_Zangbo_(river_Karma_Chu)_-_Lhamalangcho_Glacier_-_Karda_Co_-_Ragarsanba_Glacier_(cropped).jpg",
+   "author": "NASA Johnson Space Center, Earth Science and Remote Sensing Unit (ISS crew photo)",
+   "licence": "Public domain",
+   "licence_url": null,
+   "width": 3178,
+   "height": 2624,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/ISS066-E-86246_-_View_of_Earth_-_Mount_Everest_Kangshung_%28East%29_Face_-_Kangshung_Glacier_-_Lhotse_-_Shartse_-_Makalu_-_Ganma_Zangbo_%28river_Karma_Chu%29_-_Lhamalangcho_Glacier_-_Karda_Co_-_Ragarsanba_Glacier_%28cropped%29.jpg/960px-ISS066-E-86246_-_View_of_Earth_-_Mount_Everest_Kangshung_%28East%29_Face_-_Kangshung_Glacier_-_Lhotse_-_Shartse_-_Makalu_-_Ganma_Zangbo_%28river_Karma_Chu%29_-_Lhamalangcho_Glacier_-_Karda_Co_-_Ragarsanba_Glacier_%28cropped%29.jpg"
+  },
+  "match": "direct",
+  "photoNote": "No Creative Commons ground photo exists. The primary is a public-domain ISS oblique. The CC BY 4.0 alternate is a Tony Foster watercolour, not a photo."
+ },
+ {
+  "id": "kangshung-glacier",
+  "name": "Kangshung Glacier",
+  "kind": "glacier",
+  "alt_m": null,
+  "routes": [
+   "kangshung-face"
+  ],
+  "story": "The glacier under Everest's east face, reached from the Kama valley in Tibet. The 1983 American Kangshung expedition put its base camp on it at about 17,000 ft.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 763.81,
+  "row": 654.6,
+  "onMap": false,
+  "photo": {
+   "file": "Kangshung-07.png",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Kangshung-07.png",
+   "author": "NASA; route lines by Kassander der Minoer",
+   "licence": "CC BY-SA 3.0",
+   "licence_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "width": 756,
+   "height": 1008,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Kangshung-07.png"
+  },
+  "match": "direct",
+  "photoNote": "NASA image with route lines added. It was relicensed from GFDL to CC BY-SA 3.0. Only 756x1008."
+ },
+ {
+  "id": "lhotse",
+  "name": "Lhotse",
+  "kind": "peak",
+  "alt_m": 8516,
+  "routes": [],
+  "story": "The world's fourth-highest mountain, joined to Everest by the South Col. Swiss climbers Ernst Reiss and Fritz Luchsinger made the first ascent on 18 May 1956 by a steep couloir on the northwest face.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 431.36,
+  "row": 766.21,
+  "onMap": true,
+  "photo": {
+   "file": "Sunset Over Mount Lhotse, Nepal.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Sunset_Over_Mount_Lhotse,_Nepal.jpg",
+   "author": "Rohit Sharma",
+   "licence": "CC BY-SA 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "width": 4000,
+   "height": 2847,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Sunset_Over_Mount_Lhotse%2C_Nepal.jpg/960px-Sunset_Over_Mount_Lhotse%2C_Nepal.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Golden-hour Lhotse, a good fit for the alpenglow mood. The alternate shows the south face from Chukhung Ri."
+ },
+ {
+  "id": "nuptse",
+  "name": "Nuptse",
+  "kind": "peak",
+  "alt_m": 7861,
+  "routes": [],
+  "story": "The long ridge that walls the Western Cwm on the south and looms over Everest Base Camp. Dennis Davis and Tashi Sherpa of a British expedition led by Joe Walmsley reached its main summit in May 1961.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 282.08,
+  "row": 746.24,
+  "onMap": true,
+  "photo": {
+   "file": "Nuptse, Nepal, Himalayas.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Nuptse,_Nepal,_Himalayas.jpg",
+   "author": "Vyacheslav Argenberg",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "width": 4032,
+   "height": 2688,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Nuptse%2C_Nepal%2C_Himalayas.jpg/960px-Nuptse%2C_Nepal%2C_Himalayas.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Nuptse west face ice walls, October 2009."
+ },
+ {
+  "id": "changtse",
+  "name": "Changtse",
+  "kind": "peak",
+  "alt_m": 7543,
+  "routes": [],
+  "story": "Everest's northern neighbour, linked to it by the North Col. Udo Zehetleitner of a West German expedition made the first official ascent on 14 October 1982 by the northeast ridge.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 374.77,
+  "row": 535.99,
+  "onMap": true,
+  "photo": {
+   "file": "Changtse-from-KalaPattar.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Changtse-from-KalaPattar.jpg",
+   "author": "Uwe Gille",
+   "licence": "CC BY-SA 3.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "width": 1772,
+   "height": 1154,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Changtse-from-KalaPattar.jpg/960px-Changtse-from-KalaPattar.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Changtse seen over the Lho La from Kala Patthar."
+ },
+ {
+  "id": "makalu",
+  "name": "Makalu",
+  "kind": "peak",
+  "alt_m": 8485,
+  "routes": [],
+  "story": "The world's fifth-highest mountain, 19 km southeast of Everest. Jean Couzy and Lionel Terray of Jean Franco's French expedition made the first ascent on 15 May 1955.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 943.38,
+  "row": 1035.05,
+  "onMap": false,
+  "photo": {
+   "file": "Makalu CU.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Makalu_CU.jpg",
+   "author": "Craig Taylor",
+   "licence": "CC BY-SA 2.0",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "width": 4320,
+   "height": 3240,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Makalu_CU.jpg/960px-Makalu_CU.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Close-up showing the west pillar. The alternate is CC BY 2.0 and 1600x1063."
+ },
+ {
+  "id": "khumbu-glacier",
+  "name": "Khumbu Glacier",
+  "kind": "glacier",
+  "alt_m": null,
+  "routes": [
+   "south-col",
+   "southwest-face",
+   "west-ridge"
+  ],
+  "story": "The glacier that flows out of the Western Cwm, tumbles through the Icefall and carries Everest Base Camp on its surface. Climbers walk on it from base camp to Camp 2.",
+  "coord_confidence": "mapped",
+  "optional": false,
+  "col": 114.79,
+  "row": 737.29,
+  "onMap": true,
+  "photo": {
+   "file": "Khumbu Glacier, Everest Zone, Nepal, Asia.jpg",
+   "file_page": "https://commons.wikimedia.org/wiki/File:Khumbu_Glacier,_Everest_Zone,_Nepal,_Asia.jpg",
+   "author": "Vyacheslav Argenberg",
+   "licence": "CC BY 4.0",
+   "licence_url": "https://creativecommons.org/licenses/by/4.0",
+   "width": 3549,
+   "height": 2688,
+   "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Khumbu_Glacier%2C_Everest_Zone%2C_Nepal%2C_Asia.jpg/960px-Khumbu_Glacier%2C_Everest_Zone%2C_Nepal%2C_Asia.jpg"
+  },
+  "match": "direct",
+  "photoNote": "Lower Khumbu Glacier and the surrounding peaks."
+ }
+]

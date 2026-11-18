@@ -26,6 +26,10 @@ uniform vec3 uSunDir;
 uniform float uShadowLine;
 uniform vec3 uFogColor;
 uniform float uFogDensity;
+uniform vec4 uSpot;       // spotlight: world xyz (km) + radius (km)
+uniform float uSpotMode;  // 0 off, 1 theatre (dim rest + warm pool), 2 ring, 3 searchlight pool
+uniform float uSpotK;     // 0..1 fade
+uniform float uTime;
 varying vec2 vUv;
 varying vec2 vUvL;
 varying float vH;
@@ -143,6 +147,28 @@ void main() {
   float l5 = 1.0 - smoothstep(0.0, fwidth(c5) * 1.6, abs(fract(c5 - 0.5) - 0.5));
   col = mix(col, vec3(0.10, 0.06, 0.16), max(l1 * 0.25, l5 * 0.6));
 #endif
+
+  if (uSpotMode > 0.5 && uSpotK > 0.001) {
+    float d = length(vWorld.xz - uSpot.xz), r = uSpot.w;
+    if (uSpotMode < 1.5) {
+      float pool = exp(-(d * d) / (r * r) * 1.5);
+      col *= mix(1.0, mix(0.32, 1.25, pool), uSpotK);
+      col += vec3(1.0, 0.72, 0.42) * 0.10 * pool * uSpotK;
+    } else if (uSpotMode < 2.5) {
+      float w = fwidth(d) * 1.5 + r * 0.03;
+      float ring = 1.0 - smoothstep(0.0, w, abs(d - r));
+      float pr = mod(uTime * 0.6, 1.0);
+      float pulse = (1.0 - smoothstep(0.0, w * 2.0, abs(d - r * (1.0 + pr * 1.5)))) * (1.0 - pr);
+      float inside = 1.0 - smoothstep(r - w, r, d);
+      col = mix(col, col * 1.15 + vec3(0.03, 0.025, 0.0), inside * uSpotK);
+      col = mix(col, vec3(1.0, 0.86, 0.45), max(ring, pulse * 0.6) * uSpotK);
+    } else {
+      float edge = fwidth(d) * 2.0 + r * 0.06;
+      float pool = 1.0 - smoothstep(r - edge, r, d);
+      col = mix(col, col * 2.1 + vec3(0.06, 0.05, 0.035), pool * uSpotK);
+      col *= mix(1.0, 0.8, (1.0 - pool) * uSpotK * exp(-d / (r * 6.0)));
+    }
+  }
 
   gl_FragColor = vec4(fogged(col), 1.0);
   #include <tonemapping_fragment>

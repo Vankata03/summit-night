@@ -1,7 +1,7 @@
 {
   "name": "prototype-terrain",
   "private": true,
-  "description": "PROTOTYPE — throwaway. Terrain pipeline and alpenglow look (wayfinder ticket #7).",
+  "description": "PROTOTYPE — throwaway. Terrain look (#7) and spotlight interaction (#8).",
   "type": "module",
   "scripts": {
     "dev": "vp dev --host",

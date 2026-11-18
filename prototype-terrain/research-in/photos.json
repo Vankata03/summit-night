@@ -1,0 +1,943 @@
+{
+ "generated": "2026-11-18",
+ "issue": "https://github.com/Vankata03/summit-night/issues/6",
+ "source": "Wikimedia Commons API (imageinfo extmetadata), checked 2026-11-18",
+ "spot_source": "research/spots.json on branch research/spots",
+ "summary": {
+  "spots": 34,
+  "match_counts": {
+   "direct": 22,
+   "none": 2,
+   "proxy": 10
+  },
+  "licence_counts_by_spot": {
+   "CC BY-SA 4.0": 9,
+   "CC BY 2.0": 2,
+   "CC0": 1,
+   "CC BY-SA 3.0": 5,
+   "CC BY-SA 2.5": 8,
+   "CC BY-SA 3.0 us": 1,
+   "Public domain": 2,
+   "CC BY 4.0": 3,
+   "CC BY-SA 2.0": 1
+  },
+  "licence_counts_unique_files": {
+   "CC BY 4.0": 3,
+   "CC BY-SA 2.5": 2,
+   "Public domain": 2,
+   "CC BY 2.0": 2,
+   "CC BY-SA 4.0": 9,
+   "CC BY-SA 3.0": 4,
+   "CC BY-SA 2.0": 1,
+   "CC0": 1,
+   "CC BY-SA 3.0 us": 1
+  }
+ },
+ "spots": [
+  {
+   "spot_id": "everest-base-camp-south",
+   "name": "Everest Base Camp (South)",
+   "kind": "waypoint",
+   "match": "direct",
+   "photo": {
+    "file": "Everest Base Camp sits on top of melting glacier.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Everest_Base_Camp_sits_on_top_of_melting_glacier.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Everest_Base_Camp_sits_on_top_of_melting_glacier.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Everest_Base_Camp_sits_on_top_of_melting_glacier.jpg/1920px-Everest_Base_Camp_sits_on_top_of_melting_glacier.jpg",
+    "author": "Nirojsedhai",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "width": 5665,
+    "height": 3783,
+    "date": "2024-04-29"
+   },
+   "alternates": [
+    {
+     "file": "Everest Base Camp on a Stormy Day.jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Everest_Base_Camp_on_a_Stormy_Day.jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/00/Everest_Base_Camp_on_a_Stormy_Day.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Everest_Base_Camp_on_a_Stormy_Day.jpg/1920px-Everest_Base_Camp_on_a_Stormy_Day.jpg",
+     "author": "Daniel Oberhaus",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "width": 4608,
+     "height": 3072,
+     "date": "2016-05-11 23:03:20"
+    }
+   ],
+   "notes": "Tents on the Khumbu Glacier, April 2024; matches the melting-glacier story."
+  },
+  {
+   "spot_id": "khumbu-icefall",
+   "name": "Khumbu Icefall",
+   "kind": "waypoint",
+   "match": "direct",
+   "photo": {
+    "file": "Climbers crossing ladders in the Khumbu Icefall.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Climbers_crossing_ladders_in_the_Khumbu_Icefall.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/37/Climbers_crossing_ladders_in_the_Khumbu_Icefall.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/Climbers_crossing_ladders_in_the_Khumbu_Icefall.jpg/1920px-Climbers_crossing_ladders_in_the_Khumbu_Icefall.jpg",
+    "author": "AngeliSherpa",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "width": 4608,
+    "height": 3072,
+    "date": "2026-05-16 05:06:49"
+   },
+   "alternates": [
+    {
+     "file": "Nepal - Sagamartha Trek - 186 - Khumbu Icefall (plus climbers) (497684556).jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Nepal_-_Sagamartha_Trek_-_186_-_Khumbu_Icefall_(plus_climbers)_(497684556).jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Nepal_-_Sagamartha_Trek_-_186_-_Khumbu_Icefall_%28plus_climbers%29_%28497684556%29.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Nepal_-_Sagamartha_Trek_-_186_-_Khumbu_Icefall_%28plus_climbers%29_%28497684556%29.jpg/1920px-Nepal_-_Sagamartha_Trek_-_186_-_Khumbu_Icefall_%28plus_climbers%29_%28497684556%29.jpg",
+     "author": "McKay Savage from London, UK",
+     "licence": "CC BY 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by/2.0",
+     "width": 2592,
+     "height": 1944,
+     "date": "2007-04-25 10:20"
+    }
+   ],
+   "notes": "Ladder crossing with a queue of climbers, May 2026. The alternate is a wider view from base camp under CC BY 2.0."
+  },
+  {
+   "spot_id": "camp-1-south",
+   "name": "Camp 1",
+   "kind": "waypoint",
+   "match": "none",
+   "photo": null,
+   "alternates": [],
+   "notes": "No Commons photo of Camp 1 itself. Fallback: reuse the Western Cwm photo, which was taken at about 6300 m between Camp 1 and Camp 2."
+  },
+  {
+   "spot_id": "camp-2-south",
+   "name": "Camp 2",
+   "kind": "waypoint",
+   "match": "proxy",
+   "photo": {
+    "file": "Lenticular over everest summit.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Lenticular_over_everest_summit.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Lenticular_over_everest_summit.jpg",
+    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Lenticular_over_everest_summit.jpg",
+    "author": "Moving Mountains Trust (Flickr)",
+    "licence": "CC BY 2.0",
+    "licence_url": "https://creativecommons.org/licenses/by/2.0",
+    "width": 800,
+    "height": 600,
+    "date": "2011-04-30 03:16:25"
+   },
+   "alternates": [],
+   "notes": "Everest and Lhotse seen from the Western Cwm (the Camp 2 view), not the camp itself. Only 800x600."
+  },
+  {
+   "spot_id": "camp-3-south",
+   "name": "Camp 3 (Lhotse Face)",
+   "kind": "waypoint",
+   "match": "direct",
+   "photo": {
+    "file": "Mount Everest Camp 3.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Mount_Everest_Camp_3.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Mount_Everest_Camp_3.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/26/Mount_Everest_Camp_3.jpg/1920px-Mount_Everest_Camp_3.jpg",
+    "author": "AngeliSherpa",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "width": 4608,
+    "height": 3072,
+    "date": "2026-05-17 10:32:27"
+   },
+   "alternates": [
+    {
+     "file": "Climbers above 7300m.jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Climbers_above_7300m.jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/db/Climbers_above_7300m.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/db/Climbers_above_7300m.jpg/1920px-Climbers_above_7300m.jpg",
+     "author": "AngeliSherpa",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "width": 4608,
+     "height": 3072,
+     "date": "2026-05-19 09:07:12"
+    }
+   ],
+   "notes": "Tents on the Lhotse Face; the description gives 7400 m."
+  },
+  {
+   "spot_id": "south-col",
+   "name": "South Col (Camp 4)",
+   "kind": "waypoint",
+   "match": "direct",
+   "photo": {
+    "file": "South Cole.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:South_Cole.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a3/South_Cole.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a3/South_Cole.jpg/1920px-South_Cole.jpg",
+    "author": "AngeliSherpa",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "width": 4608,
+    "height": 3072,
+    "date": "2026-05-20 07:55:22"
+   },
+   "alternates": [
+    {
+     "file": "Cloud inversion viewed from Everest Camp IV (South Col), Mount Everest.jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Cloud_inversion_viewed_from_Everest_Camp_IV_(South_Col),_Mount_Everest.jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/81/Cloud_inversion_viewed_from_Everest_Camp_IV_%28South_Col%29%2C_Mount_Everest.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Cloud_inversion_viewed_from_Everest_Camp_IV_%28South_Col%29%2C_Mount_Everest.jpg/1920px-Cloud_inversion_viewed_from_Everest_Camp_IV_%28South_Col%29%2C_Mount_Everest.jpg",
+     "author": "AngeliSherpa",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "width": 4608,
+     "height": 3072,
+     "date": "2026-05-19 18:41:30"
+    }
+   ],
+   "notes": "Camp IV tents. The alternate is a sunset cloud inversion seen from Camp IV, a good fit for the alpenglow mood."
+  },
+  {
+   "spot_id": "balcony",
+   "name": "The Balcony",
+   "kind": "waypoint",
+   "match": "proxy",
+   "photo": {
+    "file": "Mt Lhotse and Mt. Everest South Cole.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Mt_Lhotse_and_Mt._Everest_South_Cole.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/53/Mt_Lhotse_and_Mt._Everest_South_Cole.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Mt_Lhotse_and_Mt._Everest_South_Cole.jpg/1920px-Mt_Lhotse_and_Mt._Everest_South_Cole.jpg",
+    "author": "AngeliSherpa",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "width": 4608,
+    "height": 3072,
+    "date": "2026-05-20 10:57:04"
+   },
+   "alternates": [
+    {
+     "file": "Mt. Lhotse and Mt. Everest Camp 4.jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Mt._Lhotse_and_Mt._Everest_Camp_4.jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/25/Mt._Lhotse_and_Mt._Everest_Camp_4.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/25/Mt._Lhotse_and_Mt._Everest_Camp_4.jpg/1920px-Mt._Lhotse_and_Mt._Everest_Camp_4.jpg",
+     "author": "AngeliSherpa",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "width": 4608,
+     "height": 3072,
+     "date": "2026-05-20 10:57:04"
+    }
+   ],
+   "notes": "View down the Southeast Ridge to the South Col and Lhotse from above 8500 m, the outlook climbers get near the Balcony. The alternate is a second upload with the same timestamp."
+  },
+  {
+   "spot_id": "south-summit",
+   "name": "South Summit",
+   "kind": "waypoint",
+   "match": "direct",
+   "photo": {
+    "file": "Mount Everest a close view with south summit and yellow band.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Mount_Everest_a_close_view_with_south_summit_and_yellow_band.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Mount_Everest_a_close_view_with_south_summit_and_yellow_band.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Mount_Everest_a_close_view_with_south_summit_and_yellow_band.jpg/1920px-Mount_Everest_a_close_view_with_south_summit_and_yellow_band.jpg",
+    "author": "Goutam1962",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "width": 3648,
+    "height": 2736,
+    "date": "2006-01-01 01:51:43"
+   },
+   "alternates": [],
+   "notes": "Telephoto of the summit pyramid showing the South Summit and the Yellow Band, taken from the trek side."
+  },
+  {
+   "spot_id": "hillary-step",
+   "name": "Hillary Step",
+   "kind": "waypoint",
+   "match": "direct",
+   "photo": {
+    "file": "Hillary Step near Everest top.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Hillary_Step_near_Everest_top.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Hillary_Step_near_Everest_top.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Hillary_Step_near_Everest_top.jpg/1920px-Hillary_Step_near_Everest_top.jpg",
+    "author": "Debasish biswas kolkata",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "width": 2816,
+    "height": 1776,
+    "date": "2010-05-17 05:27:26"
+   },
+   "alternates": [
+    {
+     "file": "Hillary Step near Everest top (retouched).jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Hillary_Step_near_Everest_top_(retouched).jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Hillary_Step_near_Everest_top_%28retouched%29.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/Hillary_Step_near_Everest_top_%28retouched%29.jpg/1920px-Hillary_Step_near_Everest_top_%28retouched%29.jpg",
+     "author": "Debasish biswas kolkata Derivative work MagentaGreen",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "width": 2816,
+     "height": 2112,
+     "date": "2010-05-17 05:27:26"
+    }
+   ],
+   "notes": "Taken 17 May 2010, before the rock step changed (reported 2016-2017). Say so on the card. The retouched alternate credits Debasish biswas kolkata plus MagentaGreen."
+  },
+  {
+   "spot_id": "everest-summit",
+   "name": "Mount Everest summit",
+   "kind": "waypoint",
+   "match": "direct",
+   "photo": {
+    "file": "Everest Summit.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Everest_Summit.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Everest_Summit.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ac/Everest_Summit.jpg/1920px-Everest_Summit.jpg",
+    "author": "Alfonso.mnr",
+    "licence": "CC0",
+    "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "width": 4096,
+    "height": 3072,
+    "date": "2017-05-16 10:23:24"
+   },
+   "alternates": [
+    {
+     "file": "Kami Rita Sherpa Mt Everest Summit May 2010.jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Kami_Rita_Sherpa_Mt_Everest_Summit_May_2010.jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Kami_Rita_Sherpa_Mt_Everest_Summit_May_2010.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/Kami_Rita_Sherpa_Mt_Everest_Summit_May_2010.jpg/1920px-Kami_Rita_Sherpa_Mt_Everest_Summit_May_2010.jpg",
+     "author": "Vlvescovo",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "width": 3234,
+     "height": 2387,
+     "date": "2010-05-24"
+    }
+   ],
+   "notes": "Climber Viridiana Alvarez on the summit, 16 May 2017. CC0, so no credit is required, but credit the uploader anyway."
+  },
+  {
+   "spot_id": "western-cwm",
+   "name": "Western Cwm",
+   "kind": "glacier",
+   "match": "direct",
+   "photo": {
+    "file": "Mount Everest and Mount Lhotse.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Mount_Everest_and_Mount_Lhotse.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Mount_Everest_and_Mount_Lhotse.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/Mount_Everest_and_Mount_Lhotse.jpg/1920px-Mount_Everest_and_Mount_Lhotse.jpg",
+    "author": "AngeliSherpa",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "width": 4608,
+    "height": 3072,
+    "date": "2026-05-16 14:12:05"
+   },
+   "alternates": [
+    {
+     "file": "ISS022-E-37302 - View of Earth - Mount Everest - Lhotse - Nuptse - Western Cwm - Everest West Shoulder (cropped).jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:ISS022-E-37302_-_View_of_Earth_-_Mount_Everest_-_Lhotse_-_Nuptse_-_Western_Cwm_-_Everest_West_Shoulder_(cropped).jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/37/ISS022-E-37302_-_View_of_Earth_-_Mount_Everest_-_Lhotse_-_Nuptse_-_Western_Cwm_-_Everest_West_Shoulder_%28cropped%29.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/37/ISS022-E-37302_-_View_of_Earth_-_Mount_Everest_-_Lhotse_-_Nuptse_-_Western_Cwm_-_Everest_West_Shoulder_%28cropped%29.jpg/1920px-ISS022-E-37302_-_View_of_Earth_-_Mount_Everest_-_Lhotse_-_Nuptse_-_Western_Cwm_-_Everest_West_Shoulder_%28cropped%29.jpg",
+     "author": "NASA Johnson Space Center, Earth Science and Remote Sensing Unit (ISS crew photo)",
+     "licence": "Public domain",
+     "licence_url": null,
+     "width": 3983,
+     "height": 2813,
+     "date": "2010-01-21 05:38:26"
+    }
+   ],
+   "notes": "Climbers in the Cwm at about 6300 m below Everest and Lhotse. The alternate is a public-domain ISS view from above."
+  },
+  {
+   "spot_id": "everest-base-camp-north",
+   "name": "Everest Base Camp (North)",
+   "kind": "waypoint",
+   "match": "direct",
+   "photo": {
+    "file": "Mount Everest Base Camp (7318553136).jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Mount_Everest_Base_Camp_(7318553136).jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Mount_Everest_Base_Camp_%287318553136%29.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Mount_Everest_Base_Camp_%287318553136%29.jpg/1920px-Mount_Everest_Base_Camp_%287318553136%29.jpg",
+    "author": "Gunther Hagleitner",
+    "licence": "CC BY 2.0",
+    "licence_url": "https://creativecommons.org/licenses/by/2.0",
+    "width": 3872,
+    "height": 2592,
+    "date": "2012-05-23 01:12"
+   },
+   "alternates": [
+    {
+     "file": "Everest Base Camp, Xigaze, China (Unsplash).jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Everest_Base_Camp,_Xigaze,_China_(Unsplash).jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Everest_Base_Camp%2C_Xigaze%2C_China_%28Unsplash%29.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3a/Everest_Base_Camp%2C_Xigaze%2C_China_%28Unsplash%29.jpg/1920px-Everest_Base_Camp%2C_Xigaze%2C_China_%28Unsplash%29.jpg",
+     "author": "Yuriy Rzhemovskiy yuriyr",
+     "licence": "CC0",
+     "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+     "width": 5461,
+     "height": 3641,
+     "date": "2017-02-02"
+    }
+   ],
+   "notes": "Tibet-side base camp, May 2012. The alternate is CC0 (via Unsplash)."
+  },
+  {
+   "spot_id": "intermediate-camp",
+   "name": "Intermediate Camp",
+   "kind": "waypoint",
+   "match": "none",
+   "photo": null,
+   "alternates": [],
+   "notes": "No Commons photo found. Fallback: reuse the East Rongbuk Glacier photo, since the camp sits on that glacier route."
+  },
+  {
+   "spot_id": "advanced-base-camp-north",
+   "name": "Advanced Base Camp",
+   "kind": "waypoint",
+   "match": "proxy",
+   "photo": {
+    "file": "Everest North Col.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Everest_North_Col.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Everest_North_Col.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Everest_North_Col.jpg/1920px-Everest_North_Col.jpg",
+    "author": "Chris Searl (Csearl at English Wikipedia)",
+    "licence": "CC BY-SA 3.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "width": 2048,
+    "height": 1536,
+    "date": "17 October 2009 (original upload date)"
+   },
+   "alternates": [],
+   "notes": "Taken at Advanced Base Camp in April 2005, looking at the North Col. It shows the view from ABC rather than the camp. It is the same file as the North Col spot."
+  },
+  {
+   "spot_id": "north-col",
+   "name": "North Col (Camp 1)",
+   "kind": "waypoint",
+   "match": "direct",
+   "photo": {
+    "file": "Everest North Col.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Everest_North_Col.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Everest_North_Col.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/Everest_North_Col.jpg/1920px-Everest_North_Col.jpg",
+    "author": "Chris Searl (Csearl at English Wikipedia)",
+    "licence": "CC BY-SA 3.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "width": 2048,
+    "height": 1536,
+    "date": "17 October 2009 (original upload date)"
+   },
+   "alternates": [
+    {
+     "file": "Everest Peace Project - Climbing ladder northcol everest.jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Everest_Peace_Project_-_Climbing_ladder_northcol_everest.jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Everest_Peace_Project_-_Climbing_ladder_northcol_everest.jpg",
+     "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/9/99/Everest_Peace_Project_-_Climbing_ladder_northcol_everest.jpg",
+     "author": "Lance Trumbull, EverestPeaceProject.org",
+     "licence": "CC BY-SA 3.0 us",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/us/deed.en",
+     "width": 427,
+     "height": 600,
+     "date": "2006-05"
+    }
+   ],
+   "notes": "North Col wall seen from ABC. The alternate shows climbers on the North Col ladder but is only 427x600."
+  },
+  {
+   "spot_id": "camp-2-north",
+   "name": "Camp 2 (North Ridge)",
+   "kind": "waypoint",
+   "match": "proxy",
+   "photo": {
+    "file": "North face marked.png",
+    "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+    "licence": "CC BY-SA 2.5",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+    "width": 720,
+    "height": 540,
+    "date": "10 November 2008 (original upload date) (Original text: 10.11.2008)"
+   },
+   "alternates": [],
+   "notes": "Annotated north-face diagram. The green line marks the standard route with high camps at about 7700 m and 8300 m (triangles)."
+  },
+  {
+   "spot_id": "camp-3-north",
+   "name": "Camp 3 (North Ridge)",
+   "kind": "waypoint",
+   "match": "proxy",
+   "photo": {
+    "file": "North face marked.png",
+    "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+    "licence": "CC BY-SA 2.5",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+    "width": 720,
+    "height": 540,
+    "date": "10 November 2008 (original upload date) (Original text: 10.11.2008)"
+   },
+   "alternates": [],
+   "notes": "Same annotated diagram; the 8300 m camp is marked."
+  },
+  {
+   "spot_id": "first-step",
+   "name": "First Step",
+   "kind": "waypoint",
+   "match": "proxy",
+   "photo": {
+    "file": "North face marked.png",
+    "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+    "licence": "CC BY-SA 2.5",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+    "width": 720,
+    "height": 540,
+    "date": "10 November 2008 (original upload date) (Original text: 10.11.2008)"
+   },
+   "alternates": [],
+   "notes": "Same annotated diagram; the First Step is marked (dagger 2)."
+  },
+  {
+   "spot_id": "second-step",
+   "name": "Second Step",
+   "kind": "waypoint",
+   "match": "proxy",
+   "photo": {
+    "file": "North face marked.png",
+    "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+    "licence": "CC BY-SA 2.5",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+    "width": 720,
+    "height": 540,
+    "date": "10 November 2008 (original upload date) (Original text: 10.11.2008)"
+   },
+   "alternates": [],
+   "notes": "Same annotated diagram; no Commons photo of the Second Step or its ladder exists."
+  },
+  {
+   "spot_id": "third-step",
+   "name": "Third Step",
+   "kind": "waypoint",
+   "match": "proxy",
+   "photo": {
+    "file": "North face marked.png",
+    "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+    "licence": "CC BY-SA 2.5",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+    "width": 720,
+    "height": 540,
+    "date": "10 November 2008 (original upload date) (Original text: 10.11.2008)"
+   },
+   "alternates": [],
+   "notes": "Same annotated diagram. The Third Step is not labelled; it lies on the green line above the Second Step."
+  },
+  {
+   "spot_id": "mallory-1999",
+   "name": "Mallory's resting place",
+   "kind": "waypoint",
+   "match": "proxy",
+   "photo": {
+    "file": "North face marked.png",
+    "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+    "licence": "CC BY-SA 2.5",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+    "width": 720,
+    "height": 540,
+    "date": "10 November 2008 (original upload date) (Original text: 10.11.2008)"
+   },
+   "alternates": [],
+   "notes": "Same annotated diagram; Mallory's 1999 find is marked (dagger 1). Do not use a photo of the body."
+  },
+  {
+   "spot_id": "rongbuk-glacier",
+   "name": "Rongbuk Glacier",
+   "kind": "glacier",
+   "match": "direct",
+   "photo": {
+    "file": "Everest North Face toward Base Camp Tibet Luca Galuzzi 2006.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg/1920px-Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
+    "author": "Luca Galuzzi (Lucag)",
+    "licence": "CC BY-SA 2.5",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+    "width": 2000,
+    "height": 1333,
+    "date": "2006-08-18"
+   },
+   "alternates": [
+    {
+     "file": "Mount Everest from Rongbuk may 2005.JPG",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Mount_Everest_from_Rongbuk_may_2005.JPG",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/8/85/Mount_Everest_from_Rongbuk_may_2005.JPG",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Mount_Everest_from_Rongbuk_may_2005.JPG/1920px-Mount_Everest_from_Rongbuk_may_2005.JPG",
+     "author": "Ocrambo (assumed by Commons; no machine-readable author)",
+     "licence": "Public domain",
+     "licence_url": null,
+     "width": 3008,
+     "height": 2000,
+     "date": "9 November 2005 (original upload date)"
+    }
+   ],
+   "notes": "North face above the Rongbuk valley at 5160 m. The public-domain alternate shows the glacier terminus but its author is unknown."
+  },
+  {
+   "spot_id": "east-rongbuk-glacier",
+   "name": "East Rongbuk Glacier",
+   "kind": "glacier",
+   "match": "direct",
+   "photo": {
+    "file": "Everest Peace Project - Ice serac everest tibet2.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Everest_Peace_Project_-_Ice_serac_everest_tibet2.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Everest_Peace_Project_-_Ice_serac_everest_tibet2.jpg",
+    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Everest_Peace_Project_-_Ice_serac_everest_tibet2.jpg",
+    "author": "Lance Trumbull, EverestPeaceProject.org",
+    "licence": "CC BY-SA 3.0 us",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/3.0/us/deed.en",
+    "width": 600,
+    "height": 331,
+    "date": "2006-05"
+   },
+   "alternates": [
+    {
+     "file": "ISS022-E-37306 - View of China - Everest Northeast Ridge - East Rongbuk Glacier - Lhakpa Ri - Kangshung Glacier (cropped).jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:ISS022-E-37306_-_View_of_China_-_Everest_Northeast_Ridge_-_East_Rongbuk_Glacier_-_Lhakpa_Ri_-_Kangshung_Glacier_(cropped).jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/fd/ISS022-E-37306_-_View_of_China_-_Everest_Northeast_Ridge_-_East_Rongbuk_Glacier_-_Lhakpa_Ri_-_Kangshung_Glacier_%28cropped%29.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fd/ISS022-E-37306_-_View_of_China_-_Everest_Northeast_Ridge_-_East_Rongbuk_Glacier_-_Lhakpa_Ri_-_Kangshung_Glacier_%28cropped%29.jpg/1920px-ISS022-E-37306_-_View_of_China_-_Everest_Northeast_Ridge_-_East_Rongbuk_Glacier_-_Lhakpa_Ri_-_Kangshung_Glacier_%28cropped%29.jpg",
+     "author": "NASA Johnson Space Center, Earth Science and Remote Sensing Unit (ISS crew photo)",
+     "licence": "Public domain",
+     "licence_url": null,
+     "width": 2402,
+     "height": 2641,
+     "date": "2010-01-21 05:38:32"
+    }
+   ],
+   "notes": "Ice seracs on the Tibet approach, but only 600x331 and the description does not name the glacier. The public-domain ISS alternate (2402x2641) is the better card image."
+  },
+  {
+   "spot_id": "west-rongbuk-glacier",
+   "name": "West Rongbuk Glacier",
+   "kind": "glacier",
+   "match": "direct",
+   "photo": {
+    "file": "ISS066-E-86253 - View of China - West Rongbuk (Rongpu) Glacier - Tongqiang Ri - Hongxing Ri - Hongxing Glacier - Shuguang (cropped).jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:ISS066-E-86253_-_View_of_China_-_West_Rongbuk_(Rongpu)_Glacier_-_Tongqiang_Ri_-_Hongxing_Ri_-_Hongxing_Glacier_-_Shuguang_(cropped).jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/da/ISS066-E-86253_-_View_of_China_-_West_Rongbuk_%28Rongpu%29_Glacier_-_Tongqiang_Ri_-_Hongxing_Ri_-_Hongxing_Glacier_-_Shuguang_%28cropped%29.jpg",
+    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/d/da/ISS066-E-86253_-_View_of_China_-_West_Rongbuk_%28Rongpu%29_Glacier_-_Tongqiang_Ri_-_Hongxing_Ri_-_Hongxing_Glacier_-_Shuguang_%28cropped%29.jpg",
+    "author": "NASA Johnson Space Center, Earth Science and Remote Sensing Unit (ISS crew photo)",
+    "licence": "Public domain",
+    "licence_url": null,
+    "width": 1077,
+    "height": 1245,
+    "date": "2021-12-04 05:55:04"
+   },
+   "alternates": [],
+   "notes": "No Creative Commons photo exists; only public-domain ISS crew photos. Usable, but credit NASA."
+  },
+  {
+   "spot_id": "west-ridge",
+   "name": "West Ridge",
+   "kind": "waypoint",
+   "match": "direct",
+   "photo": {
+    "file": "Everest West Ridge, Mount Everest, Himalayas.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Everest_West_Ridge,_Mount_Everest,_Himalayas.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/33/Everest_West_Ridge%2C_Mount_Everest%2C_Himalayas.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/33/Everest_West_Ridge%2C_Mount_Everest%2C_Himalayas.jpg/1920px-Everest_West_Ridge%2C_Mount_Everest%2C_Himalayas.jpg",
+    "author": "Vyacheslav Argenberg",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0",
+    "width": 3409,
+    "height": 2688,
+    "date": "2009-10-19 15:27:55"
+   },
+   "alternates": [],
+   "notes": "West Ridge from the Kala Patthar side, October 2009. The file description is generic, but the title and composition match."
+  },
+  {
+   "spot_id": "hornbein-couloir",
+   "name": "Hornbein Couloir",
+   "kind": "waypoint",
+   "match": "proxy",
+   "photo": {
+    "file": "North face marked.png",
+    "file_page": "https://commons.wikimedia.org/wiki/File:North_face_marked.png",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/North_face_marked.png",
+    "author": "Luca Galuzzi; route labels by Kassander der Minoer",
+    "licence": "CC BY-SA 2.5",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+    "width": 720,
+    "height": 540,
+    "date": "10 November 2008 (original upload date) (Original text: 10.11.2008)"
+   },
+   "alternates": [
+    {
+     "file": "Everest North Face toward Base Camp Tibet Luca Galuzzi 2006.jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e7/Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg/1920px-Everest_North_Face_toward_Base_Camp_Tibet_Luca_Galuzzi_2006.jpg",
+     "author": "Luca Galuzzi (Lucag)",
+     "licence": "CC BY-SA 2.5",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+     "width": 2000,
+     "height": 1333,
+     "date": "2006-08-18"
+    }
+   ],
+   "notes": "The couloir is marked (dark blue line) on the annotated diagram. The unannotated Galuzzi photo shows it too and is 2000x1333."
+  },
+  {
+   "spot_id": "southwest-face",
+   "name": "Southwest Face",
+   "kind": "waypoint",
+   "match": "direct",
+   "photo": {
+    "file": "Mount Everest Southwest Face, November 2012.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Mount_Everest_Southwest_Face,_November_2012.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Mount_Everest_Southwest_Face%2C_November_2012.jpg",
+    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Mount_Everest_Southwest_Face%2C_November_2012.jpg",
+    "author": "Rdevany",
+    "licence": "CC BY-SA 3.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "width": 1232,
+    "height": 1723,
+    "date": "2012-11-05"
+   },
+   "alternates": [
+    {
+     "file": "Mount Everest, upper Southwest face.jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Mount_Everest,_upper_Southwest_face.jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Mount_Everest%2C_upper_Southwest_face.jpg",
+     "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Mount_Everest%2C_upper_Southwest_face.jpg",
+     "author": "Pavel Novak",
+     "licence": "CC BY-SA 2.5",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/2.5",
+     "width": 737,
+     "height": 847,
+     "date": null
+    }
+   ],
+   "notes": "Taken from Gokyo Ri at 5300 m. Portrait orientation."
+  },
+  {
+   "spot_id": "kangshung-face",
+   "name": "Kangshung Face",
+   "kind": "waypoint",
+   "match": "direct",
+   "photo": {
+    "file": "ISS066-E-86246 - View of Earth - Mount Everest Kangshung (East) Face - Kangshung Glacier - Lhotse - Shartse - Makalu - Ganma Zangbo (river Karma Chu) - Lhamalangcho Glacier - Karda Co - Ragarsanba Glacier (cropped).jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:ISS066-E-86246_-_View_of_Earth_-_Mount_Everest_Kangshung_(East)_Face_-_Kangshung_Glacier_-_Lhotse_-_Shartse_-_Makalu_-_Ganma_Zangbo_(river_Karma_Chu)_-_Lhamalangcho_Glacier_-_Karda_Co_-_Ragarsanba_Glacier_(cropped).jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/ISS066-E-86246_-_View_of_Earth_-_Mount_Everest_Kangshung_%28East%29_Face_-_Kangshung_Glacier_-_Lhotse_-_Shartse_-_Makalu_-_Ganma_Zangbo_%28river_Karma_Chu%29_-_Lhamalangcho_Glacier_-_Karda_Co_-_Ragarsanba_Glacier_%28cropped%29.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/ISS066-E-86246_-_View_of_Earth_-_Mount_Everest_Kangshung_%28East%29_Face_-_Kangshung_Glacier_-_Lhotse_-_Shartse_-_Makalu_-_Ganma_Zangbo_%28river_Karma_Chu%29_-_Lhamalangcho_Glacier_-_Karda_Co_-_Ragarsanba_Glacier_%28cropped%29.jpg/1920px-thumbnail.jpg",
+    "author": "NASA Johnson Space Center, Earth Science and Remote Sensing Unit (ISS crew photo)",
+    "licence": "Public domain",
+    "licence_url": null,
+    "width": 3178,
+    "height": 2624,
+    "date": "2021-12-04 05:55:01"
+   },
+   "alternates": [
+    {
+     "file": "The East (Kangshung) Face of Everest from above the Kama Valley · 15400' 4670m · 2007.jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:The_East_(Kangshung)_Face_of_Everest_from_above_the_Kama_Valley_%C2%B7_15400%27_4670m_%C2%B7_2007.jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/0/06/The_East_%28Kangshung%29_Face_of_Everest_from_above_the_Kama_Valley_%C2%B7_15400%27_4670m_%C2%B7_2007.jpg",
+     "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/0/06/The_East_%28Kangshung%29_Face_of_Everest_from_above_the_Kama_Valley_%C2%B7_15400%27_4670m_%C2%B7_2007.jpg",
+     "author": "Tony Foster",
+     "licence": "CC BY 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by/4.0",
+     "width": 800,
+     "height": 753,
+     "date": "2007"
+    }
+   ],
+   "notes": "No Creative Commons ground photo exists. The primary is a public-domain ISS oblique. The CC BY 4.0 alternate is a Tony Foster watercolour, not a photo."
+  },
+  {
+   "spot_id": "kangshung-glacier",
+   "name": "Kangshung Glacier",
+   "kind": "glacier",
+   "match": "direct",
+   "photo": {
+    "file": "Kangshung-07.png",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Kangshung-07.png",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Kangshung-07.png",
+    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Kangshung-07.png",
+    "author": "NASA; route lines by Kassander der Minoer",
+    "licence": "CC BY-SA 3.0",
+    "licence_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "width": 756,
+    "height": 1008,
+    "date": "2008-11-12"
+   },
+   "alternates": [
+    {
+     "file": "ISS066-E-86246 - View of Earth - Mount Everest Kangshung (East) Face - Kangshung Glacier - Lhotse - Shartse - Makalu - Ganma Zangbo (river Karma Chu) - Lhamalangcho Glacier - Karda Co - Ragarsanba Glacier (cropped).jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:ISS066-E-86246_-_View_of_Earth_-_Mount_Everest_Kangshung_(East)_Face_-_Kangshung_Glacier_-_Lhotse_-_Shartse_-_Makalu_-_Ganma_Zangbo_(river_Karma_Chu)_-_Lhamalangcho_Glacier_-_Karda_Co_-_Ragarsanba_Glacier_(cropped).jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/ISS066-E-86246_-_View_of_Earth_-_Mount_Everest_Kangshung_%28East%29_Face_-_Kangshung_Glacier_-_Lhotse_-_Shartse_-_Makalu_-_Ganma_Zangbo_%28river_Karma_Chu%29_-_Lhamalangcho_Glacier_-_Karda_Co_-_Ragarsanba_Glacier_%28cropped%29.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/ISS066-E-86246_-_View_of_Earth_-_Mount_Everest_Kangshung_%28East%29_Face_-_Kangshung_Glacier_-_Lhotse_-_Shartse_-_Makalu_-_Ganma_Zangbo_%28river_Karma_Chu%29_-_Lhamalangcho_Glacier_-_Karda_Co_-_Ragarsanba_Glacier_%28cropped%29.jpg/1920px-thumbnail.jpg",
+     "author": "NASA Johnson Space Center, Earth Science and Remote Sensing Unit (ISS crew photo)",
+     "licence": "Public domain",
+     "licence_url": null,
+     "width": 3178,
+     "height": 2624,
+     "date": "2021-12-04 05:55:01"
+    }
+   ],
+   "notes": "NASA image with route lines added. It was relicensed from GFDL to CC BY-SA 3.0. Only 756x1008."
+  },
+  {
+   "spot_id": "lhotse",
+   "name": "Lhotse",
+   "kind": "peak",
+   "match": "direct",
+   "photo": {
+    "file": "Sunset Over Mount Lhotse, Nepal.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Sunset_Over_Mount_Lhotse,_Nepal.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Sunset_Over_Mount_Lhotse%2C_Nepal.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Sunset_Over_Mount_Lhotse%2C_Nepal.jpg/1920px-Sunset_Over_Mount_Lhotse%2C_Nepal.jpg",
+    "author": "Rohit Sharma",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "width": 4000,
+    "height": 2847,
+    "date": "2022-11-08 16:59:18"
+   },
+   "alternates": [
+    {
+     "file": "Lhotse-fromChukhungRi.jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Lhotse-fromChukhungRi.jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/72/Lhotse-fromChukhungRi.jpg",
+     "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/7/72/Lhotse-fromChukhungRi.jpg",
+     "author": "Uwe Gille",
+     "licence": "CC BY-SA 3.0",
+     "licence_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+     "width": 1778,
+     "height": 1157,
+     "date": "2005-04-26 12:22"
+    }
+   ],
+   "notes": "Golden-hour Lhotse, a good fit for the alpenglow mood. The alternate shows the south face from Chukhung Ri."
+  },
+  {
+   "spot_id": "nuptse",
+   "name": "Nuptse",
+   "kind": "peak",
+   "match": "direct",
+   "photo": {
+    "file": "Nuptse, Nepal, Himalayas.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Nuptse,_Nepal,_Himalayas.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Nuptse%2C_Nepal%2C_Himalayas.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Nuptse%2C_Nepal%2C_Himalayas.jpg/1920px-Nuptse%2C_Nepal%2C_Himalayas.jpg",
+    "author": "Vyacheslav Argenberg",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0",
+    "width": 4032,
+    "height": 2688,
+    "date": "2009-10-19 15:28:19"
+   },
+   "alternates": [],
+   "notes": "Nuptse west face ice walls, October 2009."
+  },
+  {
+   "spot_id": "changtse",
+   "name": "Changtse",
+   "kind": "peak",
+   "match": "direct",
+   "photo": {
+    "file": "Changtse-from-KalaPattar.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Changtse-from-KalaPattar.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/34/Changtse-from-KalaPattar.jpg",
+    "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/3/34/Changtse-from-KalaPattar.jpg",
+    "author": "Uwe Gille",
+    "licence": "CC BY-SA 3.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "width": 1772,
+    "height": 1154,
+    "date": "2007-12-25"
+   },
+   "alternates": [],
+   "notes": "Changtse seen over the Lho La from Kala Patthar."
+  },
+  {
+   "spot_id": "makalu",
+   "name": "Makalu",
+   "kind": "peak",
+   "match": "direct",
+   "photo": {
+    "file": "Makalu CU.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Makalu_CU.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Makalu_CU.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3d/Makalu_CU.jpg/1920px-Makalu_CU.jpg",
+    "author": "Craig Taylor",
+    "licence": "CC BY-SA 2.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "width": 4320,
+    "height": 3240,
+    "date": "2011-10-25 12:08:26"
+   },
+   "alternates": [
+    {
+     "file": "Makalu.jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:Makalu.jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Makalu.jpg",
+     "thumb_url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Makalu.jpg",
+     "author": "Ben Tubby",
+     "licence": "CC BY 2.0",
+     "licence_url": "https://creativecommons.org/licenses/by/2.0",
+     "width": 1600,
+     "height": 1063,
+     "date": "2006-12-04 13:05:43"
+    }
+   ],
+   "notes": "Close-up showing the west pillar. The alternate is CC BY 2.0 and 1600x1063."
+  },
+  {
+   "spot_id": "khumbu-glacier",
+   "name": "Khumbu Glacier",
+   "kind": "glacier",
+   "match": "direct",
+   "photo": {
+    "file": "Khumbu Glacier, Everest Zone, Nepal, Asia.jpg",
+    "file_page": "https://commons.wikimedia.org/wiki/File:Khumbu_Glacier,_Everest_Zone,_Nepal,_Asia.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Khumbu_Glacier%2C_Everest_Zone%2C_Nepal%2C_Asia.jpg",
+    "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9c/Khumbu_Glacier%2C_Everest_Zone%2C_Nepal%2C_Asia.jpg/1920px-Khumbu_Glacier%2C_Everest_Zone%2C_Nepal%2C_Asia.jpg",
+    "author": "Vyacheslav Argenberg",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by/4.0",
+    "width": 3549,
+    "height": 2688,
+    "date": "2009-10-19 15:27:19"
+   },
+   "alternates": [
+    {
+     "file": "120410 Khumbu Glacier Pano.jpg",
+     "file_page": "https://commons.wikimedia.org/wiki/File:120410_Khumbu_Glacier_Pano.jpg",
+     "image_url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/120410_Khumbu_Glacier_Pano.jpg",
+     "thumb_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/120410_Khumbu_Glacier_Pano.jpg/1920px-120410_Khumbu_Glacier_Pano.jpg",
+     "author": "Faj2323",
+     "licence": "CC BY-SA 4.0",
+     "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+     "width": 5693,
+     "height": 2531,
+     "date": "2012-04-10 09:19:12"
+    }
+   ],
+   "notes": "Lower Khumbu Glacier and the surrounding peaks."
+  }
+ ]
+}

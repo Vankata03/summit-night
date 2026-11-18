@@ -1,0 +1,903 @@
+{
+  "generated": "2026-11-18",
+  "issue": "https://github.com/Vankata03/summit-night/issues/4",
+  "routes": [
+    "south-col",
+    "north-col",
+    "west-ridge",
+    "kangshung-face",
+    "hornbein-couloir",
+    "southwest-face"
+  ],
+  "notes": "Coordinates WGS84. alt_m is the source altitude, null where none; sample the Copernicus GLO-30 DEM at build time. coord_confidence: mapped (an OSM/Wikidata feature), approx (hand-placed), uncertain (sources disagree). OSM data (c) OpenStreetMap contributors, ODbL.",
+  "spots": [
+    {
+      "id": "everest-base-camp-south",
+      "name": "Everest Base Camp (South)",
+      "kind": "waypoint",
+      "lat": 27.99966,
+      "lon": 86.84879,
+      "alt_m": 5364,
+      "routes": [
+        "south-col",
+        "southwest-face",
+        "west-ridge"
+      ],
+      "coord": {
+        "label": "OSM node 5225912921",
+        "url": "https://www.openstreetmap.org/node/5225912921"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM 5364 m; Arnette gives 5334 m",
+      "story": "The Nepal-side base camp sits on the moving Khumbu Glacier, so tent platforms shift and melt through the season. On 25 April 2015 the Gorkha earthquake sent an avalanche into the camp, the deadliest disaster in Everest's history.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest Southeast Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestsouthroutes.php"
+        },
+        {
+          "label": "National Geographic, 25 Apr 2015, earthquake avalanche at Everest Base Camp",
+          "url": "https://www.nationalgeographic.com/science/article/150425-everest-earthquake-basecamp-nepal-himalaya-climbing-sherpa"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "khumbu-icefall",
+      "name": "Khumbu Icefall",
+      "kind": "waypoint",
+      "lat": 28.0022,
+      "lon": 86.86951,
+      "alt_m": 5486,
+      "routes": [
+        "south-col",
+        "southwest-face",
+        "west-ridge"
+      ],
+      "coord": {
+        "label": "OSM node 4880806687",
+        "url": "https://www.openstreetmap.org/node/4880806687"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM and Wikidata agree on 5486 m (a point value for a ~600 m tall feature)",
+      "story": "About 600 m of broken, moving ice where the Khumbu Glacier drops out of the Western Cwm; seracs and crevasses shift up to a metre a day. On 18 April 2014 an ice avalanche off the West Shoulder killed 16 Sherpas carrying loads through it.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest Southeast Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestsouthroutes.php"
+        },
+        {
+          "label": "National Geographic, 24 Apr 2014, Everest closes after avalanche",
+          "url": "https://www.nationalgeographic.com/adventure/article/140424-everest-closes-avalanche-sherpas-nepal-climbing-expedition"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "camp-1-south",
+      "name": "Camp 1",
+      "kind": "waypoint",
+      "lat": 27.98642,
+      "lon": 86.87652,
+      "alt_m": 6060,
+      "routes": [
+        "south-col",
+        "southwest-face",
+        "west-ridge"
+      ],
+      "coord": {
+        "label": "OSM node 4880806686",
+        "url": "https://www.openstreetmap.org/node/4880806686"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM 6060 m; Arnette 5943 m",
+      "story": "The first camp above the Icefall, at the mouth of the Western Cwm, four to six hours from base camp.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest Southeast Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestsouthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "camp-2-south",
+      "name": "Camp 2",
+      "kind": "waypoint",
+      "lat": 27.98156,
+      "lon": 86.89914,
+      "alt_m": 6400,
+      "routes": [
+        "south-col",
+        "southwest-face",
+        "west-ridge"
+      ],
+      "coord": {
+        "label": "OSM node 4880806685",
+        "url": "https://www.openstreetmap.org/node/4880806685"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM and Arnette agree on 6400 m",
+      "story": "Set at the head of the Western Cwm under the Southwest Face, two to three hours above Camp 1. Avalanches can reach it from the West Shoulder and Nuptse's north flank, and on still days the Cwm traps fierce heat.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest Southeast Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestsouthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "camp-3-south",
+      "name": "Camp 3 (Lhotse Face)",
+      "kind": "waypoint",
+      "lat": 27.96889,
+      "lon": 86.91781,
+      "alt_m": 7100,
+      "routes": [
+        "south-col"
+      ],
+      "coord": {
+        "label": "OSM node 5058632244",
+        "url": "https://www.openstreetmap.org/node/5058632244"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM 7100 m; Arnette 7162 m",
+      "story": "Tents cut into ledges on the Lhotse Face, a wall of hard ice angled 20 to 45 degrees and climbed on fixed rope. Many teams start bottled oxygen here or at Camp 2.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest Southeast Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestsouthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "south-col",
+      "name": "South Col (Camp 4)",
+      "kind": "waypoint",
+      "lat": 27.97337,
+      "lon": 86.93025,
+      "alt_m": 7920,
+      "routes": [
+        "south-col"
+      ],
+      "coord": {
+        "label": "OSM node 576713400",
+        "url": "https://www.openstreetmap.org/node/576713400"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "Camp 4 node 7920 m; the saddle node 2540248530 is 7907 m at 27.9742, 86.93191 (152 m away); Arnette 8016 m",
+      "story": "A flat, wind-scoured saddle of loose rock between Everest and Lhotse, and the staging camp for summit bids. Teams leave from here at night for the summit (see issue #5).",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest Southeast Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestsouthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "balcony",
+      "name": "The Balcony",
+      "kind": "waypoint",
+      "lat": 27.98234,
+      "lon": 86.92902,
+      "alt_m": 8400,
+      "routes": [
+        "south-col"
+      ],
+      "coord": {
+        "label": "OSM node 11956009420",
+        "url": "https://www.openstreetmap.org/node/11956009420"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM and Arnette agree on 8400 m",
+      "story": "A small platform on the Southeast Ridge, reached after four to five hours up the Triangular Face from the South Col. It is the first rest of summit night, where climbers swap to a fresh oxygen bottle.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest Southeast Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestsouthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "south-summit",
+      "name": "South Summit",
+      "kind": "waypoint",
+      "lat": 27.98498,
+      "lon": 86.9254,
+      "alt_m": 8749,
+      "routes": [
+        "south-col",
+        "southwest-face",
+        "kangshung-face"
+      ],
+      "coord": {
+        "label": "OSM node 1326607409",
+        "url": "https://www.openstreetmap.org/node/1326607409"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM and Wikidata agree on 8749 m; Arnette 8690 m",
+      "story": "A snow dome on the ridge below the true summit. Tom Bourdillon and Charles Evans of the 1953 British expedition made its first ascent before Hillary and Tenzing's summit day. In 1975 Doug Scott and Dougal Haston bivouacked at the South Summit on their way down from the Southwest Face.",
+      "sources": [
+        {
+          "label": "Graham Brown, \"Everest\", Alpine Journal 59 (1953) 102-106",
+          "url": "https://www.alpinejournal.org.uk/Contents/Contents_1953_files/AJ59%201953%20102-106%20Graham%20Brown%20Everest.pdf"
+        },
+        {
+          "label": "Scott, \"Everest South-West Face Climbed\", Himalayan Journal 34",
+          "url": "https://www.himalayanclub.org/hj/34/1/everest-south-west-face-climbed/"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "hillary-step",
+      "name": "Hillary Step",
+      "kind": "waypoint",
+      "lat": 27.98573,
+      "lon": 86.92533,
+      "alt_m": 8790,
+      "routes": [
+        "south-col",
+        "southwest-face",
+        "kangshung-face"
+      ],
+      "coord": {
+        "label": "OSM node 8692283570",
+        "url": "https://www.openstreetmap.org/node/8692283570"
+      },
+      "coord_confidence": "uncertain",
+      "alt_note": "OSM 8790 m. Wikidata Q15114831 places it at 27.987468, 86.924828, about 200 m north of the OSM node",
+      "story": "A rock step of about 12 m on the summit ridge, climbed by Hillary and Tenzing on 29 May 1953. In May 2017 climbers reported that it had collapsed, probably in the 2015 earthquake; Nepali officials disputed this, saying it was covered by snow.",
+      "sources": [
+        {
+          "label": "Hillary, \"Everest 1953 (4): The Last Lap\", Alpine Journal 59 (1954) 235-238",
+          "url": "https://www.alpinejournal.org.uk/Contents/Contents_1954_files/AJ59%201954%20235-238%20Hillary%20Everest%20(4).pdf"
+        },
+        {
+          "label": "Kathmandu Post, 22 May 2017, \"Mt Everest's famous Hillary Step no more, reports BBC\"",
+          "url": "https://kathmandupost.com/national/2017/05/22/mt-everests-famous-hillary-step-no-more-reports-bbc"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "everest-summit",
+      "name": "Mount Everest summit",
+      "kind": "waypoint",
+      "lat": 27.98806,
+      "lon": 86.92521,
+      "alt_m": 8848.86,
+      "routes": [
+        "south-col",
+        "north-col",
+        "west-ridge",
+        "kangshung-face",
+        "hornbein-couloir",
+        "southwest-face"
+      ],
+      "coord": {
+        "label": "OSM node 164979149",
+        "url": "https://www.openstreetmap.org/node/164979149"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "8848.86 m: Nepal-China joint survey, announced 8 Dec 2020",
+      "story": "The highest point on Earth, 8848.86 m by the Nepal-China survey announced in December 2020. Edmund Hillary and Tenzing Norgay first stood here on 29 May 1953, having come up the South Col route.",
+      "sources": [
+        {
+          "label": "Nepali Times, \"Mt Everest grows by 86cm\" (Nepal-China joint announcement, 8 Dec 2020)",
+          "url": "https://nepalitimes.com/mt-everest-grows-by-86cm"
+        },
+        {
+          "label": "Hillary, \"Everest 1953 (4): The Last Lap\", Alpine Journal 59 (1954) 235-238",
+          "url": "https://www.alpinejournal.org.uk/Contents/Contents_1954_files/AJ59%201954%20235-238%20Hillary%20Everest%20(4).pdf"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "western-cwm",
+      "name": "Western Cwm",
+      "kind": "glacier",
+      "lat": 27.98083,
+      "lon": 86.89806,
+      "alt_m": 6000,
+      "routes": [
+        "south-col",
+        "southwest-face",
+        "west-ridge"
+      ],
+      "coord": {
+        "label": "Wikidata Q2389798",
+        "url": "https://www.wikidata.org/wiki/Q2389798"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "Wikidata 6000 m (valley floor, nominal); OSM maps it as natural=valley, way 761066483",
+      "story": "The enclosed glacier valley between Everest's West Shoulder, Nuptse and the Lhotse Face, with Camps 1 and 2 on its floor. Camps 1 and 2 sit on its floor, and on still days it traps intense heat.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest Southeast Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestsouthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "everest-base-camp-north",
+      "name": "Everest Base Camp (North)",
+      "kind": "waypoint",
+      "lat": 28.13653,
+      "lon": 86.85547,
+      "alt_m": 5200,
+      "routes": [
+        "north-col"
+      ],
+      "coord": {
+        "label": "OSM node 11956009447",
+        "url": "https://www.openstreetmap.org/node/11956009447"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM 5200 m; Arnette 5182 m",
+      "story": "A windy gravel plain near Rongbuk Monastery at the snout of the Rongbuk Glacier, at the end of the road. Vehicles can reach it, but as of 2026 there is no helicopter rescue on the north side.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest North Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestnorthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "intermediate-camp",
+      "name": "Intermediate Camp",
+      "kind": "waypoint",
+      "lat": 28.08227,
+      "lon": 86.91936,
+      "alt_m": 5800,
+      "routes": [
+        "north-col"
+      ],
+      "coord": {
+        "label": "OSM node 11956078353",
+        "url": "https://www.openstreetmap.org/node/11956078353"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM 5800 m; Arnette 6187 m (large discrepancy; sample the DEM)",
+      "story": "A small camp on the moraine of the East Rongbuk Glacier, used to break the walk-in to Advanced Base Camp during acclimatisation.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest North Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestnorthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "advanced-base-camp-north",
+      "name": "Advanced Base Camp",
+      "kind": "waypoint",
+      "lat": 28.03046,
+      "lon": 86.94036,
+      "alt_m": 6500,
+      "routes": [
+        "north-col"
+      ],
+      "coord": {
+        "label": "OSM node 1348498380",
+        "url": "https://www.openstreetmap.org/node/1348498380"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM 6500 m; Arnette 6492 m",
+      "story": "The real home camp of the north side, at the head of the East Rongbuk Glacier with a direct view of the North Col. Yaks carry loads up to it from base camp.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest North Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestnorthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "north-col",
+      "name": "North Col (Camp 1)",
+      "kind": "waypoint",
+      "lat": 28.01637,
+      "lon": 86.92332,
+      "alt_m": 7028,
+      "routes": [
+        "north-col"
+      ],
+      "coord": {
+        "label": "OSM node 1348498379",
+        "url": "https://www.openstreetmap.org/node/1348498379"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "Camp 1N node 7028 m; the saddle node 2681946526 is 7042 m at 28.01616, 86.92336; Wikidata 7020 m",
+      "story": "The saddle between Everest and Changtse, reached by steep fixed ropes up to 60 degrees from the East Rongbuk Glacier. In September 1921 Mallory, Bullock and Wheeler climbed to just below its lip before wind turned them back.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest North Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestnorthroutes.php"
+        },
+        {
+          "label": "e-Veritas (RMC Club), \"Major E. Oliver Wheeler and the 1921 Everest Reconnaissance Expedition\"",
+          "url": "https://everitas.rmcalumni.ca/758-major-e-oliver-wheeler-and-the-1921-everest-reconnaissance-expedition/"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "camp-2-north",
+      "name": "Camp 2 (North Ridge)",
+      "kind": "waypoint",
+      "lat": 28.00624,
+      "lon": 86.9299,
+      "alt_m": 7790,
+      "routes": [
+        "north-col"
+      ],
+      "coord": {
+        "label": "OSM node 1348498378",
+        "url": "https://www.openstreetmap.org/node/1348498378"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM 7790 m; Arnette 7500 m",
+      "story": "Tents on the North Ridge above the North Col, where the snow ridge turns to rock. The site is exposed and bitterly cold in high wind.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest North Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestnorthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "camp-3-north",
+      "name": "Camp 3 (North Ridge)",
+      "kind": "waypoint",
+      "lat": 27.99902,
+      "lon": 86.93219,
+      "alt_m": 8300,
+      "routes": [
+        "north-col"
+      ],
+      "coord": {
+        "label": "OSM node 11956078759",
+        "url": "https://www.openstreetmap.org/node/11956078759"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM and Arnette agree on 8300 m",
+      "story": "Tents pitched on sloping rock ledges, often battered by wind, and the launch point for summit night on the north side.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest North Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestnorthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "first-step",
+      "name": "First Step",
+      "kind": "waypoint",
+      "lat": 27.99324,
+      "lon": 86.92996,
+      "alt_m": 8500,
+      "routes": [
+        "north-col"
+      ],
+      "coord": {
+        "label": "OSM node 1326607401",
+        "url": "https://www.openstreetmap.org/node/1326607401"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM node has no elevation; 8500 m from Arnette",
+      "story": "The first of three rock steps on the Northeast Ridge, climbed with careful footwork and a fixed rope up a final gully.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest North Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestnorthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "second-step",
+      "name": "Second Step",
+      "kind": "waypoint",
+      "lat": 27.99169,
+      "lon": 86.92882,
+      "alt_m": 8610,
+      "routes": [
+        "north-col"
+      ],
+      "coord": {
+        "label": "OSM node 1326607406",
+        "url": "https://www.openstreetmap.org/node/1326607406"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM 8610 m; Arnette's schedule gives 8577 m",
+      "story": "The crux of the north route: a rock slab and a near-vertical headwall. The 1960 Chinese team reported climbing it with one man standing on another's shoulders; a 1975 Chinese expedition fixed a ladder, which almost every summiter on this route has used since.",
+      "sources": [
+        {
+          "label": "\"Second Step History\", American Alpine Journal 2008",
+          "url": "https://publications.americanalpineclub.org/articles/12200844901/Second-Step-History"
+        },
+        {
+          "label": "Himalayan Database, expedition EVER60102 (Everest 1960, N Col-NE Ridge)",
+          "url": "https://himalayan-database.climbing-history.org/expedition/EVER60102/1960"
+        },
+        {
+          "label": "Alan Arnette, \"Mt. Everest North Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestnorthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "third-step",
+      "name": "Third Step",
+      "kind": "waypoint",
+      "lat": 27.99037,
+      "lon": 86.92723,
+      "alt_m": 8690,
+      "routes": [
+        "north-col"
+      ],
+      "coord": {
+        "label": "OSM node 2315316716",
+        "url": "https://www.openstreetmap.org/node/2315316716"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM node has no elevation; 8690 m from Arnette",
+      "story": "About 10 m of rock, the easiest of the three steps, below the snow of the summit pyramid.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest North Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestnorthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "mallory-1999",
+      "name": "Mallory's resting place",
+      "kind": "waypoint",
+      "lat": 27.99756,
+      "lon": 86.93028,
+      "alt_m": 8160,
+      "routes": [
+        "north-col"
+      ],
+      "coord": {
+        "label": "OSM node 2315315450",
+        "url": "https://www.openstreetmap.org/node/2315315450"
+      },
+      "coord_confidence": "uncertain",
+      "optional": true,
+      "alt_note": "AAJ gives 8160 m; other reports 8155-8156 m. The OSM node (no elevation) is labelled George Mallory; its exact position is not independently confirmed",
+      "story": "George Mallory and Andrew Irvine disappeared high on the Northeast Ridge in June 1924. The 1999 Mallory and Irvine Research Expedition found Mallory's body on the north face below the ridge, at about 8160 m, and buried it there.",
+      "sources": [
+        {
+          "label": "\"Mallory and Irvine Research Expedition\", American Alpine Journal 2000",
+          "url": "https://publications.americanalpineclub.org/articles/12200037502/Asia-Tibet-Mount-Everest-Mallory-and-Irvine-Research-Expedition"
+        }
+      ]
+    },
+    {
+      "id": "rongbuk-glacier",
+      "name": "Rongbuk Glacier",
+      "kind": "glacier",
+      "lat": 28.06668,
+      "lon": 86.87756,
+      "alt_m": null,
+      "routes": [
+        "north-col"
+      ],
+      "coord": {
+        "label": "OSM way 262484602",
+        "url": "https://www.openstreetmap.org/way/262484602"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "Polygon centroid; sample the DEM for altitude",
+      "story": "The main glacier draining Everest's north side toward the Rongbuk valley and the north base camp. In 1921 the British reconnaissance found that the way to the North Col lay not up the main glacier but up its eastern branch.",
+      "sources": [
+        {
+          "label": "e-Veritas (RMC Club), \"Major E. Oliver Wheeler and the 1921 Everest Reconnaissance Expedition\"",
+          "url": "https://everitas.rmcalumni.ca/758-major-e-oliver-wheeler-and-the-1921-everest-reconnaissance-expedition/"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "east-rongbuk-glacier",
+      "name": "East Rongbuk Glacier",
+      "kind": "glacier",
+      "lat": 28.05452,
+      "lon": 86.9309,
+      "alt_m": null,
+      "routes": [
+        "north-col"
+      ],
+      "coord": {
+        "label": "OSM relation 3869827",
+        "url": "https://www.openstreetmap.org/relation/3869827"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "Polygon centroid; sample the DEM for altitude",
+      "story": "The side glacier that carries the north route from Intermediate Camp to Advanced Base Camp and the foot of the North Col. Surveyor Oliver Wheeler mapped it in August 1921 and showed it was the way to the col.",
+      "sources": [
+        {
+          "label": "e-Veritas (RMC Club), \"Major E. Oliver Wheeler and the 1921 Everest Reconnaissance Expedition\"",
+          "url": "https://everitas.rmcalumni.ca/758-major-e-oliver-wheeler-and-the-1921-everest-reconnaissance-expedition/"
+        },
+        {
+          "label": "Alan Arnette, \"Mt. Everest North Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestnorthroutes.php"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "west-rongbuk-glacier",
+      "name": "West Rongbuk Glacier",
+      "kind": "glacier",
+      "lat": 28.05718,
+      "lon": 86.80563,
+      "alt_m": null,
+      "routes": [],
+      "coord": {
+        "label": "OSM relation 3776706",
+        "url": "https://www.openstreetmap.org/relation/3776706"
+      },
+      "coord_confidence": "mapped",
+      "optional": true,
+      "alt_note": "Polygon centroid; near the western edge of the terrain bbox",
+      "story": "The western branch of the Rongbuk system, draining the slopes between Pumori, Lingtren and Khumbutse. No story source verified yet; label only.",
+      "sources": []
+    },
+    {
+      "id": "west-ridge",
+      "name": "West Ridge",
+      "kind": "waypoint",
+      "lat": 27.99241,
+      "lon": 86.90711,
+      "alt_m": null,
+      "routes": [
+        "west-ridge",
+        "hornbein-couloir"
+      ],
+      "coord": {
+        "label": "OSM way 496364344",
+        "url": "https://www.openstreetmap.org/way/496364344"
+      },
+      "coord_confidence": "approx",
+      "alt_note": "Centre of the OSM arete way (3.8 km); place the marker on the ridge crest and sample the DEM",
+      "story": "The ridge running west from the summit above the Western Cwm. On 22 May 1963 Tom Hornbein and Willi Unsoeld climbed its upper part, traversed the mountain and came down the Southeast Ridge, surviving a bivouac above 28,000 ft.",
+      "sources": [
+        {
+          "label": "Webster, \"1963. Everest West Ridge Traverse\", American Alpine Journal 2002",
+          "url": "https://publications.americanalpineclub.org/articles/12200202700/1963-Everest-West-Ridge-Traverse"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "hornbein-couloir",
+      "name": "Hornbein Couloir",
+      "kind": "waypoint",
+      "lat": 27.99212,
+      "lon": 86.9208,
+      "alt_m": null,
+      "routes": [
+        "hornbein-couloir",
+        "west-ridge"
+      ],
+      "coord": {
+        "label": "OSM way 1239349882",
+        "url": "https://www.openstreetmap.org/way/1239349882"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "Centre of the 0.36 km OSM couloir way; sample the DEM",
+      "story": "The gully on the north face that Hornbein and Unsoeld followed in 1963, crossing the Yellow Band to reach the summit ridge. It now carries Hornbein's name.",
+      "sources": [
+        {
+          "label": "Webster, \"1963. Everest West Ridge Traverse\", American Alpine Journal 2002",
+          "url": "https://publications.americanalpineclub.org/articles/12200202700/1963-Everest-West-Ridge-Traverse"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "southwest-face",
+      "name": "Southwest Face",
+      "kind": "waypoint",
+      "lat": 27.984,
+      "lon": 86.913,
+      "alt_m": null,
+      "routes": [
+        "southwest-face"
+      ],
+      "coord": null,
+      "coord_confidence": "approx",
+      "alt_note": "Hand-placed on the face above the Western Cwm; no mapped feature. Snap to the DEM",
+      "story": "The steep face rising from the Western Cwm to the South Summit, cut by a 300 m Rock Band. Doug Scott and Dougal Haston made its first ascent on 24 September 1975; Mick Burke went for the summit alone two days later and was never seen again.",
+      "sources": [
+        {
+          "label": "Scott, \"Everest South-West Face Climbed\", Himalayan Journal 34",
+          "url": "https://www.himalayanclub.org/hj/34/1/everest-south-west-face-climbed/"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "kangshung-face",
+      "name": "Kangshung Face",
+      "kind": "waypoint",
+      "lat": 27.985,
+      "lon": 86.955,
+      "alt_m": null,
+      "routes": [
+        "kangshung-face"
+      ],
+      "coord": null,
+      "coord_confidence": "approx",
+      "alt_note": "Hand-placed on the east face; no mapped feature. Snap to the DEM",
+      "story": "Everest's broad east face above the Kangshung Glacier, the last of its faces to be climbed. An American team climbed a 1200 m buttress and an overhanging headwall, and Carlos Buhler, Kim Momb and Louis Reichardt reached the summit on 8 October 1983.",
+      "sources": [
+        {
+          "label": "Morrissey, \"Kangshung Face of Everest\", American Alpine Journal 1984",
+          "url": "https://publications.americanalpineclub.org/articles/12198400100/Kangshung-Face-of-Everest"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "kangshung-glacier",
+      "name": "Kangshung Glacier",
+      "kind": "glacier",
+      "lat": 27.99223,
+      "lon": 87.03391,
+      "alt_m": null,
+      "routes": [
+        "kangshung-face"
+      ],
+      "coord": {
+        "label": "OSM way 291527981",
+        "url": "https://www.openstreetmap.org/way/291527981"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "Polygon centroid lies just east of the DEM bbox (E87.02); place the label on the glacier inside the bbox, about 27.985, 87.00",
+      "story": "The glacier under Everest's east face, reached from the Kama valley in Tibet. The 1983 American Kangshung expedition put its base camp on it at about 17,000 ft.",
+      "sources": [
+        {
+          "label": "Morrissey, \"Kangshung Face of Everest\", American Alpine Journal 1984",
+          "url": "https://publications.americanalpineclub.org/articles/12198400100/Kangshung-Face-of-Everest"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "lhotse",
+      "name": "Lhotse",
+      "kind": "peak",
+      "lat": 27.96199,
+      "lon": 86.9325,
+      "alt_m": 8516,
+      "routes": [],
+      "coord": {
+        "label": "OSM node 335376854",
+        "url": "https://www.openstreetmap.org/node/335376854"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM and Wikidata agree on 8516 m",
+      "story": "The world's fourth-highest mountain, joined to Everest by the South Col. Swiss climbers Ernst Reiss and Fritz Luchsinger made the first ascent on 18 May 1956 by a steep couloir on the northwest face.",
+      "sources": [
+        {
+          "label": "\"Everest - Lhotse, 1956\", American Alpine Journal 1957",
+          "url": "https://publications.americanalpineclub.org/articles/12195712100"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "nuptse",
+      "name": "Nuptse",
+      "kind": "peak",
+      "lat": 27.96737,
+      "lon": 86.88696,
+      "alt_m": 7861,
+      "routes": [],
+      "coord": {
+        "label": "OSM node 3696097628",
+        "url": "https://www.openstreetmap.org/node/3696097628"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM main summit (Nuptse I) 7864 m; Wikidata 7861 m",
+      "story": "The long ridge that walls the Western Cwm on the south and looms over Everest Base Camp. Dennis Davis and Tashi Sherpa of a British expedition led by Joe Walmsley reached its main summit in May 1961.",
+      "sources": [
+        {
+          "label": "Himalayan Database, expedition NUPT61101 (Nuptse 1961)",
+          "url": "https://himalayan-database.climbing-history.org/expedition/NUPT61101/1961"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "changtse",
+      "name": "Changtse",
+      "kind": "peak",
+      "lat": 28.02433,
+      "lon": 86.91519,
+      "alt_m": 7543,
+      "routes": [],
+      "coord": {
+        "label": "OSM node 2677892526",
+        "url": "https://www.openstreetmap.org/node/2677892526"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "OSM and Wikidata agree on 7543 m",
+      "story": "Everest's northern neighbour, linked to it by the North Col. Udo Zehetleitner of a West German expedition made the first official ascent on 14 October 1982 by the northeast ridge.",
+      "sources": [
+        {
+          "label": "\"Asia, China, Changtse\", American Alpine Journal 1983",
+          "url": "https://publications.americanalpineclub.org/articles/12198329401"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "makalu",
+      "name": "Makalu",
+      "kind": "peak",
+      "lat": 27.88917,
+      "lon": 87.08861,
+      "alt_m": 8485,
+      "routes": [],
+      "coord": {
+        "label": "Wikidata Q169986",
+        "url": "https://www.wikidata.org/wiki/Q169986"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "Wikidata 8485 m. Outside the DEM bbox (about 7 km east of its E87.02 edge): silhouette and label only",
+      "story": "The world's fifth-highest mountain, 19 km southeast of Everest. Jean Couzy and Lionel Terray of Jean Franco's French expedition made the first ascent on 15 May 1955.",
+      "sources": [
+        {
+          "label": "Guinness World Records, \"First ascent of Makalu\"",
+          "url": "https://www.guinnessworldrecords.com/world-records/first-ascent-of-makalu"
+        }
+      ],
+      "optional": false
+    },
+    {
+      "id": "khumbu-glacier",
+      "name": "Khumbu Glacier",
+      "kind": "glacier",
+      "lat": 27.96974,
+      "lon": 86.83593,
+      "alt_m": null,
+      "routes": [
+        "south-col",
+        "southwest-face",
+        "west-ridge"
+      ],
+      "coord": {
+        "label": "OSM relation 3793352",
+        "url": "https://www.openstreetmap.org/relation/3793352"
+      },
+      "coord_confidence": "mapped",
+      "alt_note": "Centroid of the lower-glacier relation; relation 17497467 covers the upper glacier (centroid 27.98394, 86.88787)",
+      "story": "The glacier that flows out of the Western Cwm, tumbles through the Icefall and carries Everest Base Camp on its surface. Climbers walk on it from base camp to Camp 2.",
+      "sources": [
+        {
+          "label": "Alan Arnette, \"Mt. Everest Southeast Ridge\" route guide",
+          "url": "https://www.alanarnette.com/everest/everestsouthroutes.php"
+        }
+      ],
+      "optional": false
+    }
+  ]
+}
