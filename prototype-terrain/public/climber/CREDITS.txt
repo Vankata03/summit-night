@@ -1,0 +1,4 @@
+PROTOTYPE assets (throwaway).
+climber-body.gltf / Superhero_Male_FullBody.bin: Quaternius, Universal Base Characters (Standard), CC0 1.0. Textures stripped.
+UAL1_Standard.glb: Quaternius, Universal Animation Library (Standard), CC0 1.0.
+https://quaternius.com

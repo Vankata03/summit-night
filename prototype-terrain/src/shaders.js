@@ -60,10 +60,11 @@ vec3 noised(vec2 p) {
   float k = a - b - c + d;
   return vec3(a + (b - a) * u.x + (c - a) * u.y + k * u.x * u.y, du * (vec2(b - a, c - a) + k * u.yx));
 }
-// fbm (value, gradient), octaves fade below pixel size. 6 octaves: 100 m down to ~3 m.
+// fbm (value, gradient), octaves fade below pixel size. 10 octaves: 100 m down to ~15 cm (only drawn up close).
 vec3 fbmd(vec2 p, float px) {
   vec3 s = vec3(0.0); float a = 0.5, f = 1.0;
-  for (int i = 0; i < 6; i++) {
+  for (int i = 0; i < 10; i++) {
+    if (px * f > 0.6) break;
     float fade = 1.0 - smoothstep(0.25, 0.6, px * f);
     vec3 n = noised(p * f);
     s += a * fade * vec3(n.x - 0.5, n.yz * f);
@@ -123,7 +124,12 @@ void main() {
              * (1.0 - smoothstep(0.36 + snowN * 0.2 - sEdge, 0.36 + snowN * 0.2 + sEdge, slope30));
   snow = max(snow, smoothstep(0.75, 0.9, ao) * smoothstep(5600.0, 6200.0, vH) * 0.6); // snow gathers in hollows up high
   float glacier = (1.0 - smoothstep(0.06, 0.14, slope30)) * smoothstep(4700.0, 5000.0, vH) * (1.0 - snow);
-  vec3 dn = normalize(n - g3 * mix(0.6, 0.1, snow));
+  // up close (< ~2 m per pixel) snow gets wind-packed ripples and keeps more of the micro relief
+  float closeK = 1.0 - smoothstep(0.004, 0.03, px);
+  vec2 wq = vec2(dot(P.xz, vec2(0.8, 0.6)) * 90.0, dot(P.xz, vec2(-0.6, 0.8)) * 22.0);
+  vec3 rip = noised(wq + vec2(noised(wq * 0.3).x * 2.0, 0.0));
+  vec3 g3r = vec3(0.8 * rip.y * 90.0 - 0.6 * rip.z * 22.0, 0.0, 0.6 * rip.y * 90.0 + 0.8 * rip.z * 22.0) * 0.0025 * closeK * snow; // chain rule back to P units
+  vec3 dn = normalize(n - g3 * mix(0.6, 0.1 + 0.4 * closeK, snow) - g3r);
   float ndlD = max(dot(dn, uSunDir), 0.0);
   vec2 along = normalize(vec2(-n.z, n.x) + 1e-4);  // horizontal direction across the face
   vec2 sp = vec2(vH / 25.0, dot(P.xz, along) * 0.15);

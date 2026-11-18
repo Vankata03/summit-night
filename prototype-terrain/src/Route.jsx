@@ -12,6 +12,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { makeSampler } from './Spotlight.jsx';
+import { Climber, WALK_SPEED, WALK_SCALE } from './Climber.jsx';
 
 export const ROUTE_VARIANTS = [
   { key: 'A', name: 'Comet trail' },
@@ -148,7 +149,7 @@ export function useClock() {
 const ribbonVertex = /* glsl */ `
   attribute vec3 aNext; attribute float aSide; attribute float aS;
   uniform vec2 uRes; uniform float uPx; uniform float uWorldW;
-  varying float vS; varying float vSide;
+  varying float vS; varying float vSide; varying float vDist;
   vec4 pulled(vec3 p) {
     vec4 mv = modelViewMatrix * vec4(p, 1.0);
     float d = length(mv.xyz);
@@ -156,7 +157,7 @@ const ribbonVertex = /* glsl */ `
     return mv;
   }
   void main() {
-    vS = aS; vSide = aSide;
+    vS = aS; vSide = aSide; vDist = length((modelViewMatrix * vec4(position, 1.0)).xyz);
     vec4 c = projectionMatrix * pulled(position);
     vec4 cn = projectionMatrix * pulled(aNext);
     vec2 h = uRes * 0.5;
@@ -169,9 +170,9 @@ const ribbonVertex = /* glsl */ `
     gl_Position = c;
   }`;
 const ribbonFragment = /* glsl */ `
-  uniform int uMode; uniform float uProg; uniform float uDraw; uniform float uLeg0; uniform float uLeg1; uniform float uOpacity;
+  uniform int uMode; uniform float uNearFade; uniform float uProg; uniform float uDraw; uniform float uLeg0; uniform float uLeg1; uniform float uOpacity;
   uniform vec3 uColor; uniform vec3 uHead; uniform float uTime;
-  varying float vS; varying float vSide;
+  varying float vS; varying float vSide; varying float vDist;
   void main() {
     float edge = 1.0 - smoothstep(0.55, 1.0, abs(vSide));
     vec3 col = uColor; float a = edge;
@@ -190,6 +191,7 @@ const ribbonFragment = /* glsl */ `
       else if (vS <= uProg) { col = uHead; }
       else { if (fract((vS - uTime * 40.0) / 50.0) > 0.5) discard; col = uHead; a *= 0.55; }
     }
+    a *= uNearFade > 0.0 ? smoothstep(uNearFade * 0.4, uNearFade, vDist) : 1.0;
     gl_FragColor = vec4(col, a * uOpacity);
   }`;
 
@@ -224,7 +226,7 @@ function Ribbon({ route, geom, mode, px, worldW, color, head, opacity = 1, xray 
     depthTest: !xray,
     uniforms: {
       uRes: { value: new THREE.Vector2() }, uPx: { value: px }, uWorldW: { value: worldW },
-      uMode: { value: mode }, uProg: { value: 0 }, uDraw: { value: 0 }, uLeg0: { value: 0 }, uLeg1: { value: 0 },
+      uMode: { value: mode }, uNearFade: { value: 0 }, uProg: { value: 0 }, uDraw: { value: 0 }, uLeg0: { value: 0 }, uLeg1: { value: 0 },
       uOpacity: { value: opacity }, uColor: { value: new THREE.Color(color) }, uHead: { value: new THREE.Color(head) }, uTime: { value: 0 },
     },
   }), [mode, px, worldW, color, head, opacity, xray]);
@@ -233,6 +235,7 @@ function Ribbon({ route, geom, mode, px, worldW, color, head, opacity = 1, xray 
     mat.uniforms.uTime.value = st.clock.elapsedTime;
     mat.uniforms.uProg.value = uniformsRef.current.prog;
     mat.uniforms.uDraw.value = uniformsRef.current.draw;
+    mat.uniforms.uNearFade.value += ((uniformsRef.current.nearFade ?? 0) - mat.uniforms.uNearFade.value) * 0.05;
     mat.uniforms.uLeg0.value = uniformsRef.current.leg0;
     mat.uniforms.uLeg1.value = uniformsRef.current.leg1;
   });
@@ -270,11 +273,13 @@ function CometClimber({ posRef }) {
   );
 }
 
-function PinClimber({ posRef, altRef }) {
+function PinClimber({ posRef, altRef, hidden }) {
   const ref = useRef(), label = useRef();
   useScreenScale(ref, 1);
   useFrame(() => {
     ref.current?.position.copy(posRef.current);
+    if (ref.current) ref.current.visible = !hidden;
+    if (label.current) label.current.style.display = hidden ? 'none' : '';
     if (label.current) label.current.textContent = `${Math.round(altRef.current).toLocaleString('en')} m`;
   });
   return (
@@ -431,13 +436,13 @@ function useUserIdle() {
 
 // Continuous terrain avoidance: how far the camera must rise to clear the ground and see the target.
 // Raising the camera by d raises a sight-line sample at fraction f (from camera) by d·(1−f).
-function liftNeeded(S, cam, tgt) {
-  let need = S.yAt(cam.x, cam.z) + 0.06 - cam.y;
+function liftNeeded(S, cam, tgt, k = 1) { // k scales the clearances: 1 = survey (60 m / 12 m), small = life-size
+  let need = S.yAt(cam.x, cam.z) + 0.06 * k - cam.y;
   const p = new THREE.Vector3();
   for (let i = 1; i < 40; i++) {
     const f = (i / 40) * 0.93;
     p.lerpVectors(cam, tgt, f);
-    need = Math.max(need, (S.yAt(p.x, p.z) + 0.012 - p.y) / (1 - f));
+    need = Math.max(need, (S.yAt(p.x, p.z) + 0.012 * k - p.y) / (1 - f));
   }
   return Math.max(0, need);
 }
@@ -488,6 +493,17 @@ function CameraRig({ variant, route, stateRef }) {
       rate = 0.8;
     } else if (variant === 'B') {
       // Side-on rail: 2.4 km off the route, perpendicular to a 2 km-window heading, 500 m above the climber.
+      if (st.mode === 'walk') {
+        // life-size over-the-shoulder: 9 m behind, 3.2 m up, 2.5 m to the right, looking 4 m past the climber's chest
+        hRate = 1.2;
+        m.h.lerp(headingAt(route, st.s, 12, 25), damp(hRate, dt)).setY(0).normalize();
+        const right = new THREE.Vector3(-m.h.z, 0, m.h.x);
+        desired = m.h.clone().multiplyScalar(-0.0075).addScaledVector(right, 0.002).add(new THREE.Vector3(0, 0.0024, 0));
+        tgtGoal = st.ground.clone().add(new THREE.Vector3(0, 0.0012, 0)).addScaledVector(m.h, 0.0015);
+        const az = +(new URLSearchParams(location.search).get('walkaz') ?? 0); // debug: orbit the default shot
+        if (az) { desired.applyAxisAngle(new THREE.Vector3(0, 1, 0), THREE.MathUtils.degToRad(az)).multiplyScalar(0.45); tgtGoal = st.ground.clone().add(new THREE.Vector3(0, 0.0013, 0)); }
+        rate = 1.0; tgtRate = 6;
+      } else {
       hRate = 0.3;
       m.h.lerp(headingAt(route, st.s, 1000, 1000), damp(hRate, dt)).setY(0).normalize();
       const n = new THREE.Vector3(-m.h.z, 0, m.h.x);
@@ -495,6 +511,7 @@ function CameraRig({ variant, route, stateRef }) {
       if (performance.now() - (m.flipAt ?? 0) > 6000 && cost(m.side) > 0.3 && cost(-m.side) < cost(m.side) * 0.5) { m.side = -m.side; m.flipAt = performance.now(); } // hysteresis: only flip for a much clearer side
       desired = n.multiplyScalar(2.4 * m.side).add(new THREE.Vector3(0, 0.5, 0));
       rate = 0.5; tgtRate = 2;
+      }
     } else {
       // Drone: per-leg arc from behind to the side, then a pull-back reveal while dwelling at a camp.
       hRate = 0.6;
@@ -524,25 +541,44 @@ function CameraRig({ variant, route, stateRef }) {
     else { m.off.copy(camera.position).sub(controls.target).y -= m.lift; m.goal.copy(m.off); } // viewer owns the offset
     m.tgt.lerp(tgtGoal, damp(tgtRate, dt));
     const cam = m.tgt.clone().add(m.off);
-    const need = liftNeeded(S, cam, m.tgt);
+    const kClear = THREE.MathUtils.clamp(m.off.length() / 2.4, 0.03, 1);
+    const need = liftNeeded(S, cam, m.tgt, kClear);
     m.lift += (need - m.lift) * damp(need > m.lift ? 5 : 0.6, dt); // rise quickly, settle slowly
     cam.y += m.lift;
     controls.target.copy(m.tgt);
     camera.position.copy(cam);
+    // near plane follows the shot scale so a life-size climber 10 m away doesn't clip (1:2e6 near:far; far terrain tolerates it)
+    const nearGoal = THREE.MathUtils.clamp(cam.distanceTo(m.tgt) * 0.05, 0.0002, 0.05);
+    if (Math.abs(camera.near - nearGoal) / camera.near > 0.05) { camera.near = nearGoal; camera.updateProjectionMatrix(); }
     if (window.__camlog) window.__camlog.push([cam.x, cam.y, cam.z, m.tgt.x, m.tgt.y, m.tgt.z, m.lift, need, st.s, window.__clockT]);
   });
   return null;
 }
 
 // ---------- scene ----------
-export function RouteScene({ variant, route, clock, stateRef }) {
+export function RouteScene({ variant, route, clock, stateRef, dem10, sunDir, walk }) {
   const geom = useMemo(() => buildRibbon(route), [route]);
   const tl = useMemo(() => buildTimeline(variant, route), [variant, route]);
   const posRef = useRef(new THREE.Vector3()), altRef = useRef(0), headingRef = useRef(new THREE.Vector3(0, 0, -1));
   const uni = useRef({ prog: 0, draw: 0, leg0: 0, leg1: 0 });
   useEffect(() => { clock.T = tl.T; clock.t = 0; clock.playing = true; }, [tl]);
-  useFrame((_st, dt) => {
-    if (clock.playing && !clock.scrubbing) clock.t = Math.min(tl.T, clock.t + (window.__fixedDt ?? Math.min(dt, 0.05)) * clock.speed);
+  const gait = useRef({ t: 0, w: 1 });
+  const groundOf = useMemo(() => (dem10 ? makeSampler(dem10, 1) : null), [dem10]);
+  useFrame((_st, dtRaw) => {
+    const dt = window.__fixedDt ?? Math.min(dtRaw, 0.05);
+    // walk mode: real pace. Rest-step: ~3 s of walking (one stride pair), ~1.4 s standing to breathe.
+    const G = gait.current;
+    if (walk && clock.playing && !clock.scrubbing) {
+      G.t = (G.t + dt * clock.speed) % 4.4;
+      const goal = G.t < 3.0 ? 1 : 0;
+      G.w += (goal - G.w) * damp(6, dt);
+      const ds = WALK_SPEED * WALK_SCALE * (0.25 + 0.75 * G.w) * G.w * dt * clock.speed; // metres this frame
+      const tl1 = tl.segs[1];
+      clock.t = Math.min(tl.T, Math.max(clock.t, tl1.t0) + (ds / route.L) * tl1.dur);
+    } else {
+      G.w += (1 - G.w) * damp(6, dt);
+      if (clock.playing && !clock.scrubbing) clock.t = Math.min(tl.T, clock.t + dt * clock.speed);
+    }
     if (clock.t >= tl.T) clock.playing = false;
     window.__clockT = clock.t;
     const { s, seg, u } = tl.at(clock.t);
@@ -558,7 +594,9 @@ export function RouteScene({ variant, route, clock, stateRef }) {
       U.leg0 = legStart;
       U.leg1 = seg.type === 'move' ? seg.s1 : seg.type === 'dwell' && u > 0.55 && nextStop ? nextStop.s : s;
     }
-    Object.assign(stateRef.current, { camera: _st.camera, s, seg: { ...seg, u }, pos: posRef.current, alt: altRef.current, T: tl.T });
+    const gp = posRef.current.clone(); gp.y = groundOf ? groundOf.yAt(gp.x, gp.z) : gp.y;
+    U.nearFade = walk ? 0.12 : 0;
+    Object.assign(stateRef.current, { camera: _st.camera, mode: walk ? 'walk' : 'survey', walkW: G.w, ground: gp, s, seg: { ...seg, u }, pos: posRef.current, alt: altRef.current, T: tl.T });
   });
 
   return (
@@ -574,7 +612,8 @@ export function RouteScene({ variant, route, clock, stateRef }) {
       {variant === 'C' && <Ribbon route={route} geom={geom} mode={2} px={3.5} worldW={0.006} color="#c9c2d8" head="#ffb36b" opacity={0.3} xray uniformsRef={uni} />}
       {variant === 'C' && <Ribbon route={route} geom={geom} mode={2} px={3.5} worldW={0.006} color="#c9c2d8" head="#ffb36b" uniformsRef={uni} />}
       {variant === 'A' && <CometClimber posRef={posRef} />}
-      {variant === 'B' && <PinClimber posRef={posRef} altRef={altRef} />}
+      {variant === 'B' && <PinClimber posRef={posRef} altRef={altRef} hidden={walk} />}
+      {variant === 'B' && dem10 && <Climber route={route} dem10={dem10} stateRef={stateRef} sunDir={sunDir} posAtS={posAtS} />}
       {variant === 'C' && <FigureClimber posRef={posRef} headingRef={headingRef} />}
       <StopMarkers variant={variant} route={route} progRef={uni} />
       <CameraRig variant={variant} route={route} stateRef={stateRef} />
@@ -590,16 +629,17 @@ function useTicker() {
   useEffect(() => { let id; const f = () => { set((x) => x + 1); id = requestAnimationFrame(f); }; id = requestAnimationFrame(f); return () => cancelAnimationFrame(id); }, []);
 }
 
-function Transport({ clock }) {
+function Transport({ clock, walk, onWalk }) {
   useTicker();
   const T = clock.T || 1;
   useEffect(() => {
     const onKey = (e) => {
       if (e.target.closest?.('input, textarea, select, [contenteditable]')) return;
+      if (e.code === 'KeyW' && onWalk) onWalk(!walk);
       if (e.code === 'Space') { e.preventDefault(); if (clock.t >= clock.T) clock.t = 0; clock.playing = !clock.playing; }
     };
     addEventListener('keydown', onKey); return () => removeEventListener('keydown', onKey);
-  }, [clock]);
+  }, [clock, walk, onWalk]);
   return (
     <div className="rt-transport">
       <button onClick={() => { if (clock.t >= clock.T) clock.t = 0; clock.playing = !clock.playing; }} aria-label={clock.playing ? 'Pause' : 'Play'}>
@@ -610,6 +650,7 @@ function Transport({ clock }) {
         onPointerDown={() => { clock.scrubbing = true; }} onPointerUp={() => { clock.scrubbing = false; }}
         onChange={(e) => { clock.t = +e.target.value; }} />
       <span className="rt-time">{clock.t.toFixed(1)} / {T.toFixed(0)} s</span>
+      {onWalk && <button className={`rt-walk ${walk ? 'on' : ''}`} onClick={() => onWalk(!walk)} title="W">{walk ? 'Survey view' : 'Walk with climber'}</button>}
       <select value={clock.speed} onChange={(e) => { clock.speed = +e.target.value; }}>
         {[0.5, 1, 2, 4].map((v) => <option key={v} value={v}>{v}×</option>)}
       </select>
@@ -656,6 +697,21 @@ function Profile({ route, stateRef }) {
 const SHORT = { 'Everest Base Camp (South)': 'Base Camp', 'Khumbu Icefall': 'Icefall', 'Western Cwm': 'W. Cwm', 'Camp 3 (Lhotse Face)': 'Camp 3', 'South Col (Camp 4)': 'South Col', 'The Balcony': 'Balcony', 'South Summit · Hillary Step': 'S. Summit', 'Mount Everest summit': 'Summit' };
 const short = (n) => SHORT[n] ?? n;
 
+function WalkReadout({ route, stateRef }) {
+  useTicker();
+  const s = stateRef.current.s ?? 0, alt = stateRef.current.alt ?? 0;
+  const prev = [...route.stops].reverse().find((x) => x.s <= s + 1), next = route.stops.find((x) => x.s > s + 1);
+  const pace = 0.44; // m/s while moving, before rest-step pauses
+  return (
+    <div className="rt-walkhud">
+      <div className="rt-walkhud-alt">{Math.round(alt).toLocaleString('en')} m</div>
+      <div className="rt-walkhud-row">{prev ? `Past ${short(prev.name)}` : 'Leaving Base Camp'}</div>
+      {next && <div className="rt-walkhud-row">Next: <b>{next.name}</b> · {((next.s - s) / 1000).toFixed(2)} km · +{Math.max(0, Math.round(next.alt - alt)).toLocaleString('en')} m</div>}
+      <div className="rt-walkhud-row dim">Real pace ≈ {pace} m/s with rest steps · use the speed menu to hurry</div>
+    </div>
+  );
+}
+
 function LowerThird({ route, stateRef }) {
   useTicker();
   const seg = stateRef.current.seg;
@@ -680,7 +736,7 @@ function LowerThird({ route, stateRef }) {
   );
 }
 
-export function RouteOverlay({ variant, route, clock, stateRef }) {
+export function RouteOverlay({ variant, route, clock, stateRef, walk, onWalk }) {
   if (!route) return null;
   return (
     <>
@@ -690,9 +746,10 @@ export function RouteOverlay({ variant, route, clock, stateRef }) {
         <span className="rt-hint">{variant === 'C' ? 'Drag to look around; the drone takes over again after 2.5 s.' : 'Drag to orbit around the climber; framing eases back after 2.5 s.'} Space: play/pause.</span>
       </div>
       {variant === 'B' && <TagLayer route={route} stateRef={stateRef} />}
-      {variant === 'B' && <Profile route={route} stateRef={stateRef} />}
+      {variant === 'B' && !walk && <Profile route={route} stateRef={stateRef} />}
+      {variant === 'B' && walk && <WalkReadout route={route} stateRef={stateRef} />}
       {variant === 'C' && <LowerThird route={route} stateRef={stateRef} />}
-      <Transport clock={clock} />
+      <Transport clock={clock} walk={walk} onWalk={variant === 'B' ? onWalk : null} />
     </>
   );
 }

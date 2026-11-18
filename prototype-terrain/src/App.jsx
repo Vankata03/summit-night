@@ -185,17 +185,19 @@ export default function App() {
   const route = useRoute(dem10);
   const clock = useClock();
   const routeState = useRef({});
+  const [walk, setWalkState] = useState(() => params().get('walk') === '1');
+  const setWalk = (w) => { const p = params(); w ? p.set('walk', '1') : p.delete('walk'); history.replaceState(null, '', `?${p}`); setWalkState(w); };
   if (!dem || !dem10 || !route) return <div style={{ padding: 24 }}>Loading DEM…</div>;
   return (
     <>
       <Canvas dpr={[1, 2]} camera={{ fov: 45, near: 0.05, far: 1000, position: [target.x - 9, target.y - 0.6, target.z + 12] }} gl={{ antialias: true }}>
         <Sky dusk={dusk} />
         <ChunkTerrainLit dem={dem} dem10={dem10} variant={3} ex={ex} dusk={dusk} lodScale={1} />
-        <OrbitControls makeDefault target={target} enableDamping maxPolarAngle={Math.PI * 0.49} minDistance={0.3} maxDistance={60} />
-        <RouteScene key={variant} variant={variant} route={route} clock={clock} stateRef={routeState} />
+        <OrbitControls makeDefault target={target} enableDamping maxPolarAngle={Math.PI * 0.49} minDistance={0.002} maxDistance={60} />
+        <RouteScene key={variant} variant={variant} route={route} clock={clock} stateRef={routeState} dem10={dem10} sunDir={sunFromDusk(dusk)} walk={walk && variant === 'B'} />
         <Stats outRef={statsRef} />
       </Canvas>
-      <RouteOverlay variant={variant} route={route} clock={clock} stateRef={routeState} />
+      <RouteOverlay variant={variant} route={route} clock={clock} stateRef={routeState} walk={walk} onWalk={setWalk} />
       <pre ref={statsRef} style={{ position: 'fixed', left: 12, bottom: 4, margin: 0, fontSize: 10, opacity: 0.45, pointerEvents: 'none', zIndex: 1 }} />
       <Switcher current={variant} onChange={setVariant} />
     </>
